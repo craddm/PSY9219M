@@ -1,0 +1,44 @@
+---
+title: "Installing R and RStudio"
+author: "Matt Craddock"
+date: "23 October 2018"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In class, we've been using https://rstudio.cloud, which you can access from any web browser and computer with an internet connection. But this isn't the only way to use R. You can also install R and RStudio on your own computers at home. Both R and RStudio are free and require no licenses, can be freely installed wherever you like and on however many devices you like!
+
+## Installing R 
+
+The first step is to install R itself.
+
+1. Go to [http://cloud.r-project.org](http://cloud.r-project.org)
+
+2. Click the link for your operating system. There are Windows, Linux, and Mac versions of R. There are specific instructions for installing R on each of these operating systems on the website, but in brief, for Windows, you want to click Base and then download the latest version. For Mac, you'll see a link for the .pkg installation file. The current version of R is 3.5.1.
+
+3. This will install R itself; on Windows you'll find R on your desktop. Although you can use R directly, you won't have the nice features that RStudio provides. Essentially you'll just have the Console.
+
+## Installing RStudio
+
+The second step is to install RStudio Desktop.
+
+1. Go to [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)
+
+2. Download the latest version of RStudio Desktop for your operating system. Again, there are different versions for Linux, Mac, and Windows. As of the time of writing, the current version of RStudio Desktop is 1.1.456
+
+## Getting materials from rstudio.cloud
+
+Once you've installed both R and RStudio, you'll have an RStudio environment set up that is almost identical to the one you use in the classes, but you won't have access to the materials I've made available on [https://rstudio.cloud](https://rstudio.cloud). It is, however, possible to download those materials directly from your rstudio.cloud workspace.
+
+1. In the bottom right window, you can click checkboxes next to individual files.
+
+2. There is an icon with a "gear" symbol and the word More. Click that.
+
+3. One of the options is "Export".
+
+4. Clicking Export will allow you to download the selected files to your own computer.
