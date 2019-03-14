@@ -135,37 +135,37 @@ class: inverse, center, middle
 # Creating R Scripts
 
 ---
-background-image: url(../images/02/cloud_blank.png)
+background-image: url(images/02/cloud_blank.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/02/cloud-create-script.png)
+background-image: url(images/02/cloud-create-script.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/02/cloud-script-window.png)
+background-image: url(images/02/cloud-script-window.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/02/cloud-examp-script.png)
+background-image: url(images/02/cloud-examp-script.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/02/cloud-script-run.png)
+background-image: url(images/02/cloud-script-run.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/02/cloud-script-source.png)
+background-image: url(images/02/cloud-script-source.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/02/cloud-sourced-script.png)
+background-image: url(images/02/cloud-sourced-script.png)
 background-size: contain
 class: inverse
 
@@ -191,47 +191,47 @@ Whereas in scripts you need to use the **#** symbol to indicate comments, as her
 ]
 
 ---
-background-image: url(../images/02/cloud-rmarkdown.png)
+background-image: url(images/02/cloud-rmarkdown.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/02/cloud-rmarkdown-install.png)
+background-image: url(images/02/cloud-rmarkdown-install.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/02/cloud-rmarkdown-new.png)
+background-image: url(images/02/cloud-rmarkdown-new.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/02/cloud-rmd-example.png)
+background-image: url(images/02/cloud-rmd-example.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/02/cloud-rmd-chunk-lab.png)
+background-image: url(images/02/cloud-rmd-chunk-lab.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/02/cloud-rmd-click-run.png)
+background-image: url(images/02/cloud-rmd-click-run.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/02/cloud-rmd-chunk-play.png)
+background-image: url(images/02/cloud-rmd-chunk-play.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/02/cloud-rmd-click-knit.png)
+background-image: url(images/02/cloud-rmd-click-knit.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/02/cloud-rmd-html-file.png)
+background-image: url(images/02/cloud-rmd-html-file.png)
 background-size: contain
 class: inverse
 
@@ -271,7 +271,7 @@ class: inverse, middle, center
 # Basic containers
 
 ---
-background-image: url(../images/02/masonjars.jpg)
+background-image: url(images/02/masonjars.jpg)
 background-size: contain
 
 ---
@@ -352,7 +352,7 @@ matrix(1:9, nrow = 3, ncol = 3)
 This is quite a common format. For example, each row could represent an individual participant. Each column could represent a different numerical measure.
 
 ---
-background-image: url(../images/02/wine_rack.jpg)
+background-image: url(images/02/wine_rack.jpg)
 background-size: 60%
 # Matrices
 
@@ -374,7 +374,7 @@ test_matrix[2, 3]
 ```
 
 ---
-background-image: url(../images/02/masonjars.jpg)
+background-image: url(images/02/masonjars.jpg)
 background-size: 60%
 
 # Lists
@@ -476,7 +476,7 @@ class: inverse, middle, center
 # Wrapping up
 
 ---
-background-image: url(../images/02/rstudio-datacamp.png)
+background-image: url(images/02/rstudio-datacamp.png)
 background-size: 25%
 background-position: 50% 95%
 # This week's concepts
@@ -489,7 +489,7 @@ background-position: 50% 95%
 - Practice using **vectors**, **matrices**, **lists**, and **data.frames** using DataCamp's Intro to R course
 ]
 ---
-background-image: url(../images/02/rstudio-datacamp.png)
+background-image: url(images/02/rstudio-datacamp.png)
 background-size: 25%
 background-position: 50% 95%
 # Prep for next week
