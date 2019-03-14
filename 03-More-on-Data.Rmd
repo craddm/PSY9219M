@@ -44,7 +44,7 @@ ggplot(test_data,
 ```
 
 ---
-background-image: url(../images/02/cloud-rmd-example.png)
+background-image: url(images/02/cloud-rmd-example.png)
 background-position: 65% 85% 
 background-size: 50%
 # RMarkdown
@@ -80,10 +80,10 @@ knitr::kable(examps, format = "html")
 **Data frames** are tables of data.
 
 .pull-left[
-![:scale 50%](../images/02/wine_rack.jpg)
+![:scale 50%](images/02/wine_rack.jpg)
 ]
 .pull-right[
-![:scale 60%](../images/02/masonjars.jpg)
+![:scale 60%](images/02/masonjars.jpg)
 ]
 
 ---
@@ -349,13 +349,13 @@ head(example_rt_df, 5)
 ```
 
 ---
-background-image: url(../images/03/tidy-hex.png)
+background-image: url(images/03/tidy-hex.png)
 background-position: 50% 75%
 background-size: 50%
 class: inverse, middle, center
 
 ---
-background-image: url(../images/03/tidy-hex.png)
+background-image: url(images/03/tidy-hex.png)
 background-position: 90% 5%
 background-size: 8%
 
@@ -386,7 +386,7 @@ There are eight core **tidyverse** packages loaded using **library(tidyverse)**.
 ]
 
 ---
-background-image: url(../images/03/tidy-hex.png)
+background-image: url(images/03/tidy-hex.png)
 background-position: 90% 5%
 background-size: 8%
 
@@ -456,7 +456,7 @@ class: inverse, middle, center
 # Tidy data
 
 ---
-background-image: url(../images/03/tidy-1.png)
+background-image: url(images/03/tidy-1.png)
 background-position: 50% 65%
 background-size: 75%
 # The three principles of tidy data
@@ -492,7 +492,7 @@ head(example_rt_df, 8)
 ]
 
 ---
-background-image: url(../images/03/tidy-7.png)
+background-image: url(images/03/tidy-7.png)
 background-position: 50% 65%
 background-size: 60%
 
@@ -505,7 +505,7 @@ Another variable - Block - is split across two columns.
 A third variable - viewpoint - is also split across two columns.
 
 ---
-background-image: url(../images/03/tidy-1.png)
+background-image: url(images/03/tidy-1.png)
 background-position: 50% 80%
 background-size: 75%
 # Why Tidy?

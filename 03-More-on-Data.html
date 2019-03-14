@@ -47,7 +47,7 @@ ggplot(test_data,
 ```
 
 ---
-background-image: url(../images/02/cloud-rmd-example.png)
+background-image: url(images/02/cloud-rmd-example.png)
 background-position: 65% 85% 
 background-size: 50%
 # RMarkdown
@@ -112,10 +112,10 @@ There are five basic data types in R:
 **Data frames** are tables of data.
 
 .pull-left[
-![:scale 50%](../images/02/wine_rack.jpg)
+![:scale 50%](images/02/wine_rack.jpg)
 ]
 .pull-right[
-![:scale 60%](../images/02/masonjars.jpg)
+![:scale 60%](images/02/masonjars.jpg)
 ]
 
 ---
@@ -140,10 +140,10 @@ test_matrix
 ```
 
 ```
-##             [,1]       [,2]      [,3]
-## [1,]  0.45650588  1.0698847 0.8399025
-## [2,] -0.47721600 -0.9100745 1.3884486
-## [3,] -0.09986935  0.9590143 0.7455983
+##            [,1]        [,2]       [,3]
+## [1,] -0.5712689 -0.07514425  1.5729844
+## [2,]  1.5434286  1.11500282  0.2239146
+## [3,]  0.2355515  0.10557932 -1.4628279
 ```
 ]
 .pull-right[
@@ -162,9 +162,9 @@ test_matrix[2:3, 1:2]
 ```
 
 ```
-##             [,1]       [,2]
-## [1,] -0.47721600 -0.9100745
-## [2,] -0.09986935  0.9590143
+##           [,1]      [,2]
+## [1,] 1.5434286 1.1150028
+## [2,] 0.2355515 0.1055793
 ```
 ]
 
@@ -283,22 +283,22 @@ class: center, middle, inverse
 ## # Groups:   Participant [8]
 ##    Participant Viewpoint  B1RT  B2RT
 ##          &lt;int&gt; &lt;fct&gt;     &lt;dbl&gt; &lt;dbl&gt;
-##  1           1 Different  448.  455.
-##  2           1 Same       509.  384.
-##  3           2 Different  445.  386.
-##  4           2 Same       438.  370.
-##  5           3 Different  448.  455.
-##  6           3 Same       509.  384.
-##  7           4 Different  445.  386.
-##  8           4 Same       438.  370.
-##  9           5 Different  448.  455.
-## 10           5 Same       509.  384.
-## 11           6 Different  445.  386.
-## 12           6 Same       438.  370.
-## 13           7 Different  448.  455.
-## 14           7 Same       509.  384.
-## 15           8 Different  445.  386.
-## 16           8 Same       438.  370.
+##  1           1 Different  520.  352.
+##  2           1 Same       571.  470.
+##  3           2 Different  536.  382.
+##  4           2 Same       479.  392.
+##  5           3 Different  520.  352.
+##  6           3 Same       571.  470.
+##  7           4 Different  536.  382.
+##  8           4 Same       479.  392.
+##  9           5 Different  520.  352.
+## 10           5 Same       571.  470.
+## 11           6 Different  536.  382.
+## 12           6 Same       479.  392.
+## 13           7 Different  520.  352.
+## 14           7 Same       571.  470.
+## 15           8 Different  536.  382.
+## 16           8 Same       479.  392.
 ```
 
 ---
@@ -310,15 +310,15 @@ class: center, middle, inverse
 ##    Participant exp_condition       RT
 ##          &lt;int&gt; &lt;fct&gt;            &lt;dbl&gt;
 ##  1           1 Block1_different  395.
-##  2           1 Block1_same       435.
-##  3           1 Block2_different  417.
-##  4           1 Block2_same       431.
-##  5           2 Block1_different  368.
-##  6           2 Block1_same       416.
-##  7           2 Block2_different  394.
-##  8           2 Block2_same       433.
-##  9           3 Block1_different  370.
-## 10           3 Block1_same       437.
+##  2           1 Block1_same       362.
+##  3           1 Block2_different  358.
+##  4           1 Block2_same       436.
+##  5           2 Block1_different  405.
+##  6           2 Block1_same       348.
+##  7           2 Block2_different  390.
+##  8           2 Block2_same       459.
+##  9           3 Block1_different  350.
+## 10           3 Block1_same       422.
 ## # ... with 30 more rows
 ```
 
@@ -329,16 +329,16 @@ class: center, middle, inverse
 ## # A tibble: 10 x 5
 ##    Participant Block1_same Block2_same Block1_different Block2_different
 ##          &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-##  1           1        520.        288.             541.             420.
-##  2           2        466.        350.             583.             436.
-##  3           3        492.        279.             606.             382.
-##  4           4        567.        338.             549.             379.
-##  5           5        511.        322.             507.             429.
-##  6           6        531.        329.             540.             373.
-##  7           7        471.        317.             561.             402.
-##  8           8        467.        267.             548.             356.
-##  9           9        478.        273.             504.             496.
-## 10          10        529.        347.             607.             355.
+##  1           1        511.        343.             530.             409.
+##  2           2        484.        315.             491.             420.
+##  3           3        533.        287.             512.             453.
+##  4           4        479.        319.             568.             392.
+##  5           5        477.        288.             539.             384.
+##  6           6        503.        283.             536.             410.
+##  7           7        548.        379.             515.             421.
+##  8           8        504.        312.             562.             395.
+##  9           9        502.        297.             592.             396.
+## 10          10        495.        355.             590.             347.
 ```
 
 ---
@@ -405,16 +405,16 @@ test_df &lt;-
 ## # A tibble: 10 x 5
 ##    Participant Block1_same Block2_same Block1_different Block2_different
 ##          &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-##  1           1        497.        296.             561.             361.
-##  2           2        499.        275.             566.             367.
-##  3           3        558.        302.             573.             328.
-##  4           4        544.        289.             580.             396.
-##  5           5        481.        308.             599.             424.
-##  6           6        488.        325.             509.             384.
-##  7           7        474.        287.             531.             394.
-##  8           8        463.        334.             551.             460.
-##  9           9        482.        291.             557.             338.
-## 10          10        481.        301.             579.             376.
+##  1           1        482.        271.             552.             340.
+##  2           2        529.        285.             505.             481.
+##  3           3        535.        293.             537.             394.
+##  4           4        557.        316.             566.             394.
+##  5           5        464.        305.             546.             412.
+##  6           6        495.        279.             564.             371.
+##  7           7        516.        231.             607.             461.
+##  8           8        513.        295.             530.             393.
+##  9           9        479.        279.             553.             419.
+## 10          10        448.        304.             577.             442.
 ```
 
 ---
@@ -432,21 +432,21 @@ example_rt_df &lt;-
 
 ```
 ##   Participant Block1_same Block2_same Block1_different Block2_different
-## 1           1    516.5898    305.1622         498.2227         313.3878
-## 2           2    382.0560    386.3059         679.8127         339.2907
-## 3           3    514.7835    378.0082         355.0890         442.7510
-## 4           4    604.1356    450.9009         616.3194         477.3192
-## 5           5    468.6312    211.0952         434.6988         340.4552
+## 1           1    540.1311    484.7947         455.0798         335.5118
+## 2           2    557.4265    397.3020         392.4000         467.3883
+## 3           3    496.0963    251.0494         545.3437         440.8577
+## 4           4    317.4735    391.9695         388.9046         570.6118
+## 5           5    352.4782    365.1356         528.1522         287.4405
 ```
 
 ---
-background-image: url(../images/03/tidy-hex.png)
+background-image: url(images/03/tidy-hex.png)
 background-position: 50% 75%
 background-size: 50%
 class: inverse, middle, center
 
 ---
-background-image: url(../images/03/tidy-hex.png)
+background-image: url(images/03/tidy-hex.png)
 background-position: 90% 5%
 background-size: 8%
 
@@ -478,7 +478,7 @@ There are eight core **tidyverse** packages loaded using **library(tidyverse)**.
 ]
 
 ---
-background-image: url(../images/03/tidy-hex.png)
+background-image: url(images/03/tidy-hex.png)
 background-position: 90% 5%
 background-size: 8%
 
@@ -521,12 +521,12 @@ head(example_rt_tibble)
 ## # A tibble: 6 x 5
 ##   Participant Block1_same Block2_same Block1_different Block2_different
 ##         &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-## 1           1        517.        305.             498.             313.
-## 2           2        382.        386.             680.             339.
-## 3           3        515.        378.             355.             443.
-## 4           4        604.        451.             616.             477.
-## 5           5        469.        211.             435.             340.
-## 6           6        318.        310.             480.             467.
+## 1           1        540.        485.             455.             336.
+## 2           2        557.        397.             392.             467.
+## 3           3        496.        251.             545.             441.
+## 4           4        317.        392.             389.             571.
+## 5           5        352.        365.             528.             287.
+## 6           6        403.        548.             463.             279.
 ```
 
 ---
@@ -547,12 +547,12 @@ head(age_tibb)
 ## # A tibble: 6 x 3
 ##   Participant   cond1 age_group
 ##         &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;    
-## 1           1 -2.39   Old      
-## 2           2 -0.709  Old      
-## 3           3  1.07   Old      
-## 4           4  0.438  Old      
-## 5           5  0.0492 Old      
-## 6           6 -0.963  Young
+## 1           1  1.42   Old      
+## 2           2 -0.0849 Old      
+## 3           3  1.31   Old      
+## 4           4  1.60   Old      
+## 5           5  0.707  Old      
+## 6           6  1.07   Young
 ```
 
 ---
@@ -591,7 +591,7 @@ class: inverse, middle, center
 # Tidy data
 
 ---
-background-image: url(../images/03/tidy-1.png)
+background-image: url(images/03/tidy-1.png)
 background-position: 50% 65%
 background-size: 75%
 # The three principles of tidy data
@@ -608,16 +608,16 @@ background-size: 75%
 
 ```
 ##    Participant Block1_same Block2_same Block1_different Block2_different
-## 1            1    516.5898    305.1622         498.2227         313.3878
-## 2            2    382.0560    386.3059         679.8127         339.2907
-## 3            3    514.7835    378.0082         355.0890         442.7510
-## 4            4    604.1356    450.9009         616.3194         477.3192
-## 5            5    468.6312    211.0952         434.6988         340.4552
-## 6            6    317.7252    309.5307         479.6596         467.2746
-## 7            7    451.3933    274.3238         546.2049         297.5012
-## 8            8    704.9653    317.5622         594.0583         405.3054
-## 9            9    383.3551    385.1461         489.2698         368.8661
-## 10          10    668.2327    333.7526         448.7217         596.6026
+## 1            1    540.1311    484.7947         455.0798         335.5118
+## 2            2    557.4265    397.3020         392.4000         467.3883
+## 3            3    496.0963    251.0494         545.3437         440.8577
+## 4            4    317.4735    391.9695         388.9046         570.6118
+## 5            5    352.4782    365.1356         528.1522         287.4405
+## 6            6    402.8318    548.4260         463.1340         278.6025
+## 7            7    539.1720    115.1391         507.7316         420.9998
+## 8            8    574.5154    458.7740         513.0890         321.2758
+## 9            9    430.9568    385.4382         529.8169         400.9483
+## 10          10    464.5441    354.9972         530.1714         511.0159
 ```
 
 ---
@@ -626,14 +626,14 @@ background-size: 75%
 
 ```
 ##   Participant Block1_same Block2_same Block1_different Block2_different
-## 1           1    516.5898    305.1622         498.2227         313.3878
-## 2           2    382.0560    386.3059         679.8127         339.2907
-## 3           3    514.7835    378.0082         355.0890         442.7510
-## 4           4    604.1356    450.9009         616.3194         477.3192
-## 5           5    468.6312    211.0952         434.6988         340.4552
-## 6           6    317.7252    309.5307         479.6596         467.2746
-## 7           7    451.3933    274.3238         546.2049         297.5012
-## 8           8    704.9653    317.5622         594.0583         405.3054
+## 1           1    540.1311    484.7947         455.0798         335.5118
+## 2           2    557.4265    397.3020         392.4000         467.3883
+## 3           3    496.0963    251.0494         545.3437         440.8577
+## 4           4    317.4735    391.9695         388.9046         570.6118
+## 5           5    352.4782    365.1356         528.1522         287.4405
+## 6           6    402.8318    548.4260         463.1340         278.6025
+## 7           7    539.1720    115.1391         507.7316         420.9998
+## 8           8    574.5154    458.7740         513.0890         321.2758
 ```
 
 .large[
@@ -645,7 +645,7 @@ background-size: 75%
 ]
 
 ---
-background-image: url(../images/03/tidy-7.png)
+background-image: url(images/03/tidy-7.png)
 background-position: 50% 65%
 background-size: 60%
 
@@ -658,7 +658,7 @@ Another variable - Block - is split across two columns.
 A third variable - viewpoint - is also split across two columns.
 
 ---
-background-image: url(../images/03/tidy-1.png)
+background-image: url(images/03/tidy-1.png)
 background-position: 50% 80%
 background-size: 75%
 # Why Tidy?
@@ -677,21 +677,21 @@ background-size: 75%
 
 ```
 ##    Participant  Block Viewpoint       RT
-## 1            1 Block1      same 516.5898
-## 2            2 Block1      same 382.0560
-## 3            3 Block1      same 514.7835
-## 4            4 Block1      same 604.1356
-## 5            5 Block1      same 468.6312
-## 6            6 Block1      same 317.7252
-## 7            7 Block1      same 451.3933
-## 8            8 Block1      same 704.9653
-## 9            9 Block1      same 383.3551
-## 10          10 Block1      same 668.2327
-## 11           1 Block2      same 305.1622
-## 12           2 Block2      same 386.3059
-## 13           3 Block2      same 378.0082
-## 14           4 Block2      same 450.9009
-## 15           5 Block2      same 211.0952
+## 1            1 Block1      same 540.1311
+## 2            2 Block1      same 557.4265
+## 3            3 Block1      same 496.0963
+## 4            4 Block1      same 317.4735
+## 5            5 Block1      same 352.4782
+## 6            6 Block1      same 402.8318
+## 7            7 Block1      same 539.1720
+## 8            8 Block1      same 574.5154
+## 9            9 Block1      same 430.9568
+## 10          10 Block1      same 464.5441
+## 11           1 Block2      same 484.7947
+## 12           2 Block2      same 397.3020
+## 13           3 Block2      same 251.0494
+## 14           4 Block2      same 391.9695
+## 15           5 Block2      same 365.1356
 ```
 
 ---
@@ -710,10 +710,10 @@ head(example_rt_df, n = 4)
 
 ```
 ##   Participant Block1_same Block2_same Block1_different Block2_different
-## 1           1    516.5898    305.1622         498.2227         313.3878
-## 2           2    382.0560    386.3059         679.8127         339.2907
-## 3           3    514.7835    378.0082         355.0890         442.7510
-## 4           4    604.1356    450.9009         616.3194         477.3192
+## 1           1    540.1311    484.7947         455.0798         335.5118
+## 2           2    557.4265    397.3020         392.4000         467.3883
+## 3           3    496.0963    251.0494         545.3437         440.8577
+## 4           4    317.4735    391.9695         388.9046         570.6118
 ```
 
 The function **gather()** can be used to combine columns into one.
@@ -780,12 +780,12 @@ head(gather_rt)
 
 ```
 ##   Participant    exp_cond       RT
-## 1           1 Block1_same 516.5898
-## 2           2 Block1_same 382.0560
-## 3           3 Block1_same 514.7835
-## 4           4 Block1_same 604.1356
-## 5           5 Block1_same 468.6312
-## 6           6 Block1_same 317.7252
+## 1           1 Block1_same 540.1311
+## 2           2 Block1_same 557.4265
+## 3           3 Block1_same 496.0963
+## 4           4 Block1_same 317.4735
+## 5           5 Block1_same 352.4782
+## 6           6 Block1_same 402.8318
 ```
 ]
 .pull-right[
@@ -801,12 +801,12 @@ head(gather_rt)
 
 ```
 ##   Participant    exp_cond       RT
-## 1           1 Block1_same 516.5898
-## 2           2 Block1_same 382.0560
-## 3           3 Block1_same 514.7835
-## 4           4 Block1_same 604.1356
-## 5           5 Block1_same 468.6312
-## 6           6 Block1_same 317.7252
+## 1           1 Block1_same 540.1311
+## 2           2 Block1_same 557.4265
+## 3           3 Block1_same 496.0963
+## 4           4 Block1_same 317.4735
+## 5           5 Block1_same 352.4782
+## 6           6 Block1_same 402.8318
 ```
 ]
 
@@ -824,12 +824,12 @@ head(gather_rt)
 
 ```
 ##   Participant    exp_cond       RT
-## 1           1 Block1_same 516.5898
-## 2           2 Block1_same 382.0560
-## 3           3 Block1_same 514.7835
-## 4           4 Block1_same 604.1356
-## 5           5 Block1_same 468.6312
-## 6           6 Block1_same 317.7252
+## 1           1 Block1_same 540.1311
+## 2           2 Block1_same 557.4265
+## 3           3 Block1_same 496.0963
+## 4           4 Block1_same 317.4735
+## 5           5 Block1_same 352.4782
+## 6           6 Block1_same 402.8318
 ```
 
 ---
@@ -888,12 +888,12 @@ head(gather_rt)
 
 ```
 ##   Participant  Block Viewpoint       RT
-## 1           1 Block1      same 516.5898
-## 2           2 Block1      same 382.0560
-## 3           3 Block1      same 514.7835
-## 4           4 Block1      same 604.1356
-## 5           5 Block1      same 468.6312
-## 6           6 Block1      same 317.7252
+## 1           1 Block1      same 540.1311
+## 2           2 Block1      same 557.4265
+## 3           3 Block1      same 496.0963
+## 4           4 Block1      same 317.4735
+## 5           5 Block1      same 352.4782
+## 6           6 Block1      same 402.8318
 ```
 
 ---
@@ -902,21 +902,21 @@ head(gather_rt)
 
 ```
 ##    Participant  Block Viewpoint       RT
-## 1            1 Block1      same 516.5898
-## 2            2 Block1      same 382.0560
-## 3            3 Block1      same 514.7835
-## 4            4 Block1      same 604.1356
-## 5            5 Block1      same 468.6312
-## 6            6 Block1      same 317.7252
-## 7            7 Block1      same 451.3933
-## 8            8 Block1      same 704.9653
-## 9            9 Block1      same 383.3551
-## 10          10 Block1      same 668.2327
-## 11           1 Block2      same 305.1622
-## 12           2 Block2      same 386.3059
-## 13           3 Block2      same 378.0082
-## 14           4 Block2      same 450.9009
-## 15           5 Block2      same 211.0952
+## 1            1 Block1      same 540.1311
+## 2            2 Block1      same 557.4265
+## 3            3 Block1      same 496.0963
+## 4            4 Block1      same 317.4735
+## 5            5 Block1      same 352.4782
+## 6            6 Block1      same 402.8318
+## 7            7 Block1      same 539.1720
+## 8            8 Block1      same 574.5154
+## 9            9 Block1      same 430.9568
+## 10          10 Block1      same 464.5441
+## 11           1 Block2      same 484.7947
+## 12           2 Block2      same 397.3020
+## 13           3 Block2      same 251.0494
+## 14           4 Block2      same 391.9695
+## 15           5 Block2      same 365.1356
 ```
 
 ---
@@ -924,14 +924,14 @@ head(gather_rt)
 
 ```
 ##   Participant  Block Viewpoint       RT
-## 1           1 Block1      same 516.5898
-## 2           2 Block1      same 382.0560
-## 3           3 Block1      same 514.7835
-## 4           4 Block1      same 604.1356
-## 5           5 Block1      same 468.6312
-## 6           6 Block1      same 317.7252
-## 7           7 Block1      same 451.3933
-## 8           8 Block1      same 704.9653
+## 1           1 Block1      same 540.1311
+## 2           2 Block1      same 557.4265
+## 3           3 Block1      same 496.0963
+## 4           4 Block1      same 317.4735
+## 5           5 Block1      same 352.4782
+## 6           6 Block1      same 402.8318
+## 7           7 Block1      same 539.1720
+## 8           8 Block1      same 574.5154
 ```
 
 ## Step 1 - **gather()** the RTs
@@ -966,10 +966,10 @@ We can produce some summary statistics using **dplyr** (more soon!)
 ## # Groups:   Block [2]
 ##   Block  Viewpoint mean_RT sd_RT
 ##   &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;
-## 1 Block1 different    514.  96.2
-## 2 Block1 same         501. 127. 
-## 3 Block2 different    405.  92.5
-## 4 Block2 same         335.  67.7
+## 1 Block1 different    485.  57.8
+## 2 Block1 same         468.  89.5
+## 3 Block2 different    403.  97.6
+## 4 Block2 same         375. 122.
 ```
 
 ---
@@ -982,10 +982,10 @@ We can run ANOVA with **afex**.
 ## Anova Table (Type 3 tests)
 ## 
 ## Response: RT
-##            Effect   df      MSE         F ges p.value
-## 1           Block 1, 9  7947.32 23.85 *** .35   .0009
-## 2       Viewpoint 1, 9  3909.24    4.38 + .05     .07
-## 3 Block:Viewpoint 1, 9 12691.81      0.63 .02     .45
+##            Effect   df      MSE      F   ges p.value
+## 1           Block 1, 9 10506.86 7.22 *   .19     .02
+## 2       Viewpoint 1, 9 10918.08   0.48   .02     .50
+## 3 Block:Viewpoint 1, 9 11040.03   0.02 .0008     .88
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
 ```
@@ -1001,12 +1001,12 @@ We can create interaction plots using **emmeans**.
 
 ```
 ## Block = Block1:
-##  contrast         estimate   SE   df t.ratio p.value
-##  same - different    -13.0 40.7 14.1 -0.320  0.7540 
+##  contrast         estimate   SE df t.ratio p.value
+##  same - different    -17.8 46.9 18 -0.380  0.7082 
 ## 
 ## Block = Block2:
-##  contrast         estimate   SE   df t.ratio p.value
-##  same - different    -69.7 40.7 14.1 -1.711  0.1091
+##  contrast         estimate   SE df t.ratio p.value
+##  same - different    -28.2 46.9 18 -0.601  0.5553
 ```
 ]
 
@@ -1047,16 +1047,16 @@ head(spread_rt, 10)
 
 ```
 ##    Participant Viewpoint   Block1   Block2
-## 1            1 different 498.2227 313.3878
-## 2            1      same 516.5898 305.1622
-## 3            2 different 679.8127 339.2907
-## 4            2      same 382.0560 386.3059
-## 5            3 different 355.0890 442.7510
-## 6            3      same 514.7835 378.0082
-## 7            4 different 616.3194 477.3192
-## 8            4      same 604.1356 450.9009
-## 9            5 different 434.6988 340.4552
-## 10           5      same 468.6312 211.0952
+## 1            1 different 455.0798 335.5118
+## 2            1      same 540.1311 484.7947
+## 3            2 different 392.4000 467.3883
+## 4            2      same 557.4265 397.3020
+## 5            3 different 545.3437 440.8577
+## 6            3      same 496.0963 251.0494
+## 7            4 different 388.9046 570.6118
+## 8            4      same 317.4735 391.9695
+## 9            5 different 528.1522 287.4405
+## 10           5      same 352.4782 365.1356
 ```
 
 ---
@@ -1078,14 +1078,14 @@ head(united_rt, 8)
 
 ```
 ##   Participant    exp_cond       RT
-## 1           1 Block1_same 516.5898
-## 2           2 Block1_same 382.0560
-## 3           3 Block1_same 514.7835
-## 4           4 Block1_same 604.1356
-## 5           5 Block1_same 468.6312
-## 6           6 Block1_same 317.7252
-## 7           7 Block1_same 451.3933
-## 8           8 Block1_same 704.9653
+## 1           1 Block1_same 540.1311
+## 2           2 Block1_same 557.4265
+## 3           3 Block1_same 496.0963
+## 4           4 Block1_same 317.4735
+## 5           5 Block1_same 352.4782
+## 6           6 Block1_same 402.8318
+## 7           7 Block1_same 539.1720
+## 8           8 Block1_same 574.5154
 ```
 
 ---
@@ -1123,16 +1123,16 @@ spread_rt
 
 ```
 ##    Participant Block1_different Block1_same Block2_different Block2_same
-## 1            1         498.2227    516.5898         313.3878    305.1622
-## 2            2         679.8127    382.0560         339.2907    386.3059
-## 3            3         355.0890    514.7835         442.7510    378.0082
-## 4            4         616.3194    604.1356         477.3192    450.9009
-## 5            5         434.6988    468.6312         340.4552    211.0952
-## 6            6         479.6596    317.7252         467.2746    309.5307
-## 7            7         546.2049    451.3933         297.5012    274.3238
-## 8            8         594.0583    704.9653         405.3054    317.5622
-## 9            9         489.2698    383.3551         368.8661    385.1461
-## 10          10         448.7217    668.2327         596.6026    333.7526
+## 1            1         455.0798    540.1311         335.5118    484.7947
+## 2            2         392.4000    557.4265         467.3883    397.3020
+## 3            3         545.3437    496.0963         440.8577    251.0494
+## 4            4         388.9046    317.4735         570.6118    391.9695
+## 5            5         528.1522    352.4782         287.4405    365.1356
+## 6            6         463.1340    402.8318         278.6025    548.4260
+## 7            7         507.7316    539.1720         420.9998    115.1391
+## 8            8         513.0890    574.5154         321.2758    458.7740
+## 9            9         529.8169    430.9568         400.9483    385.4382
+## 10          10         530.1714    464.5441         511.0159    354.9972
 ```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
