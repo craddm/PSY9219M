@@ -57,7 +57,7 @@ Each column contains data of the same basic type (i.e. a column can be numeric o
 ]
 ]
 ---
-background-image: url(../images/03/tidy-1.png)
+background-image: url(images/03/tidy-1.png)
 background-position: 50% 65%
 background-size: 75%
 # Tidy data
@@ -334,14 +334,14 @@ datasauRus::datasaurus_dozen %>%
 ]
 
 ---
-background-image: url(../images/04/ggplot2-logo.png)
+background-image: url(images/04/ggplot2-logo.png)
 background-size: 15%
 background-position: 50% 85%
 class: inverse, middle, center
 # The Grammar of Graphics
 
 ---
-background-image: url(../images/04/ggplot2-logo.png)
+background-image: url(images/04/ggplot2-logo.png)
 background-size: 8%
 background-position: 85% 5%
 # The mpg dataset
@@ -352,7 +352,7 @@ mpg
 
 
 ---
-background-image: url(../images/04/ggplot2-logo.png)
+background-image: url(images/04/ggplot2-logo.png)
 background-size: 8%
 background-position: 85% 5%
 # ggplot2
@@ -383,7 +383,7 @@ ggplot()
 ]
 
 ---
-background-image: url(../images/04/ggplot2-logo.png)
+background-image: url(images/04/ggplot2-logo.png)
 background-size: 8%
 background-position: 85% 5%
 # Datasets and aesthetics
@@ -407,7 +407,7 @@ ggplot(data = mpg,
 ![](`r knitr::fig_chunk("mpg-coords", "png")`)
 ]
 ---
-background-image: url(../images/04/ggplot2-logo.png)
+background-image: url(images/04/ggplot2-logo.png)
 background-size: 8%
 background-position: 85% 5%
 # Geoms 
@@ -431,7 +431,7 @@ ggplot(data = mpg,
 ]
 
 ---
-background-image: url(../images/04/ggplot2-logo.png)
+background-image: url(images/04/ggplot2-logo.png)
 background-size: 8%
 background-position: 85% 5%
 # Adding a linear model
@@ -454,7 +454,7 @@ ggplot(data = mpg,
 ![](`r knitr::fig_chunk("scatter-smooth", "png")`)
 ]
 ---
-background-image: url(../images/04/ggplot2-logo.png)
+background-image: url(images/04/ggplot2-logo.png)
 background-size: 8%
 background-position: 85% 5%
 # Identifying groups
@@ -480,7 +480,7 @@ ggplot(data = mpg,
 ]
 
 ---
-background-image: url(../images/04/ggplot2-logo.png)
+background-image: url(images/04/ggplot2-logo.png)
 background-size: 8%
 background-position: 85% 5%
 # Identifying groups

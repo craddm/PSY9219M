@@ -20,7 +20,7 @@ options(htmltools.dir.version = FALSE)
 # Who am I?
 
 .pull-left[
-![](../images/01/itme.jpg)
+![](images/01/itme.jpg)
 ]
 .pull-right[
 ### Dr Matt Craddock
@@ -40,12 +40,12 @@ options(htmltools.dir.version = FALSE)
 
 --
 .pull-left[
-![](../images/01/catistics-small.jpg)
+![](images/01/catistics-small.jpg)
 ]
 
 --
 .pull-right[
-![](../images/01/dog-gramming.jpg)
+![](images/01/dog-gramming.jpg)
 ]
 
 ---
@@ -77,12 +77,12 @@ options(htmltools.dir.version = FALSE)
 
 .pull-left[
 ### Weeks 1-5
-![](../images/01/dog-gramming.jpg)
+![](images/01/dog-gramming.jpg)
 ]
 
 .pull-right[
 ### Weeks 5-6, 8-10
-![](../images/01/catistics-small.jpg)
+![](images/01/catistics-small.jpg)
 ]
 
 
@@ -92,12 +92,12 @@ options(htmltools.dir.version = FALSE)
 
 .pull-left[
 ### Weeks 1-5
-![:scale 45%](../images/01/R4DS.png)
+![:scale 45%](images/01/R4DS.png)
 ]
 
 .pull-right[
 ### Weeks 5-10
-![Discovering Statistics Using R](../images/01/DiscoverR.jpg)
+![Discovering Statistics Using R](images/01/DiscoverR.jpg)
 ]
 
 ---
@@ -140,11 +140,11 @@ class: inverse, center, middle
 ]
 
 ---
-background-image: url(../images/01/Rcompanies.png)
+background-image: url(images/01/Rcompanies.png)
 background-size: contain
 
 ---
-background-image: url(../images/01/spss_usage.png)
+background-image: url(images/01/spss_usage.png)
 
 #Still not convinced?
 
@@ -182,7 +182,7 @@ class: inverse, center, middle
 # Getting started
 
 ---
-background-image: url(../images/01/RStudio-logo.png)
+background-image: url(images/01/RStudio-logo.png)
 background-size: 30%
 background-position: 80% 5%
 # What is RStudio?
@@ -195,9 +195,9 @@ background-position: 80% 5%
 - Makes many things explicit that you would otherwise have to guess
 ]
 
-![:scale 50%](../images/01/rstudio-basic.png)
+![:scale 50%](images/01/rstudio-basic.png)
 ---
-background-image: url(../images/01/rstudiocloud_page.png)
+background-image: url(images/01/rstudiocloud_page.png)
 background-size: 60%
 background-position: 50% 90%
 
@@ -211,27 +211,27 @@ background-position: 50% 90%
 ]
 
 ---
-background-image: url(../images/01/RStudioCloud.png)
+background-image: url(images/01/RStudioCloud.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/01/RStudioCloud_proj_circ.png)
+background-image: url(images/01/RStudioCloud_proj_circ.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/01/default_project.png)
+background-image: url(images/01/default_project.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/01/cloud-tools.png)
+background-image: url(images/01/cloud-tools.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/01/cloud-appear.png)
+background-image: url(images/01/cloud-appear.png)
 background-size: contain
 class: inverse
 
@@ -241,12 +241,12 @@ class: inverse, center, middle
 # How it works!
 
 ---
-background-image: url(../images/01/proj_console.png)
+background-image: url(images/01/proj_console.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/01/proj_console_repl.png)
+background-image: url(images/01/proj_console_repl.png)
 background-size: contain
 class: inverse
 
@@ -400,17 +400,17 @@ example + 13 - 1 * 2 %% 4
 ```
 
 ---
-background-image: url(../images/01/cloud_environ.png)
+background-image: url(images/01/cloud_environ.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/01/cloud_environ2.png)
+background-image: url(images/01/cloud_environ2.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/01/cloud-history.png)
+background-image: url(images/01/cloud-history.png)
 background-size: contain
 class: inverse
 
@@ -488,7 +488,7 @@ example_mean
 4. Try guessing some other simple statistics (e.g. other types of *average*) that you can use.
 
 ---
-background-image: url(../images/01/cloud-help.png)
+background-image: url(images/01/cloud-help.png)
 background-size: 40%
 background-position: 50% 75%
 # Getting help 
@@ -525,17 +525,17 @@ library(cowsay)
 But **another** way to install is using the GUI!
 
 ---
-background-image: url(../images/01/cloud-packages.png)
+background-image: url(images/01/cloud-packages.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/01/cloud-cowsay.png)
+background-image: url(images/01/cloud-cowsay.png)
 background-size: contain
 class: inverse
 
 ---
-background-image: url(../images/01/cloud-help.png)
+background-image: url(images/01/cloud-help.png)
 background-position: 90% 85%
 background-size: 40%
 # Try out the **cowsay** package
@@ -581,11 +581,11 @@ say(what = "Feed me, human.", by = "cat")
 # Additional resources
 
 .pull-left[
-![:scale 45%](../images/01/R4DS.png)
+![:scale 45%](images/01/R4DS.png)
 ]
 
 .pull-right[
-![Discovering Statistics Using R](../images/01/DiscoverR.jpg)
+![Discovering Statistics Using R](images/01/DiscoverR.jpg)
 ]
 
 There are copies of both these books in the library.
@@ -593,7 +593,7 @@ There are copies of both these books in the library.
 R for Data Science is available freely online at http://r4ds.had.co.nz/
 
 ---
-background-image: url(../images/01/Datacamp_.png)
+background-image: url(images/01/Datacamp_.png)
 background-size: contain
 class: inverse
 
