@@ -5,3 +5,5 @@ Class consist of two-hour sessions which are a mixture of lectures and practical
 
 
 [Basic R](02-Basic_R.html)
+
+[Importing data](03-More-on-Data.html)
