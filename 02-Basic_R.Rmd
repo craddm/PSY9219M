@@ -27,7 +27,7 @@ options(htmltools.dir.version = FALSE)
     * Type stuff in, it tries to do it
 ]
 .right-pull[
-![:scale 60%](../images/01/default_project.png)
+![:scale 60%](images/01/default_project.png)
 ]
 
 ---
