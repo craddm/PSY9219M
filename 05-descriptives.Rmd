@@ -607,18 +607,6 @@ Discovering Statistics using R (Field et al.)
   - Chapter 5, Exploring assumptions (additional)
 
 ---
-background-image:url(images/05/hopr-cover.png)
-background-size: 25%
-background-position: 85%, 25%
-# An additional recommendation...
-
-## Hands-on Programming with R 
-
-Basic R programming book, JUST MADE AVAILABLE ONLINE FOR FREE!
-
-https://rstudio-education.github.io/hopr/index.html
-
----
 class: title-slide-final, middle, inverse
 background-image: url('images/University of Lincoln_logo_General White Landscape.png')
 background-size: 500px

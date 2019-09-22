@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
     <title>Importing, transforming, and summarising your data</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="author" content="Dr Matt Craddock" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
@@ -900,18 +900,6 @@ Discovering Statistics using R (Field et al.)
   - Chapter 5, Exploring assumptions (additional)
 
 ---
-background-image:url(images/05/hopr-cover.png)
-background-size: 25%
-background-position: 85%, 25%
-# An additional recommendation...
-
-## Hands-on Programming with R 
-
-Basic R programming book, JUST MADE AVAILABLE ONLINE FOR FREE!
-
-https://rstudio-education.github.io/hopr/index.html
-
----
 class: title-slide-final, middle, inverse
 background-image: url('images/University of Lincoln_logo_General White Landscape.png')
 background-size: 500px
@@ -964,7 +952,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {

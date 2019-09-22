@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
     <title>Exploring data graphically</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="author" content="Dr Matt Craddock" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
@@ -42,22 +42,22 @@ Join the PSY9219M workspace on RStudio.cloud.
 ## # Groups:   Participant [8]
 ##    Participant Viewpoint  B1RT  B2RT
 ##          &lt;int&gt; &lt;fct&gt;     &lt;dbl&gt; &lt;dbl&gt;
-##  1           1 Different  516.  418.
-##  2           1 Same       523.  456.
-##  3           2 Different  460.  392.
-##  4           2 Same       508.  402.
-##  5           3 Different  465.  348.
-##  6           3 Same       542.  376.
-##  7           4 Different  569.  376.
-##  8           4 Same       458.  361.
-##  9           5 Different  440.  468.
-## 10           5 Same       474.  385.
-## 11           6 Different  534.  376.
-## 12           6 Same       457.  355.
-## 13           7 Different  436.  380.
-## 14           7 Same       394.  354.
-## 15           8 Different  519.  386.
-## 16           8 Same       418.  452.
+##  1           1 Different  497.  393.
+##  2           1 Same       522.  443.
+##  3           2 Different  513.  389.
+##  4           2 Same       488.  327.
+##  5           3 Different  557.  365.
+##  6           3 Same       449.  409.
+##  7           4 Different  517.  484.
+##  8           4 Same       446.  393.
+##  9           5 Different  538.  384.
+## 10           5 Same       498.  468.
+## 11           6 Different  487.  446.
+## 12           6 Same       520.  415.
+## 13           7 Different  514.  420.
+## 14           7 Same       498.  318.
+## 15           8 Different  476.  379.
+## 16           8 Same       449.  469.
 ```
 ]
 .pull-right[
@@ -920,7 +920,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {

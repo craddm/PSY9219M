@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
     <title>Multiple predictors and multiple means</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="author" content="Dr Matt Craddock" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
@@ -189,7 +189,7 @@ coef(lm(y ~ X))
 
 ```
 ## (Intercept)           X 
-##   0.8199152   0.5365049
+##   0.7493916   0.5382352
 ```
 
 ... we still get more or less the same coefficients as we specified earlier, but now not quite so precise.
@@ -219,24 +219,24 @@ Let's take a quick look at the summary for the linear regression of our simulate
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -3.2800 -0.6881 -0.0032  0.6840  3.0275 
+## -3.1769 -0.6839 -0.0038  0.7095  3.3668 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.81992    0.19389   4.229 2.56e-05 ***
-## X            0.53650    0.03204  16.743  &lt; 2e-16 ***
+## (Intercept)  0.74939    0.19154   3.912 9.76e-05 ***
+## X            0.53824    0.03113  17.288  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 1.026 on 998 degrees of freedom
-## Multiple R-squared:  0.2193,	Adjusted R-squared:  0.2185 
-## F-statistic: 280.3 on 1 and 998 DF,  p-value: &lt; 2.2e-16
+## Residual standard error: 0.9836 on 998 degrees of freedom
+## Multiple R-squared:  0.2305,	Adjusted R-squared:  0.2297 
+## F-statistic: 298.9 on 1 and 998 DF,  p-value: &lt; 2.2e-16
 ```
 
 ---
 # Simple linear regression
 
-The R^2 measure of model fit is 0.22, which leaves 78% of the variance  unexplained.
+The R^2 measure of model fit is 0.23, which leaves 77% of the variance  unexplained.
 
 Simple linear regression involves prediction of one variable from another. Sometimes that's all you're interested in!
 
@@ -294,7 +294,7 @@ coef(lm(y ~ X1))
 
 ```
 ## (Intercept)          X1 
-##   -0.668246    0.692981
+##  -0.6304984   0.6915852
 ```
 
 
@@ -304,7 +304,7 @@ coef(lm(y ~ X2))
 
 ```
 ## (Intercept)          X2 
-##   5.8322912  -0.7754637
+##   6.0211354  -0.8359067
 ```
 ]
 
@@ -333,7 +333,7 @@ summary(lm(y ~ X1))$r.squared
 ```
 
 ```
-## [1] 0.215618
+## [1] 0.24178
 ```
 
 ```r
@@ -341,7 +341,7 @@ summary(lm(y ~ X2))$r.squared
 ```
 
 ```
-## [1] 0.2918213
+## [1] 0.3180308
 ```
 ]
 
@@ -375,7 +375,7 @@ lm(y ~ X1 + X2)
 ## 
 ## Coefficients:
 ## (Intercept)           X1           X2  
-##      1.7138       0.6785      -0.7636
+##      1.9455       0.6678      -0.8143
 ```
 ]
 
@@ -395,19 +395,19 @@ summary(lm(y ~ X1 + X2))
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -3.0286 -0.7054  0.0419  0.7239  3.3207 
+## -3.6770 -0.6563  0.0016  0.6566  3.1273 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  1.71378    0.22745   7.535  1.1e-13 ***
-## X1           0.67854    0.03348  20.269  &lt; 2e-16 ***
-## X2          -0.76359    0.03220 -23.713  &lt; 2e-16 ***
+## (Intercept)  1.94554    0.20921   9.299   &lt;2e-16 ***
+## X1           0.66783    0.03012  22.174   &lt;2e-16 ***
+## X2          -0.81427    0.03174 -25.654   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 1.039 on 997 degrees of freedom
-## Multiple R-squared:  0.4985,	Adjusted R-squared:  0.4975 
-## F-statistic: 495.5 on 2 and 997 DF,  p-value: &lt; 2.2e-16
+## Residual standard error: 0.9996 on 997 degrees of freedom
+## Multiple R-squared:  0.5433,	Adjusted R-squared:  0.5424 
+## F-statistic:   593 on 2 and 997 DF,  p-value: &lt; 2.2e-16
 ```
 ]
 
@@ -423,7 +423,7 @@ summary(lm(y ~ X1))$r.squared
 ```
 
 ```
-## [1] 0.215618
+## [1] 0.24178
 ```
 
 ```r
@@ -431,7 +431,7 @@ summary(lm(y ~ X2))$r.squared
 ```
 
 ```
-## [1] 0.2918213
+## [1] 0.3180308
 ```
 
 ```r
@@ -439,7 +439,7 @@ summary(lm(y ~ X1 + X2))$r.squared
 ```
 
 ```
-## [1] 0.4984785
+## [1] 0.5432745
 ```
 ]
 ---
@@ -457,9 +457,9 @@ anova(lm(y ~ X1), lm(y ~ X1 + X2))
 ## 
 ## Model 1: y ~ X1
 ## Model 2: y ~ X1 + X2
-##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
-## 1    998 1684.5                                  
-## 2    997 1077.0  1    607.45 562.31 &lt; 2.2e-16 ***
+##   Res.Df     RSS Df Sum of Sq      F    Pr(&gt;F)    
+## 1    998 1653.68                                  
+## 2    997  996.12  1    657.56 658.14 &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
@@ -617,16 +617,16 @@ noise_test
 ## # A tibble: 150 x 3
 ##    noise test_score participant
 ##    &lt;chr&gt;      &lt;dbl&gt;       &lt;int&gt;
-##  1 none        6.90           1
-##  2 none        8.04           2
-##  3 none        9.72           3
-##  4 none        8.11           4
-##  5 none        7.43           5
-##  6 none        8.25           6
-##  7 none        7.83           7
-##  8 none        6.21           8
-##  9 none        7.19           9
-## 10 none        6.30          10
+##  1 none        7.31           1
+##  2 none        8.85           2
+##  3 none        9.75           3
+##  4 none        7.47           4
+##  5 none        7.90           5
+##  6 none        8.09           6
+##  7 none        8.32           7
+##  8 none        6.62           8
+##  9 none        9.58           9
+## 10 none        8.22          10
 ## # ... with 140 more rows
 ```
 ]
@@ -652,7 +652,7 @@ The simplest model of this data is to use the grand mean across all conditions.
 ]
 
 .pull-right[
-The grand mean test score is 6.62, shown by the black line.
+The grand mean test score is 6.79, shown by the black line.
 
 The total variability in our data is the sum of the squared differences from the grand mean - the Total Sum of Squares, `\(SS_t\)`.
 
@@ -758,7 +758,7 @@ noise_aov
 ## 
 ## Response: test_score
 ##   Effect     df  MSE          F ges p.value
-## 1  noise 2, 147 0.99 119.35 *** .62  &lt;.0001
+## 1  noise 2, 147 0.87 117.12 *** .61  &lt;.0001
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
 ```
@@ -781,10 +781,10 @@ means_noise
 ```
 
 ```
-##  noise emmean   SE  df lower.CL upper.CL
-##  loud    4.95 0.14 147     4.67     5.22
-##  none    7.96 0.14 147     7.68     8.24
-##  quiet   6.95 0.14 147     6.67     7.22
+##  noise emmean    SE  df lower.CL upper.CL
+##  loud    5.31 0.132 147     5.05     5.57
+##  none    8.15 0.132 147     7.89     8.41
+##  quiet   6.92 0.132 147     6.66     7.18
 ## 
 ## Confidence level used: 0.95
 ```
@@ -803,9 +803,9 @@ pairs(means_noise)
 
 ```
 ##  contrast     estimate    SE  df t.ratio p.value
-##  loud - none     -3.01 0.198 147 -15.180 &lt;.0001 
-##  loud - quiet    -2.00 0.198 147 -10.080 &lt;.0001 
-##  none - quiet     1.01 0.198 147   5.100 &lt;.0001 
+##  loud - none     -2.84 0.186 147 -15.260 &lt;.0001 
+##  loud - quiet    -1.61 0.186 147  -8.647 &lt;.0001 
+##  none - quiet     1.23 0.186 147   6.612 &lt;.0001 
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates
 ```
@@ -871,7 +871,7 @@ leveneTest(test_score ~ noise, data = noise_test)
 ```
 ## Levene's Test for Homogeneity of Variance (center = median)
 ##        Df F value Pr(&gt;F)
-## group   2  1.6969 0.1868
+## group   2   1.106 0.3336
 ##       147
 ```
 
@@ -928,19 +928,19 @@ summary(lm(test_score ~ noise, data = noise_test))
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -2.63759 -0.69320 -0.01604  0.61558  2.25053 
+## -2.29458 -0.65862 -0.06921  0.71834  2.39006 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   4.9458     0.1404   35.24   &lt;2e-16 ***
-## noisenone     3.0131     0.1985   15.18   &lt;2e-16 ***
-## noisequiet    2.0008     0.1985   10.08   &lt;2e-16 ***
+## (Intercept)   5.3088     0.1317  40.318  &lt; 2e-16 ***
+## noisenone     2.8416     0.1862  15.260  &lt; 2e-16 ***
+## noisequiet    1.6103     0.1862   8.647 8.34e-15 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.9925 on 147 degrees of freedom
-## Multiple R-squared:  0.6189,	Adjusted R-squared:  0.6137 
-## F-statistic: 119.3 on 2 and 147 DF,  p-value: &lt; 2.2e-16
+## Residual standard error: 0.9311 on 147 degrees of freedom
+## Multiple R-squared:  0.6144,	Adjusted R-squared:  0.6092 
+## F-statistic: 117.1 on 2 and 147 DF,  p-value: &lt; 2.2e-16
 ```
 
 ---
@@ -1008,13 +1008,6 @@ coef(lm(FoC ~sex, data = crime))
 In this case, the *female* group is treated as the zero or *reference* group. The *male* group is specified as the one or *dummy/treatment* group.
 
 Remember, regression coefficients are typically the change in the response variable for a *one unit* increase in the predictor.
-
-
----
-class: title-slide-final, middle, inverse
-background-image: url('images/University of Lincoln_logo_General White Landscape.png')
-background-size: 500px
-background-position: 50% 10%
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -1063,7 +1056,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {

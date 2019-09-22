@@ -784,8 +784,3 @@ In this case, the *female* group is treated as the zero or *reference* group. Th
 Remember, regression coefficients are typically the change in the response variable for a *one unit* increase in the predictor.
 
 
----
-class: title-slide-final, middle, inverse
-background-image: url('images/University of Lincoln_logo_General White Landscape.png')
-background-size: 500px
-background-position: 50% 10%
