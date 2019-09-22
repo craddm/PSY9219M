@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
     <title>PSY9219M - Research Methods and Skills</title>
-    <meta charset="utf-8">
-    <meta name="author" content="Dr Matt Craddock" />
+    <meta charset="utf-8" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
     <link rel="stylesheet" href="css\my-theme.css" type="text/css" />
@@ -13,29 +12,29 @@
 class: center, middle, inverse, title-slide
 
 # PSY9219M - Research Methods and Skills
-### Dr Matt Craddock
-### 25/09/2018
+### 24/09/2019
 
 ---
 
 
 
-# Who am I?
+# Who are we?
 
 .pull-left[
-![](images/01/itme.jpg)
+
+
+| Dr Matt Craddock |
+|------------------------------|
+| ![](images/01/matt.jpg) |
+|Sarah Swift Building Room 2226|
+|mcraddock@lincoln.ac.uk       |
 ]
 .pull-right[
-### Dr Matt Craddock
-- Research background in cognitive neuroscience
-    - EEG, fMRI, non-invasive brain stimulation
-- Programming in R, Matlab, Python
-- Past experience with SPSS, SigmaPlot, Excel
-
-|Sarah Swift Building Room 2226|
+| Dr Tochukwu Onwuegbusi |
 |------------------------------|
-|mcraddock@lincoln.ac.uk       |
-
+| ![](images/01/tochs.jpg) |
+|Sarah Swift Building Room 2211|
+|tonwuegbusi@lincoln.ac.uk       |
 ]
 
 ---
@@ -134,13 +133,9 @@ class: inverse, center, middle
 # But WHY?
 
 ---
-# What can you do?
-.pull-left[
-![:scale 100%](images/01/whatyoucando_collage.png)
-]
-.pull-right[
+# What can you do with R?
 
-]
+.center[![:scale 50%](images/01/whatyoucando_collage.png)]
 
 ---
 background-image: url(images/01/Rcompanies.png)
@@ -150,6 +145,19 @@ background-size: contain
 background-image: url(images/01/spss_usage.png)
 
 #Still not convinced?
+
+---
+class: center, middle, inverse
+# Replicability and reproducibility 
+
+---
+background-image: url(../images/01/headlines-repro.png)
+
+---
+background-image: url(../images/01/F1.large.jpg)
+background-size: contain
+
+[Open Science Collaboration, 2015](dx.doi.org/10.1126/science.aac4716)
 
 ---
 
@@ -704,6 +712,19 @@ There are copies of both these books in the library.
 R for Data Science is available freely online at http://r4ds.had.co.nz/
 
 ---
+background-image:url(images/01/hopr-cover.png)
+background-size: 25%
+background-position: 85%, 25%
+# An additional recommendation...
+
+## Hands-on Programming with R 
+
+Basic R programming book, JUST MADE AVAILABLE ONLINE FOR FREE!
+
+https://rstudio-education.github.io/hopr/index.html
+
+
+---
 background-image: url(images/01/Datacamp_.png)
 background-size: contain
 class: inverse
@@ -717,7 +738,7 @@ DataCamp provides a huge number of practical exercises across many different lan
 # Get signed up for DataCamp!
 
 .large[
-# [https://tinyurl.com/DatacampSignup](https://tinyurl.com/DatacampSignup)
+# [https://tinyurl.com/DatacampLincoln](https://tinyurl.com/DatacampLincoln)
 ]
 
 ---
@@ -736,20 +757,6 @@ class: title-slide-final, middle, inverse
 background-image: url('images/University of Lincoln_logo_General White Landscape.png')
 background-size: 500px
 background-position: 50% 10%
-
-
----
-
-# Scenario C
-.large[
-You've collected data from 100 participants using an online questionnaire with 20 questions. Some responses are free text (i.e. they can write whatever they like). Some responses use a Likert scale. For those responses, you also have a set of standard values that represent population averages.
-
-- What kind of statistical analyses are appropriate for these data?
-
-- How do you get the data into a format you can analyse it?
-
-- How do you combine it with and compare it against the data from the broader population?
-]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -798,7 +805,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {

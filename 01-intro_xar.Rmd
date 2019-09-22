@@ -1,7 +1,6 @@
 ---
 title: "PSY9219M - Research Methods and Skills"
-author: "Dr Matt Craddock"
-date: "25/09/2018"
+date: "24/09/2019"
 output:
   xaringan::moon_reader:
     css: ["default", "default-fonts", "css/my-theme.css"]
@@ -17,22 +16,23 @@ output:
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 ```
-# Who am I?
+# Who are we?
 
 .pull-left[
-![](images/01/itme.jpg)
+
+
+| Dr Matt Craddock |
+|------------------------------|
+| ![](images/01/matt.jpg) |
+|Sarah Swift Building Room 2226|
+|mcraddock@lincoln.ac.uk       |
 ]
 .pull-right[
-### Dr Matt Craddock
-- Research background in cognitive neuroscience
-    - EEG, fMRI, non-invasive brain stimulation
-- Programming in R, Matlab, Python
-- Past experience with SPSS, SigmaPlot, Excel
-
-|Sarah Swift Building Room 2226|
+| Dr Tochukwu Onwuegbusi |
 |------------------------------|
-|mcraddock@lincoln.ac.uk       |
-
+| ![](images/01/tochs.jpg) |
+|Sarah Swift Building Room 2211|
+|tonwuegbusi@lincoln.ac.uk       |
 ]
 
 ---
@@ -131,13 +131,9 @@ class: inverse, center, middle
 # But WHY?
 
 ---
-# What can you do?
-.pull-left[
-![:scale 100%](images/01/whatyoucando_collage.png)
-]
-.pull-right[
+# What can you do with R?
 
-]
+.center[![:scale 50%](images/01/whatyoucando_collage.png)]
 
 ---
 background-image: url(images/01/Rcompanies.png)
@@ -147,6 +143,19 @@ background-size: contain
 background-image: url(images/01/spss_usage.png)
 
 #Still not convinced?
+
+---
+class: center, middle, inverse
+# Replicability and reproducibility 
+
+---
+background-image: url(../images/01/headlines-repro.png)
+
+---
+background-image: url(../images/01/F1.large.jpg)
+background-size: contain
+
+[Open Science Collaboration, 2015](dx.doi.org/10.1126/science.aac4716)
 
 ---
 
@@ -593,6 +602,19 @@ There are copies of both these books in the library.
 R for Data Science is available freely online at http://r4ds.had.co.nz/
 
 ---
+background-image:url(images/01/hopr-cover.png)
+background-size: 25%
+background-position: 85%, 25%
+# An additional recommendation...
+
+## Hands-on Programming with R 
+
+Basic R programming book, JUST MADE AVAILABLE ONLINE FOR FREE!
+
+https://rstudio-education.github.io/hopr/index.html
+
+
+---
 background-image: url(images/01/Datacamp_.png)
 background-size: contain
 class: inverse
@@ -606,7 +628,7 @@ DataCamp provides a huge number of practical exercises across many different lan
 # Get signed up for DataCamp!
 
 .large[
-# [https://tinyurl.com/DatacampSignup](https://tinyurl.com/DatacampSignup)
+# [https://tinyurl.com/DatacampLincoln](https://tinyurl.com/DatacampLincoln)
 ]
 
 ---
@@ -626,16 +648,3 @@ background-image: url('images/University of Lincoln_logo_General White Landscape
 background-size: 500px
 background-position: 50% 10%
 
-
----
-
-# Scenario C
-.large[
-You've collected data from 100 participants using an online questionnaire with 20 questions. Some responses are free text (i.e. they can write whatever they like). Some responses use a Likert scale. For those responses, you also have a set of standard values that represent population averages.
-
-- What kind of statistical analyses are appropriate for these data?
-
-- How do you get the data into a format you can analyse it?
-
-- How do you combine it with and compare it against the data from the broader population?
-]
