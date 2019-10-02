@@ -55,68 +55,6 @@ For anyone that hasn't done this already, join the PSY9219M workspace on RStudio
 # Link removed from the public version :)
 ]
 
----
-class: middle, center, inverse
-# Importing your data
-
----
-# Different types of file
-
-Data comes in many different shapes, sizes, and formats.
-
-The most common file formats you'll deal with are either Excel files or text files, but you may also find dealing with SPSS files useful.
-
-Fortunately, R has several functions and packages for importing data!
-
-|File formats| File extension| Functions| Package|
-|-|-|-|-|
-|SPSS  | .sav| **read_sav()**| library(haven)|
-|Excel | .xls, .xlsx|**read_excel()**|library(readxl)|
-|Text  | .csv, .txt, .* |**read_csv()**, **read_delim()**|library(readr)|
-
-
----
-# Importing data into R
-
-
-.pull-left[
-## Comma-separated values
-![:scale 90%](images/05/foc_csv.png)
-]
-.pull-right[
-## Excel spreadsheets
-![:scale 90%](images/05/excel_style.png)
-]
-
----
-background-image: url(images/05/import-data-button.png)
-background-size: contain
-class: inverse
-
----
-background-image: url(images/05/import-text-dialog.png)
-background-size: contain
-class: inverse
-
----
-background-image: url(images/05/import-text-browse.png)
-background-size: contain
-class: inverse
-
----
-background-image: url(images/05/import-text-url.png)
-background-size: contain
-class: inverse
-
----
-background-image: url(images/05/import-text-code-prev.png)
-background-size: contain
-class: inverse
-
----
-background-image: url(images/05/import-foc.png)
-background-size: contain
-class: inverse
 
 ---
 # Prison population 
@@ -164,34 +102,6 @@ prison_pop
 ```
 
 We need to do more work to make this file useable...
-
----
-# Fear of Crime Dataset
-
-[Ellis & Renouf (2018)](https://doi.org/10.1080/14789949.2017.1410562) - the relationship between fear of crime and various personality measures.
-
-Their data is openly available, stored as text in a *comma-separated-values* format (*.csv*).
-
-Once again, we can use the import button or some code (with **read_csv()**)to load this data in and automatically format it into a *tibble*.
-
-```{r foc-dataset, eval = FALSE}
-library(readr)
-FearofCrime <- read_csv("data/FearofCrime.CSV")
-```
-
-See also [Ellis & Merdian, 2015](https://doi.org/10.3389/fpsyg.2015.01782), Frontiers in Psychology
----
-# Fear of Crime Dataset
-
-Ellis & Renouf (2018) collected data online using Qualtrics.
-
-The file contains one column for each question that the participants answered, for a total of 169(!) columns.
-
-Each row is a single participant's answers, and their demographic information.
-
-```{r}
-FearofCrime
-```
 
 ---
 background-image: url(images/05/dplyr-logo.png)
@@ -605,18 +515,6 @@ For practice, use DataCamp's "Data manipulation in R with dplyr", and the "Work 
 Discovering Statistics using R (Field et al.)
   - Chapter 9, Comparing two means
   - Chapter 5, Exploring assumptions (additional)
-
----
-background-image:url(images/05/hopr-cover.png)
-background-size: 25%
-background-position: 85%, 25%
-# An additional recommendation...
-
-## Hands-on Programming with R 
-
-Basic R programming book, JUST MADE AVAILABLE ONLINE FOR FREE!
-
-https://rstudio-education.github.io/hopr/index.html
 
 ---
 class: title-slide-final, middle, inverse
