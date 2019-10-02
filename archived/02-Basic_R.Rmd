@@ -132,45 +132,6 @@ Q2: *How would you do that if you used R?*
 
 ---
 class: inverse, center, middle
-# Creating R Scripts
-
----
-background-image: url(images/02/cloud_blank.png)
-background-size: contain
-class: inverse
-
----
-background-image: url(images/02/cloud-create-script.png)
-background-size: contain
-class: inverse
-
----
-background-image: url(images/02/cloud-script-window.png)
-background-size: contain
-class: inverse
-
----
-background-image: url(images/02/cloud-examp-script.png)
-background-size: contain
-class: inverse
-
----
-background-image: url(images/02/cloud-script-run.png)
-background-size: contain
-class: inverse
-
----
-background-image: url(images/02/cloud-script-source.png)
-background-size: contain
-class: inverse
-
----
-background-image: url(images/02/cloud-sourced-script.png)
-background-size: contain
-class: inverse
-
----
-class: inverse, center, middle
 # R Markdown
 
 ---
@@ -235,6 +196,66 @@ background-image: url(images/02/cloud-rmd-html-file.png)
 background-size: contain
 class: inverse
 
+---
+class: middle, center, inverse
+# Importing your data
+
+---
+# Different types of file
+
+Data comes in many different shapes, sizes, and formats.
+
+The most common file formats you'll deal with are either Excel files or text files, but you may also find dealing with SPSS files useful.
+
+Fortunately, R has several functions and packages for importing data!
+
+|File formats| File extension| Functions| Package|
+|-|-|-|-|
+|SPSS  | .sav| **read_sav()**| library(haven)|
+|Excel | .xls, .xlsx|**read_excel()**|library(readxl)|
+|Text  | .csv, .txt, .* |**read_csv()**, **read_delim()**|library(readr)|
+
+---
+# Importing data into R
+
+.pull-left[
+## Comma-separated values
+![:scale 90%](images/05/foc_csv.png)
+]
+.pull-right[
+## Excel spreadsheets
+![:scale 90%](images/05/excel_style.png)
+]
+
+---
+background-image: url(images/05/import-data-button.png)
+background-size: contain
+class: inverse
+
+---
+background-image: url(images/05/import-text-dialog.png)
+background-size: contain
+class: inverse
+
+---
+background-image: url(images/05/import-text-browse.png)
+background-size: contain
+class: inverse
+
+---
+background-image: url(images/05/import-text-url.png)
+background-size: contain
+class: inverse
+
+---
+background-image: url(images/05/import-text-code-prev.png)
+background-size: contain
+class: inverse
+
+---
+background-image: url(images/05/import-foc.png)
+background-size: contain
+class: inverse
 
 ---
 class: inverse, center, middle
