@@ -6,11 +6,11 @@ Class consist of two-hour sessions which are a mixture of lectures and practical
 
 [Intro to R](01-intro_xar.html)
 
-[Basic R](02-Basic_R.html)
+[Basic R](Week-2-Basic_R.html)
 
-[Structuring data](03-More-on-Data.html)
+[Structuring data](Week-3---More-on-Data.html)
 
-[Exploring data visually](04-plotting.html)
+[Exploring data visually](Week-4---Exploring-data-graphically.html)
 
 
 ---
