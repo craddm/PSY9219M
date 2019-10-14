@@ -628,7 +628,7 @@ DataCamp provides a huge number of practical exercises across many different lan
 # Get signed up for DataCamp!
 
 .large[
-# [https://tinyurl.com/DatacampLincoln](https://tinyurl.com/DatacampLincoln)
+# [https://bit.ly/DatacampLincoln](https://bit.ly/DatacampLincoln)
 ]
 
 ---

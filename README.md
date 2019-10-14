@@ -4,14 +4,13 @@ Course materials for PSY9219M, Basic Research Methods and Skills, for the Univer
 Class consist of two-hour sessions which are a mixture of lectures and practical exercises. Exercises are performed on RStudio.cloud, with a prepared RStudio project distributed on the cloud via a private workspace, where students can make their own individual copies.
 
 
-[Intro to R](01-intro_xar.html)
+[Week 1 - Intro to R](01-intro_xar.html)
 
-[Basic R](Week-2-Basic_R.html)
+[Week 2 - Basic R](Week-2-Basic_R.html)
 
-[Structuring data](Week-3---More-on-Data.html)
+[Week 3 - Structuring data](Week-3---More-on-Data.html)
 
-[Exploring data visually](Week-4---Exploring-data-graphically.html)
-
+[Week 4 - Visualizing data](Week-4---Exploring-data-graphically.html)
 
 ---
 [Archived slides from previous years](archived/1819/readme.html)
