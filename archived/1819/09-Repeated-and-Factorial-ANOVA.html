@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Repeated measures and factorial ANOVA</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr Matt Craddock" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css\my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Repeated measures and factorial ANOVA
+## PSY9219M - Research Methods and Skills
+### Dr Matt Craddock
+### 27/11/2018
+
+---
+
+
+
+
+# Multiple linear regression
+
+.pull-left[
+Multiple regression is what we need with multiple predictors.
+
+```r
+a &lt;- 2    # Our intercept term
+b1 &lt;- 0.65  # Our first regression coefficient
+X1 &lt;- rnorm(1000, 6, 1) # Our first predictor 
+b2 &lt;- -0.8 # Our second regression coefficient
+X2 &lt;- rnorm(1000, 3, 1) # Our second predictor
+err &lt;- rnorm(1000, 0, 1) # Our error term
+y &lt;- a + b1 * X1 + b2 * X2 + err # Our response variable
+```
+]
+.pull-right[
+A simple regression has one predictor...
+
+```r
+lm(y ~ X1)
+```
+
+and adding predictors is easy - we use the **+** symbol!
+
+```r
+lm(y ~ X1 + X2)
+```
+
+
+]
+
+---
+# Comparing three or more means with ANOVA
+
+The *t.test()* can only handle two groups. 
+
+When we have three or more groups, we need to use a One-Way Analysis of Variance (ANOVA).
+
+![](09-Repeated-and-Factorial-ANOVA_files/figure-html/hypothetical-norms-1.png)&lt;!-- --&gt;
+
+---
+# Mean squared error and the F-ratio
+
+Finally, we divide our sums of squares - `\(SS_m\)` and `\(SS_r\)` by `\(df_m\)` and `\(df_r\)` respectively, giving us the mean squared error of the model - `\(MS_m\)` - and mean squared error of the residuals - `\(MS_r\)`.
+
+`$$MS_m = \frac{SS_m}{df_m}$$`
+
+`$$MS_r = \frac{SS_r}{df_r}$$`
+
+The ratio of these two quantities is the *F-ratio*.
+
+`$$F = \frac{MS_m}{MS_r}$$`
+
+In English, the F-ratio is the ratio of the variability explained by the model to variability unexplained by the model. So, higher is better.
+
+---
+class: inverse, middle, center
+# Comparing multiple means with dependent data
+
+---
+# Within-subjects ANOVA
+
+When the assumption of *independence* is violated - i.e. participants contribute more than one data point, and contribute to more than one design *cell* - we need to use a *within-subjects* or *repeated-measures* ANOVA.
+
+Examples might include heart rate before, during, and after exercise.
+
+# A worked example
+Our researcher from last week wanted to examine the effect of noisy environments on test performance. She recruited 150 participants and splits them into three groups who took the test with no noise, reasonably quiet noise, or loud noise.
+
+One problem here is the possibility that participants in each group just had different levels of ability. To get round this, she decides to get each participant to sit three tests, each under different levels of noise. Thus, any differences attributed to  noise can't be due to test-taking ability.
+
+
+---
+# Within-subjects ANOVA
+
+.pull-left[
+Last time we simulated the data like this:
+
+```r
+noise_test &lt;- 
+  gather(tibble(none = rnorm(50, 7.5, 1.5),
+                quiet = rnorm(50, 6.5, 1.5),
+                loud = rnorm(50, 5, 1.5)),
+         noise, test_score) %&gt;%
+  mutate(participant = 1:150)
+```
+
+One row per observation, which meant one row per participant.
+]
+.pull-right[
+
+```r
+head(noise_test)
+```
+
+```
+## # A tibble: 6 x 3
+##   noise test_score participant
+##   &lt;chr&gt;      &lt;dbl&gt;       &lt;int&gt;
+## 1 none        9.27           1
+## 2 none        7.33           2
+## 3 none        8.38           3
+## 4 none        6.08           4
+## 5 none        7.18           5
+## 6 none        6.32           6
+```
+]
+
+---
+# Within-subjects ANOVA
+
+.pull-left[
+But this time, it's the same participants in each condition. We need to change the participant identifier to reflect that:
+
+```r
+noise_test_within &lt;- 
+  gather(tibble(none = rnorm(50, 7.5, 1.5),
+                quiet = rnorm(50, 6.5, 1.5),
+                loud = rnorm(50, 5, 1.5)),
+         noise, test_score) %&gt;%
+  mutate(participant = rep(1:50, 3))
+```
+There's still one row per observation, but now there are three rows per participant.
+]
+.pull-right[
+
+```r
+noise_test_within %&gt;% arrange(participant)
+```
+
+```
+## # A tibble: 150 x 3
+##    noise test_score participant
+##    &lt;chr&gt;      &lt;dbl&gt;       &lt;int&gt;
+##  1 none        6.51           1
+##  2 quiet       5.75           1
+##  3 loud        5.67           1
+##  4 none        6.82           2
+##  5 quiet       4.81           2
+##  6 loud        4.48           2
+##  7 none        9.23           3
+##  8 quiet       3.84           3
+##  9 loud        5.28           3
+## 10 none        6.36           4
+## # ... with 140 more rows
+```
+]
+
+---
+# The mean as a model (again)
+
+The mean as a basic model still counts here. This time we also need to take account of the fact that each person contributes multiple datapoints.
+
+But we still start with the same model using the grand mean.
+
+.pull-left[
+![](09-Repeated-and-Factorial-ANOVA_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+The grand mean test score is 6.24, shown by the black line.
+
+The total variability in our data is the sum of the squared differences from the grand mean - the Total Sum of Squares, `\(SS_t\)`.
+]
+
+---
+# The group means as a model
+
+Just as we did last time, we also calculate the Model sum of squares - `\(SS_m\)`.
+
+.pull-left[
+![](09-Repeated-and-Factorial-ANOVA_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+Our Model Sum of Squares - `\(SS_m\)` - is the sum of the squared differences of each group's mean from the *grand mean*.
+
+The group means are shown here using coloured lines.
+
+This is just the same as it is for a between-subjects ANOVA.
+
+But the next step is different!
+]
+
+---
+# Within-subject variability.
+
+Last time we calculated the Residual sum of squares - `\(SS_r\)` - the sum of the squared differences of each individual's score from each group's grand mean. We still need that, but we need to calculate it differently.
+
+But here, we have the same people in each group, and we're interested in how the scores vary *within each person*, not *within each group*.
+
+.pull-left[
+![](09-Repeated-and-Factorial-ANOVA_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+]
+.pull-right[
+We need the within-participant sum of squares - `\(SS_w\)`. This is the sum of squared differences of each participant's scores from their individual mean.
+
+Each participant's mean is marked using a triangle, while scores from individual conditions are marked with points (I only show 10 participants for clarity!).
+]
+---
+# The leftovers, the mean squares, and the F-ratio
+
+Finally, we can calculate the Residual sum of squares - `\(SS_r\)` by subtracting the model sum of squares - `\(SS_m\)` - from the within-subjects sum of squares - `\(SS_w\)`.
+
+We then calculate the Model Mean Square Error - `\(MS_m\)` - and Residual Mean Square Error - `\(MS_r\)` - the same way as last time, using the degrees of freedom - 
+
+`$$MS_m = \frac{SS_m}{df_m}$$`
+
+`$$MS_r = \frac{SS_r}{df_r}$$`
+
+And we calculate the *F-ratio* in the same way as last time.
+
+`$$F = \frac{MS_m}{MS_r}$$`
+
+---
+# Between- versus within-subject ANOVA
+
+.large[
+1.  The underlying computations are mostly the same, but differ in how they treat the variability
+
+2.  Within-subject designs use within-subject variability
+    - Within-subject variability is often much lower than between-subject variability
+    - People function as their own controls!
+
+3.  Since the variance within-subjects is generally lower than between-subjects, within-subject designs typically have more *statistical power* i.e. are more *sensitive*.
+
+4.  However, there is a risk of *order* or *practice* effects with within-subject designs.
+]
+
+---
+class: inverse, center, middle
+# How to run a one-way within-subjects ANOVA 
+
+---
+# Within-subjects ANOVA with **afex**
+
+Just like last week, we can use **aov_ez()** from the **afex** package.
+
+Instead of passing a parameter called *between*, we pass one called *within*.
+
+
+```r
+noise_within_aov &lt;- 
+  aov_ez(dv = "test_score",
+       id = "participant",
+       within = "noise",
+       data = noise_test_within)
+noise_within_aov
+```
+
+```
+## Anova Table (Type 3 tests)
+## 
+## Response: test_score
+##   Effect          df  MSE         F ges p.value
+## 1  noise 1.80, 88.25 2.69 43.88 *** .39  &lt;.0001
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
+## 
+## Sphericity correction method: GG
+```
+
+---
+# Within-subjects ANOVA
+
+We can follow up the significant effect in the same way as last time:
+
+```r
+emmeans(noise_within_aov, ~noise)
+```
+
+```
+##  noise emmean    SE  df lower.CL upper.CL
+##  none    8.02 0.212 145     7.60     8.44
+##  quiet   6.16 0.212 145     5.74     6.58
+##  loud    5.15 0.212 145     4.73     5.57
+## 
+## Warning: EMMs are biased unless design is perfectly balanced 
+## Confidence level used: 0.95
+```
+
+
+```r
+pairs(emmeans(noise_within_aov, ~noise))
+```
+
+```
+##  contrast     estimate    SE df t.ratio p.value
+##  none - quiet     1.86 0.311 98 5.988   &lt;.0001 
+##  none - loud      2.87 0.311 98 9.233   &lt;.0001 
+##  quiet - loud     1.01 0.311 98 3.245   0.0045 
+## 
+## P value adjustment: tukey method for comparing a family of 3 estimates
+```
+
+---
+# The sphericity assumption
+
+*Sphericity* is the equivalent to the homogeneity of variance assumption, but only applies when there are three or more levels of a repeated measures factor.
+
+Note down at the bottom here, the output says "Sphericity correction method: GG"
+
+GG stands for Greenhouse-Geisser.
+
+**afex** applies GG correction *by default*.
+
+
+```r
+noise_within_aov
+```
+
+```
+## Anova Table (Type 3 tests)
+## 
+## Response: test_score
+##   Effect          df  MSE         F ges p.value
+## 1  noise 1.80, 88.25 2.69 43.88 *** .39  &lt;.0001
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
+## 
+## Sphericity correction method: GG
+```
+
+---
+# The sphericity assumption
+
+
+```r
+summary(noise_within_aov)
+```
+
+```
+## 
+## Univariate Type III Repeated-Measures ANOVA Assuming Sphericity
+## 
+##             Sum Sq num Df Error SS den Df  F value    Pr(&gt;F)    
+## (Intercept) 6231.0      1   93.939     49 3250.166 &lt; 2.2e-16 ***
+## noise        212.5      2  237.259     98   43.882  2.46e-14 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## 
+## Mauchly Tests for Sphericity
+## 
+##       Test statistic  p-value
+## noise        0.88948 0.060151
+## 
+## 
+## Greenhouse-Geisser and Huynh-Feldt Corrections
+##  for Departure from Sphericity
+## 
+##        GG eps Pr(&gt;F[GG])    
+## noise 0.90048  3.836e-13 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+##          HF eps   Pr(&gt;F[HF])
+## noise 0.9327278 1.574468e-13
+```
+
+---
+# Reporting the results 
+
+
+```r
+noise_within_aov
+```
+
+```
+## Anova Table (Type 3 tests)
+## 
+## Response: test_score
+##   Effect          df  MSE         F ges p.value
+## 1  noise 1.80, 88.25 2.69 43.88 *** .39  &lt;.0001
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
+## 
+## Sphericity correction method: GG
+```
+
+"There was a significant effect of noise level on test scores, [F(1.80, 88.25) = 43.88, p &lt; .001]." Then report the results of any post-hoc tests.
+
+---
+class: inverse, middle, center
+# Comparing multiple means with multiple categorical predictors
+
+---
+# Factorial ANOVA
+
+Sometimes (in fact, often) we have more than one independent variable. For example, in the fear of crime dataset we have *sex* and *victim_crime* as categorical variables with two levels each.
+
+
+```r
+head(crime)
+```
+
+```
+## # A tibble: 6 x 15
+##   Participant sex     age victim_crime     H     E     X     A     C     O
+##   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 R_01TjXgC1~ male     55 yes            3.7   3     3.4   3.9   3.2   3.6
+## 2 R_0dN5YeUL~ fema~    20 no             2.5   3.1   2.5   2.4   2.2   3.1
+## 3 R_0DPiPYWh~ male     57 yes            2.6   3.1   3.3   3.1   4.3   2.8
+## 4 R_0f7bSsH6~ male     19 no             3.5   1.8   3.3   3.4   2.1   2.7
+## 5 R_0rov2RoS~ fema~    20 no             3.3   3.4   3.9   3.2   2.8   3.9
+## 6 R_0wioqGER~ fema~    20 no             2.6   2.6   3     2.6   2.9   3.4
+## # ... with 5 more variables: SA &lt;dbl&gt;, TA &lt;dbl&gt;, OHQ &lt;dbl&gt;, FoC &lt;dbl&gt;,
+## #   Foc2 &lt;dbl&gt;
+```
+
+---
+# Main effects and interactions 
+
+We can test the effects of multiple independent variables simultaneously using factorial ANOVA. These are called the *main effects*.
+
+But frequently, what we really want to know is whether the effects of one variable depend on the effects of another variable. These are *interactions*.
+
+
+```r
+head(crime)
+```
+
+```
+## # A tibble: 6 x 15
+##   Participant sex     age victim_crime     H     E     X     A     C     O
+##   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 R_01TjXgC1~ male     55 yes            3.7   3     3.4   3.9   3.2   3.6
+## 2 R_0dN5YeUL~ fema~    20 no             2.5   3.1   2.5   2.4   2.2   3.1
+## 3 R_0DPiPYWh~ male     57 yes            2.6   3.1   3.3   3.1   4.3   2.8
+## 4 R_0f7bSsH6~ male     19 no             3.5   1.8   3.3   3.4   2.1   2.7
+## 5 R_0rov2RoS~ fema~    20 no             3.3   3.4   3.9   3.2   2.8   3.9
+## 6 R_0wioqGER~ fema~    20 no             2.6   2.6   3     2.6   2.9   3.4
+## # ... with 5 more variables: SA &lt;dbl&gt;, TA &lt;dbl&gt;, OHQ &lt;dbl&gt;, FoC &lt;dbl&gt;,
+## #   Foc2 &lt;dbl&gt;
+```
+
+---
+# Back to our noise example
+
+.pull-left[
+Our researcher now wonders whether the level of noise matters more for tests that are hard compared to tests that are relatively easy.
+
+So she runs the study again, with the same three noise conditions, but now splits the participants into two more conditions. Half of the participants take an easy test, while the other half take a hard test.
+
+]
+
+.pull-right[
+
+```r
+noise_test &lt;- 
+  gather(tibble(none_hard = rnorm(40, 7, 1.5),
+                quiet_hard = rnorm(40, 5.5, 1.5),
+                loud_hard = rnorm(40, 5, 1.5),
+                none_easy = rnorm(40, 8.5, 1.5),
+                quiet_easy = rnorm(40, 8.5, 1.5),
+                loud_easy = rnorm(40, 8, 1.5)),
+         noise, test_score) %&gt;%
+  mutate(participant = 1:240)
+```
+]
+
+---
+# What design does the researcher have?
+
+.large[
+The resulting experiment has **two** independent, categorical variables, and thus two *factors*.
+
+The factor "test difficulty" two levels - "easy" and "hard".
+
+The factor "noise" has three levels - "none", "quiet", and "loud".
+
+Both of these factors are *between-subjects*, since there are different participants at each level of each factor.
+
+This is a Two-Way, `\(2 \times 3\)` between-subjects ANOVA.
+]
+
+
+---
+# The structure of the data
+
+In this simulated dataset, we have one column tagging which combination of the two factors each datapoint is from; a column with the dependent variable, "test_score", and a column with a participant identifier.
+
+
+```r
+head(noise_test)
+```
+
+```
+## # A tibble: 6 x 3
+##   noise     test_score participant
+##   &lt;chr&gt;          &lt;dbl&gt;       &lt;int&gt;
+## 1 none_hard      11.1            1
+## 2 none_hard       7.86           2
+## 3 none_hard       8.98           3
+## 4 none_hard       7.15           4
+## 5 none_hard       6.41           5
+## 6 none_hard       7.95           6
+```
+
+---
+# The structure of the data
+
+.pull-left[
+We need to have **one column per factor**.
+
+I use the **separate()** function to split "noise" into "noise" and "difficulty".
+
+Note that there's *one row per observation*, which in this case is the same as one row per participant.
+
+
+```r
+noise_test &lt;-
+  noise_test %&gt;%
+  separate(noise,
+           into = c("noise",
+                    "difficulty"),
+           sep = "_")
+```
+]
+
+.pull-right[
+
+```r
+head(noise_test)
+```
+
+```
+## # A tibble: 6 x 4
+##   noise difficulty test_score participant
+##   &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;       &lt;int&gt;
+## 1 none  hard            11.1            1
+## 2 none  hard             7.86           2
+## 3 none  hard             8.98           3
+## 4 none  hard             7.15           4
+## 5 none  hard             6.41           5
+## 6 none  hard             7.95           6
+```
+]
+
+---
+# A worked example
+
+.pull-left[
+As always, a good way to start is to **plot your data**.
+
+
+```r
+ggplot(noise_test,
+       aes(x = noise,
+           y = test_score,
+           shape = difficulty)) + 
+  stat_summary(fun.data = mean_cl_normal) +
+  theme_classic()
+```
+
+On this plot, it looks like there may have been an *interaction* between noise and test difficulty!
+
+]
+.pull-right[
+![](09-Repeated-and-Factorial-ANOVA_files/figure-html/gg-inter-1.png)
+]
+
+---
+# A worked example
+
+Before running an ANOVA, let's check the assumption of homogeneity of variance.
+
+As before, we use **leveneTest()** from the **car** package.
+
+
+```r
+leveneTest(test_score ~ noise * difficulty, data = noise_test)
+```
+
+```
+## Levene's Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(&gt;F)
+## group   5  0.6382 0.6708
+##       234
+```
+
+Note that since we have *two* factors, we need to do something a little different: we need to tell R there's an interaction using an asterisk -** * **- between the two.
+
+---
+# A worked example
+
+Now, let's run our two-way, `\(2 \times 3\)` ANOVA with **aov_ez()** from the **afex** package.
+
+Since both variables in this example are between-subjects, we just pass both column names to the *between* argument of **aov_ez()**.
+
+
+```r
+noise_aov &lt;- 
+  aov_ez(dv = "test_score",
+         between = c("noise",
+                     "difficulty"),
+         id = "participant",
+         data = noise_test)
+```
+
+```
+## Converting to factor: difficulty
+```
+
+```
+## Contrasts set to contr.sum for the following variables: noise, difficulty
+```
+
+---
+# A worked example
+
+Let's look at the results.
+
+```r
+noise_aov
+```
+
+```
+## Anova Table (Type 3 tests)
+## 
+## Response: test_score
+##             Effect     df  MSE          F ges p.value
+## 1            noise 2, 234 2.34    6.29 ** .05    .002
+## 2       difficulty 1, 234 2.34 185.84 *** .44  &lt;.0001
+## 3 noise:difficulty 2, 234 2.34    6.35 ** .05    .002
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
+```
+
+Everything is significant! Where should we start?
+
+---
+# A worked example
+
+.pull-left[
+
+Here's a similar plot to the one I produced earlier, but using **afex_plot()** instead of **ggplot()**.
+
+
+```r
+afex_plot(noise_aov,
+          x = "noise",
+          trace = "difficulty", 
+          error = "between") +
+  theme_classic()
+```
+
+It seems pretty obvious from this plot that there's an effect of noise when the test is hard, but not so much when the test is easy. This is an interaction effect.
+]
+.pull-right[
+![](09-Repeated-and-Factorial-ANOVA_files/figure-html/afx-plot-1.png)
+]
+
+---
+# Post-hoc tests
+
+We need to follow up a significant interaction to work out, statistically, what is driving the interaction.
+
+One way to do this is with post-hoc tests. With post-hoc tests, we compare every possible pair of means to each other using t-tests.
+
+First let's get all the means using **emmeans()**.
+
+
+```r
+all_means &lt;- emmeans(noise_aov,
+                     ~noise * difficulty)
+all_means
+```
+
+```
+##  noise difficulty emmean    SE  df lower.CL upper.CL
+##  none  easy         8.60 0.242 234     8.12     9.08
+##  quiet easy         8.61 0.242 234     8.14     9.09
+##  loud  easy         8.60 0.242 234     8.13     9.08
+##  none  hard         6.82 0.242 234     6.34     7.30
+##  quiet hard         5.80 0.242 234     5.33     6.28
+##  loud  hard         5.11 0.242 234     4.63     5.59
+## 
+## Confidence level used: 0.95
+```
+
+---
+# Post-hoc tests
+
+Then we use the **pairs()** function to test them all against each other.
+
+```r
+pairs(all_means)
+```
+
+```
+##  contrast                estimate    SE  df t.ratio p.value
+##  none,easy - quiet,easy  -0.01457 0.342 234 -0.043  1.0000 
+##  none,easy - loud,easy   -0.00299 0.342 234 -0.009  1.0000 
+##  none,easy - none,hard    1.77800 0.342 234  5.195  &lt;.0001 
+##  none,easy - quiet,hard   2.79740 0.342 234  8.174  &lt;.0001 
+##  none,easy - loud,hard    3.48806 0.342 234 10.192  &lt;.0001 
+##  quiet,easy - loud,easy   0.01159 0.342 234  0.034  1.0000 
+##  quiet,easy - none,hard   1.79257 0.342 234  5.238  &lt;.0001 
+##  quiet,easy - quiet,hard  2.81198 0.342 234  8.216  &lt;.0001 
+##  quiet,easy - loud,hard   3.50264 0.342 234 10.234  &lt;.0001 
+##  loud,easy - none,hard    1.78098 0.342 234  5.204  &lt;.0001 
+##  loud,easy - quiet,hard   2.80039 0.342 234  8.183  &lt;.0001 
+##  loud,easy - loud,hard    3.49105 0.342 234 10.201  &lt;.0001 
+##  none,hard - quiet,hard   1.01941 0.342 234  2.979  0.0373 
+##  none,hard - loud,hard    1.71006 0.342 234  4.997  &lt;.0001 
+##  quiet,hard - loud,hard   0.69066 0.342 234  2.018  0.3352 
+## 
+## P value adjustment: tukey method for comparing a family of 6 estimates
+```
+
+---
+# Post-hoc tests
+
+.large[
+1. Should only be used following a *significant* interaction.
+
+2. Leads to a lot of comparisons - N(N-1) / 2, where N is the number of means. So it's **extremely important** to correct for multiple comparisons!
+    - Numerous methods exist; fortunately, **emmeans()** and **pairs()** handle this for us using Tukey's Honestly Significant Difference (HSD). 
+
+3. Can be difficult to interpret, especially with more than two factors. If in doubt, *look at the plots*.
+]
+
+---
+# Simple effects
+
+An alternative way is with *simple effects*. We can effectively run separate analyses at different levels of one of the factors. Here I look at the means for each level of noise separately for the two levels of difficulty.
+
+
+```r
+emmeans(noise_aov,
+        "noise",
+        by = "difficulty")
+```
+
+```
+## difficulty = easy:
+##  noise emmean    SE  df lower.CL upper.CL
+##  none    8.60 0.242 234     8.12     9.08
+##  quiet   8.61 0.242 234     8.14     9.09
+##  loud    8.60 0.242 234     8.13     9.08
+## 
+## difficulty = hard:
+##  noise emmean    SE  df lower.CL upper.CL
+##  none    6.82 0.242 234     6.34     7.30
+##  quiet   5.80 0.242 234     5.33     6.28
+##  loud    5.11 0.242 234     4.63     5.59
+## 
+## Confidence level used: 0.95
+```
+
+---
+# Simple effects
+
+Now we run post-hoc tests separately within each level of difficulty.
+
+
+```r
+pairs(emmeans(noise_aov,
+        "noise",
+        by = "difficulty"))
+```
+
+```
+## difficulty = easy:
+##  contrast     estimate    SE  df t.ratio p.value
+##  none - quiet -0.01457 0.342 234 -0.043  0.9990 
+##  none - loud  -0.00299 0.342 234 -0.009  1.0000 
+##  quiet - loud  0.01159 0.342 234  0.034  0.9994 
+## 
+## difficulty = hard:
+##  contrast     estimate    SE  df t.ratio p.value
+##  none - quiet  1.01941 0.342 234  2.979  0.0089 
+##  none - loud   1.71006 0.342 234  4.997  &lt;.0001 
+##  quiet - loud  0.69065 0.342 234  2.018  0.1101 
+## 
+## P value adjustment: tukey method for comparing a family of 3 estimates
+```
+
+---
+# Simple effects
+.large[
+1.  Often easier to interpret (especially when there are more than two factors).
+
+2.  Fewer comparisons so less stringent correction for multiple comparison, and higher power to detect differences.
+
+3.  Not always obvious which factor to separate on. Sometimes it's easier to interpret one way than the other! Again, *use plots as a guide*.
+]
+
+---
+# What about the main effects?
+
+I skipped straight to the interaction earlier. Why?
+
+
+```r
+noise_aov
+```
+
+```
+## Anova Table (Type 3 tests)
+## 
+## Response: test_score
+##             Effect     df  MSE          F ges p.value
+## 1            noise 2, 234 2.34    6.29 ** .05    .002
+## 2       difficulty 1, 234 2.34 185.84 *** .44  &lt;.0001
+## 3 noise:difficulty 2, 234 2.34    6.35 ** .05    .002
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
+```
+
+There are significant main effects of *noise* and *difficulty*.
+
+
+
+---
+# The main effect of noise
+
+There's a significant main effect of noise. Let's look at the plot.
+
+
+```r
+afex_plot(noise_aov, ~noise) + theme_bw()
+```
+
+```
+## NOTE: Results may be misleading due to involvement in interactions
+```
+
+![](09-Repeated-and-Factorial-ANOVA_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+
+
+---
+# The main effect of noise
+
+As noise increases, test performance goes down.
+
+```r
+emmeans(noise_aov, ~noise)
+```
+
+```
+## NOTE: Results may be misleading due to involvement in interactions
+```
+
+```
+##  noise emmean    SE  df lower.CL upper.CL
+##  none    7.71 0.171 234     7.37     8.05
+##  quiet   7.21 0.171 234     6.87     7.55
+##  loud    6.86 0.171 234     6.52     7.19
+## 
+## Results are averaged over the levels of: difficulty 
+## Confidence level used: 0.95
+```
+
+---
+# The main effect of difficulty
+
+Let's look at the plot for difficulty.
+
+
+```r
+afex_plot(noise_aov, ~difficulty) + theme_bw()
+```
+
+```
+## NOTE: Results may be misleading due to involvement in interactions
+```
+
+![](09-Repeated-and-Factorial-ANOVA_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+
+---
+# The main effect of difficulty
+
+Test performance is much higher when the test is easy than when it's hard.
+
+
+```r
+emmeans(noise_aov, ~difficulty)
+```
+
+```
+## NOTE: Results may be misleading due to involvement in interactions
+```
+
+```
+##  difficulty emmean   SE  df lower.CL upper.CL
+##  easy         8.61 0.14 234     8.33     8.88
+##  hard         5.91 0.14 234     5.64     6.19
+## 
+## Results are averaged over the levels of: noise 
+## Confidence level used: 0.95
+```
+
+---
+# Are these effects meaningful?
+
+.pull-left[
+
+```r
+afex_plot(noise_aov,
+          ~noise,
+          trace = "difficulty") +
+  theme_bw()
+```
+
+There is clearly no significant effect of noise when the test is easy, so the main effect of noise is uninterpretable.
+
+But there is *always* an effect of test difficulty, so the main effect of test difficulty *is* interpretable.
+
+**Main effects are not always interpretable in the presence of an interaction!**
+]
+.pull-right[
+![](09-Repeated-and-Factorial-ANOVA_files/figure-html/inter-plot-again-1.png)
+]
+
+---
+class: inverse, middle, center
+# Mixed designs
+
+---
+# Mixed ANOVA
+
+.pull-left[
+Sometimes some of our variables are within-subjects and some are between subjects. 
+
+We can handle this situation using *mixed ANOVA*. 
+
+Suppose that different people were in the easy and hard test difficulty groups, but each one did repeated tests under no noise, quiet noise, and loud noise.
+]
+.pull-right[
+
+```r
+noise_test_mixed &lt;- 
+  gather(tibble(none_hard = rnorm(40, 7, 1.5),
+                quiet_hard = rnorm(40, 5.5, 1.5),
+                loud_hard = rnorm(40, 5, 1.5),
+                none_easy = rnorm(40, 8.5, 1.5),
+                quiet_easy = rnorm(40, 8.5, 1.5),
+                loud_easy = rnorm(40, 8, 1.5)),
+         noise, test_score) %&gt;%
+  mutate(participant = c(rep(1:40, 3), rep(41:80, 3)))
+```
+]
+
+---
+# The structure of the data
+
+
+
+.pull-left[
+Since each participant takes part in all three noise conditions, there are three rows per participant.
+
+```r
+noise_test_mixed %&gt;%
+  arrange(participant)
+```
+
+```
+## # A tibble: 240 x 4
+##    noise difficulty test_score participant
+##    &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;       &lt;int&gt;
+##  1 none  hard             5.59           1
+##  2 quiet hard             4.05           1
+##  3 loud  hard             4.48           1
+##  4 none  hard             8.06           2
+##  5 quiet hard             5.67           2
+##  6 loud  hard             3.77           2
+##  7 none  hard             5.11           3
+##  8 quiet hard             5.88           3
+##  9 loud  hard             3.35           3
+## 10 none  hard             5.31           4
+## # ... with 230 more rows
+```
+]
+.pull-right[
+But since difficulty is between-subjects, the participant ID numbers differ across easy and hard difficulties.
+
+```r
+noise_test_mixed %&gt;%
+  arrange(difficulty, participant)
+```
+
+```
+## # A tibble: 240 x 4
+##    noise difficulty test_score participant
+##    &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;       &lt;int&gt;
+##  1 none  easy             8.70          41
+##  2 quiet easy             8.78          41
+##  3 loud  easy             6.03          41
+##  4 none  easy             7.42          42
+##  5 quiet easy             7.33          42
+##  6 loud  easy             7.09          42
+##  7 none  easy             7.72          43
+##  8 quiet easy             7.90          43
+##  9 loud  easy             8.46          43
+## 10 none  easy             7.32          44
+## # ... with 230 more rows
+```
+]
+
+---
+# Mixed ANOVA with **afex**
+
+We just pass the between-subjects variable to the "between" argument, and the within-subjects variable to the "within" argument. Everything else works the same way! 
+
+```r
+aov_ez(dv = "test_score",
+       within = "noise",
+       between = "difficulty",
+       id = "participant",
+       data = noise_test_mixed)
+```
+
+```
+## Anova Table (Type 3 tests)
+## 
+## Response: test_score
+##             Effect           df  MSE          F ges p.value
+## 1       difficulty        1, 78 1.39 284.25 *** .50  &lt;.0001
+## 2            noise 1.97, 153.74 1.86  11.54 *** .10  &lt;.0001
+## 3 difficulty:noise 1.97, 153.74 1.86  10.90 *** .09  &lt;.0001
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
+## 
+## Sphericity correction method: GG
+```
+
+---
+class: inverse, middle, center
+# Reporting factorial ANOVA results
+
+---
+# Reporting factorial ANOVAs
+
+.large[
+Make sure that somewhere in your text is a description of which type of ANOVA you are running, and exactly what factors are involved. A couple of examples:
+
+1.  We conducted a two-way repeated measures ANOVA with the factors Noise (None, Quiet, or Loud) and Difficulty (Easy or Hard).
+
+2.  We conducted a `\(2 \times 3\)` mixed ANOVA. The between-subjects factor was Difficulty (Easy or Hard), while Noise was a repeated-measures factor (None, Quiet, or Loud)
+]
+
+---
+# Reporting factorial ANOVAs
+
+
+```
+## Anova Table (Type 3 tests)
+## 
+## Response: test_score
+##             Effect     df  MSE          F ges p.value
+## 1            noise 2, 234 2.34    6.29 ** .05    .002
+## 2       difficulty 1, 234 2.34 185.84 *** .44  &lt;.0001
+## 3 noise:difficulty 2, 234 2.34    6.35 ** .05    .002
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
+```
+
+There was a significant main effect of noise [F(2, 234) = 6.29, p = .002], with  better test performance when there was no noise (mean = 7.71) compared to when there was loud noise (mean = 6.86, p = .002). No other comparisons were significant (all p &gt; .05).
+
+---
+# Reporting factorial ANOVAs
+
+
+```
+## Anova Table (Type 3 tests)
+## 
+## Response: test_score
+##             Effect     df  MSE          F ges p.value
+## 1            noise 2, 234 2.34    6.29 ** .05    .002
+## 2       difficulty 1, 234 2.34 185.84 *** .44  &lt;.0001
+## 3 noise:difficulty 2, 234 2.34    6.35 ** .05    .002
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
+```
+
+There was also a significant main effect of Difficulty [F(1, 234) = 185.84, p &lt; .001], with better test performance when the test was easy (mean = 8.61) compared to when the test was hard (mean = 5.91, p &lt; .001).
+
+---
+# Reporting factorial ANOVAs
+
+
+```
+## Anova Table (Type 3 tests)
+## 
+## Response: test_score
+##             Effect     df  MSE          F ges p.value
+## 1            noise 2, 234 2.34    6.29 ** .05    .002
+## 2       difficulty 1, 234 2.34 185.84 *** .44  &lt;.0001
+## 3 noise:difficulty 2, 234 2.34    6.35 ** .05    .002
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
+```
+
+Finally, there was also a significant interaction between Noise and Difficulty [F(2, 234) = 6.35, p = .002], see Figure X. Simple main effects analysis, corrected for multiple comparisons using Tukey's HSD, found that in the Easy difficulty condition, there were no significant differences between any of the Noise conditions (all p &gt; .05). However, in the Hard condition, test performance was significantly better when there was no noise (mean = 6.82) compared to when there was either quiet (5.80; p = .009) or loud noise (5.11, p &lt; .001). Quiet and loud noise did not significantly differ (p = .1).
+
+---
+class: title-slide-final, middle, inverse
+background-image: url('images/University of Lincoln_logo_General White Landscape.png')
+background-size: 500px
+background-position: 50% 10%
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="js/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

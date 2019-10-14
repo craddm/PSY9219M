@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Multiple predictors and multiple means</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr Matt Craddock" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css\my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Multiple predictors and multiple means
+## PSY9219M - Research Methods and Skills
+### Dr Matt Craddock
+### 20/11/2018
+
+---
+
+
+
+
+# Different correlations
+
+![](08-Multi-Regression-ANOVA_files/figure-html/corr-dir-1.png)&lt;!-- --&gt;
+
+---
+# Correlation summary
+
+.large[
+Correlation coefficients are bound in a range from -1 to 1.
+
+Negative coefficients mean that as one variable increases, the other decreases.
+
+Positive coefficients mean that as one variable increases, the other also increases.
+]
+
+![](08-Multi-Regression-ANOVA_files/figure-html/corr-dir-again-1.png)&lt;!-- --&gt;
+
+---
+#Correlation, regression and prediction
+
+.pull-left[
+Correlation quantifies the *strength* and *direction* of an association between two continuous variables.
+
+But what if we want to *predict* the values of one variable from those of another?
+
+For example, as Emotionality increases, *how much* does Fear of Crime change?
+
+
+```r
+ggplot(crime, 
+       aes(x = E, y = FoC)) +
+  geom_point() +
+  stat_smooth(method = "lm", se = FALSE) +
+  theme_classic() +
+  labs(x = "Emotionality",
+       y = "Fear of crime")
+```
+]
+.pull-right[
+![](08-Multi-Regression-ANOVA_files/figure-html/basic-lm-1.png)
+]
+
+---
+# Simple linear regression
+
+.pull-left[
+![](08-Multi-Regression-ANOVA_files/figure-html/basic-lm-1.png)
+]
+.pull-right[
+The line added to this scatterplot is the *line of best fit*.
+
+A line like this can be described by two parameters - the *intercept* and the *slope*.
+
+The *intercept* is where the line crosses the *y-axis*.
+
+The *slope* is the *steepness* of the line.
+
+Given these parameters, we can predict the value of **y** - the dependent variable -  at each value of **x** - the independent, predictor variable - using the following formula:
+
+`\(y = a + bX\)`
+]
+
+---
+class: inverse, middle, center
+# Multiple linear regression
+
+---
+# More about regression equations
+
+.pull-left[
+As noted earlier, the basic linear regression equation is `\(y = a + bX\)`.
+
+We can use this to create a dataset with the specified relationship!
+
+
+```r
+a &lt;- 1    # Our intercept term
+b &lt;- 0.5  # Our regression coefficient
+X &lt;- rnorm(1000, 6, 1) # Our predictor - a normally distributed variable
+y &lt;- a + b * X  # Our response variable
+```
+]
+.pull-right[
+![](08-Multi-Regression-ANOVA_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+]
+
+---
+# More about regression equations
+
+.pull-left[
+If we fit a linear model using **lm()**, we get exactly our pre-specified intercept and coefficient out. The **coef()** function extracts the model coefficients.
+
+
+```r
+coef(lm(y ~ X))
+```
+
+```
+## (Intercept)           X 
+##         1.0         0.5
+```
+
+These are exactly what we specified above!
+]
+
+.pull-right[
+![](08-Multi-Regression-ANOVA_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+]
+---
+# More about regression equations
+
+.pull-left[
+Remember: the slope describes the steepness of the line.
+
+Remember that the intercept describes where the regression line crosses the y-axis **when the value of the predictor is zero**.
+
+Let's expand our plot out so that we can see the relevant region, and draw a line with *geom_abline()* using our regression coefficients.
+
+
+```r
+qplot(X, y) +
+  geom_abline(slope = 0.5, intercept = 1) +
+  lims(x = c(0, 9), y = c(1, 5))
+```
+]
+.pull-right[
+![](08-Multi-Regression-ANOVA_files/figure-html/reg-line-1.png)
+]
+---
+# More about regression equations
+
+.pull-left[
+However, this all looks a little too perfect. Real data is rarely so accurately measured!
+
+We missed an additional regression term - the *error* term, or `\(\varepsilon\)` - which we should add to the end of our basic linear regression equation:
+
+`\(y = a + bX + \varepsilon\)`.
+
+
+```r
+a &lt;- 1    # Our intercept term
+b &lt;- 0.5  # Our regression coefficient
+X &lt;- rnorm(1000, 6, 1) # Our predictor - a normally distributed variable
+y &lt;- a + b * X  + rnorm(1000, 0, 1) # Our response variable
+qplot(X, y)
+```
+
+]
+
+.pull-right[
+![](08-Multi-Regression-ANOVA_files/figure-html/x-noise-1.png)
+]
+
+---
+# More about regression equations
+
+.pull-left[
+
+If we extract the coefficients for a model fit to this data, with the added noise...
+
+
+```r
+coef(lm(y ~ X))
+```
+
+```
+## (Intercept)           X 
+##   0.7493916   0.5382352
+```
+
+... we still get more or less the same coefficients as we specified earlier, but now not quite so precise.
+
+This is a much more realistic situation!
+
+]
+
+.pull-right[
+![](08-Multi-Regression-ANOVA_files/figure-html/x-noise-1.png)
+]
+
+---
+class: inverse, middle, center
+# Multiple linear regression
+
+---
+# Simple linear regression
+
+Let's take a quick look at the summary for the linear regression of our simulated data. 
+
+
+```
+## 
+## Call:
+## lm(formula = y ~ X)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.1769 -0.6839 -0.0038  0.7095  3.3668 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.74939    0.19154   3.912 9.76e-05 ***
+## X            0.53824    0.03113  17.288  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9836 on 998 degrees of freedom
+## Multiple R-squared:  0.2305,	Adjusted R-squared:  0.2297 
+## F-statistic: 298.9 on 1 and 998 DF,  p-value: &lt; 2.2e-16
+```
+
+---
+# Simple linear regression
+
+The R^2 measure of model fit is 0.23, which leaves 77% of the variance  unexplained.
+
+Simple linear regression involves prediction of one variable from another. Sometimes that's all you're interested in!
+
+Most of the time, however, that still leaves a lot of variability unexplained.
+
+![](08-Multi-Regression-ANOVA_files/figure-html/resid-plot-1.png)&lt;!-- --&gt;
+
+---
+# Expanding our equation
+
+.pull-left[
+Multiple linear regression deals with multiple predictors.
+
+The *bX* in our regression equation - `\(y = a + bX + \varepsilon\)` - can be expanded out. For example, with two predictors, our equation would be:
+
+`\(y = a + b1 \times X1 + b2 \times X2 + \varepsilon\)`
+
+
+```r
+a &lt;- 2    # Our intercept term
+b1 &lt;- 0.65  # Our first regression coefficient
+X1 &lt;- rnorm(1000, 6, 1) # Our first predictor 
+b2 &lt;- -0.8 # Our second regression coefficient
+X2 &lt;- rnorm(1000, 3, 1) # Our second predictor
+err &lt;- rnorm(1000, 0, 1) # Our error term
+y &lt;- a + b1 * X1 +  b2 * X2 + err # Our response variable
+```
+]
+
+.pull-right[
+![](08-Multi-Regression-ANOVA_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+]
+
+---
+# Multiple linear regression
+
+.pull-left[
+We can begin regressing just one predictor at a time.
+
+```r
+a &lt;- 2    # Our intercept term
+b1 &lt;- 0.65  # Our first regression coefficient
+X1 &lt;- rnorm(1000, 6, 1) # Our first predictor 
+b2 &lt;- -0.8 # Our second regression coefficient
+X2 &lt;- rnorm(1000, 3, 1) # Our second predictor
+err &lt;- rnorm(1000, 0, 1) # Our error term
+y &lt;- a + b1 * X1 +  b2 * X2 + err # Our response variable
+```
+]
+.pull-right[
+
+```r
+coef(lm(y ~ X1))
+```
+
+```
+## (Intercept)          X1 
+##  -0.6304984   0.6915852
+```
+
+
+```r
+coef(lm(y ~ X2))
+```
+
+```
+## (Intercept)          X2 
+##   6.0211354  -0.8359067
+```
+]
+
+---
+# Multiple linear regression
+
+.pull-left[
+Each of these simple models predicts a reasonable amount of the variance in *y*.
+
+
+```r
+a &lt;- 2    # Our intercept term
+b1 &lt;- 0.65  # Our first regression coefficient
+X1 &lt;- rnorm(1000, 6, 1) # Our first predictor 
+b2 &lt;- -0.8 # Our second regression coefficient
+X2 &lt;- rnorm(1000, 3, 1) # Our second predictor
+err &lt;- rnorm(1000, 0, 1) # Our error term
+y &lt;- a + b1 * X1 + b2 * X2 + err # Our response variable
+```
+]
+
+.pull-right[
+
+```r
+summary(lm(y ~ X1))$r.squared
+```
+
+```
+## [1] 0.24178
+```
+
+```r
+summary(lm(y ~ X2))$r.squared
+```
+
+```
+## [1] 0.3180308
+```
+]
+
+---
+# Multiple linear regression
+
+.pull-left[
+Can we do better with a model that includes both predictors?
+
+```r
+a &lt;- 2    # Our intercept term
+b1 &lt;- 0.65  # Our first regression coefficient
+X1 &lt;- rnorm(1000, 6, 1) # Our first predictor 
+b2 &lt;- -0.8 # Our second regression coefficient
+X2 &lt;- rnorm(1000, 3, 1) # Our second predictor
+err &lt;- rnorm(1000, 0, 1) # Our error term
+y &lt;- a + b1 * X1 + b2 * X2 + err # Our response variable
+```
+]
+.pull-right[
+Adding predictors is easy - we use the **+** symbol!
+
+```r
+lm(y ~ X1 + X2)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ X1 + X2)
+## 
+## Coefficients:
+## (Intercept)           X1           X2  
+##      1.9455       0.6678      -0.8143
+```
+]
+
+---
+# Multiple linear regression
+
+.pull-left[
+
+```r
+summary(lm(y ~ X1 + X2))
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ X1 + X2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.6770 -0.6563  0.0016  0.6566  3.1273 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.94554    0.20921   9.299   &lt;2e-16 ***
+## X1           0.66783    0.03012  22.174   &lt;2e-16 ***
+## X2          -0.81427    0.03174 -25.654   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9996 on 997 degrees of freedom
+## Multiple R-squared:  0.5433,	Adjusted R-squared:  0.5424 
+## F-statistic:   593 on 2 and 997 DF,  p-value: &lt; 2.2e-16
+```
+]
+
+---
+# Multiple linear regression
+
+So does our multiple linear model explain more of the variance than either of our simple linear models?
+.pull-left[
+
+
+```r
+summary(lm(y ~ X1))$r.squared
+```
+
+```
+## [1] 0.24178
+```
+
+```r
+summary(lm(y ~ X2))$r.squared
+```
+
+```
+## [1] 0.3180308
+```
+
+```r
+summary(lm(y ~ X1 + X2))$r.squared
+```
+
+```
+## [1] 0.5432745
+```
+]
+---
+# Comparing regression models using ANOVA
+
+We can explicitly compare models using the **anova()** function.
+
+
+```r
+anova(lm(y ~ X1), lm(y ~ X1 + X2))
+```
+
+```
+## Analysis of Variance Table
+## 
+## Model 1: y ~ X1
+## Model 2: y ~ X1 + X2
+##   Res.Df     RSS Df Sum of Sq      F    Pr(&gt;F)    
+## 1    998 1653.68                                  
+## 2    997  996.12  1    657.56 658.14 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+NOTE: this is Analysis of Variance (ANOVA), but, confusingly, you don't use this function to run the kind of ANOVA we'll be doing later!
+
+---
+# How many predictors?
+
+If we look back at the Fear of Crime dataset, there are many potential predictors you could include.
+
+
+```r
+head(crime)
+```
+
+```
+## # A tibble: 6 x 15
+##   Participant sex     age victim_crime     H     E     X     A     C     O
+##   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 R_01TjXgC1~ male     55 yes            3.7   3     3.4   3.9   3.2   3.6
+## 2 R_0dN5YeUL~ fema~    20 no             2.5   3.1   2.5   2.4   2.2   3.1
+## 3 R_0DPiPYWh~ male     57 yes            2.6   3.1   3.3   3.1   4.3   2.8
+## 4 R_0f7bSsH6~ male     19 no             3.5   1.8   3.3   3.4   2.1   2.7
+## 5 R_0rov2RoS~ fema~    20 no             3.3   3.4   3.9   3.2   2.8   3.9
+## 6 R_0wioqGER~ fema~    20 no             2.6   2.6   3     2.6   2.9   3.4
+## # ... with 5 more variables: SA &lt;dbl&gt;, TA &lt;dbl&gt;, OHQ &lt;dbl&gt;, FoC &lt;dbl&gt;,
+## #   Foc2 &lt;dbl&gt;
+```
+
+How do we decide which are important and which to include?
+
+---
+# How many predictors?
+
+There are several different common methods.
+
+|Method| Meaning|
+|------|-----|
+|Hierarchical regression| Variables entered in the order of their known or theoeretical importance; known variables are added first, then additional predictors are added and the model fits compared to see which predictors improve model fit.|
+|Forced entry| All predictors are entered at once. |
+|Stepwise| Predictors are added (forwards, starting with no predictors) or removed (backwards, starting with all predictors) sequentially. Can be performed using **step()**. But please don't. Use *backwards* if you must.|
+
+(see Discovering Statistics using R, section 7.6.4, pages 263-266)
+
+---
+## Assumptions of linear regression
+
+Like the t-test and other parametric statistical procedures, linear regression has assumptions.
+
+|Assumption| Description | Comment|
+|----------|------|------|
+|Independence| Each datapoint should be independent from the others |No repeated measures (for those, you need linear mixed models...)|
+|Normally distributed errors| The residuals should be approximately normally distributed around zero. Note that this is often confused with the need for the data to be normally distributed, but it's what's left over from the model that's important! | Best assessed using plots (e.g. **plot()**) |
+|Homoscedascity| The variance at each level of the predictor should be approximately the same (i.e. the residuals should be spread around zero by the same amount) |Best assessed using plots (e.g. **plot()**)|
+|Linearity| The relationship between the outcome variable and the predictors should be approximately linear| Use *polynomial* predictors - check the **poly()** function|
+
+See Discovering Statistics Using R, section 7.7.2.1 for more details.
+
+---
+
+
+```r
+plot(lm(y ~ X1 + X2))
+```
+
+![](08-Multi-Regression-ANOVA_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;![](08-Multi-Regression-ANOVA_files/figure-html/unnamed-chunk-14-2.png)&lt;!-- --&gt;![](08-Multi-Regression-ANOVA_files/figure-html/unnamed-chunk-14-3.png)&lt;!-- --&gt;![](08-Multi-Regression-ANOVA_files/figure-html/unnamed-chunk-14-4.png)&lt;!-- --&gt;
+
+---
+class: inverse, middle, center
+# Comparing multiple means with categorical predictors
+
+---
+# Comparing the means of two groups
+
+Previously, we saw how to use **t.test()** to compare the means of two groups.
+
+
+```r
+t.test(FoC ~ sex, data = crime, var.equal = TRUE)
+```
+
+```
+## 
+## 	Two Sample t-test
+## 
+## data:  FoC by sex
+## t = 4.7664, df = 299, p-value = 2.932e-06
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.3753039 0.9031487
+## sample estimates:
+## mean in group female   mean in group male 
+##             2.584681             1.945455
+```
+
+---
+# Comparing three or more means with ANOVA
+
+The *t.test()* can only handle two groups. 
+
+When we have three or more groups, we need to use a One-Way Analysis of Variance (ANOVA).
+
+![](08-Multi-Regression-ANOVA_files/figure-html/hypothetical-norms-1.png)&lt;!-- --&gt;
+
+---
+# How does ANOVA work?
+
+With a t-test, we typically ask the question "Is the difference between these two means significantly different from zero?"  
+
+`$$\mu^1 \neq \mu^2$$`
+
+With an ANOVA, we ask the question "Are any of these means different from each other?"
+
+`$$\mu^1 \neq \mu^2 \neq \mu^3 ...$$`
+
+Another way to phrase this is "Do any of these means differ from the *grand* mean?"
+
+---
+# The (grand) mean and the variance
+
+The *grand* mean is the mean across all conditions. 
+
+## A worked example
+.pull-left[
+A researcher wants to examine the effect of noisy environments on test performance. 
+She recruits 150 participants and splits them into three groups. 
+
+One group performs the test without any environmental noise. A second group performs the test with fairly quiet noise. A third group performs the test with loud noise. The dependent variable is their score (out of 10) on the test.
+
+]
+
+.pull-right[
+
+```r
+noise_test &lt;- 
+  gather(tibble(none = rnorm(50, 8, 1),
+                quiet = rnorm(50, 7, 1),
+                loud = rnorm(50, 5, 1)),
+         noise, test_score) %&gt;%
+  mutate(participant = 1:150)
+```
+]
+
+---
+# How the data is structured
+
+.pull-left[
+
+```r
+noise_test
+```
+
+```
+## # A tibble: 150 x 3
+##    noise test_score participant
+##    &lt;chr&gt;      &lt;dbl&gt;       &lt;int&gt;
+##  1 none        7.31           1
+##  2 none        8.85           2
+##  3 none        9.75           3
+##  4 none        7.47           4
+##  5 none        7.90           5
+##  6 none        8.09           6
+##  7 none        8.32           7
+##  8 none        6.62           8
+##  9 none        9.58           9
+## 10 none        8.22          10
+## # ... with 140 more rows
+```
+]
+.pull-right[
+One column per variable!
+
+One column - *noise* - is the categorical predictor variable that tells which group each participant was in.
+
+One column - *test_score* - is the dependent variable.
+
+The final column - participant - is a (unique - each participant always has the same identifier) participant identifier.
+]
+
+---
+# The mean as a model (again)
+
+We went through this in detail last time, but here's how it applies here.
+
+The simplest model of this data is to use the grand mean across all conditions.
+
+.pull-left[
+![](08-Multi-Regression-ANOVA_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+The grand mean test score is 6.79, shown by the black line.
+
+The total variability in our data is the sum of the squared differences from the grand mean - the Total Sum of Squares, `\(SS_t\)`.
+
+]
+
+---
+# The group means as a model 
+
+The model we're interested in is the means as a function of group.
+
+.pull-left[
+![](08-Multi-Regression-ANOVA_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+Our Model Sum of Squares - `\(SS_m\)` - is the sum of the squared differences of each group's mean from the *grand mean*.
+
+The group means are shown here using coloured lines.
+
+The final quantity, the Residual Sum of Squares - `\(SS_r\)` is the sum of the squared differences of each individual observation from the mean of the group to which it belongs.
+
+]
+
+---
+# Degrees of freedom
+
+.large[
+We now have measures of the total amount of variability explained by the data, the total amount explained by our model, and the amount left over by our model.
+
+However, these numbers are biased because different amounts of values went into their calculation - 3 were used to calculate the `\(SS_m\)`, while many more were used to calculate `\(SS_t\)` and `\(SS_r\)`. 
+
+We correct these using the *degrees of freedom*. Specifically, we need to correct `\(SS_r\)` and `\(SS_m\)` with the residual degrees of freedom - `\(df_r\)` and the model degrees of freedom - `\(df_m\)`.
+]
+
+---
+# Degrees of freedom
+
+.large[
+The model degrees of freedom is simply the number of groups - 1; where *k* = number of groups:
+
+`$$df_m = k - 1$$`
+
+The residual degrees of freedom is the sum of all the degrees of freedom for each group.
+
+`$$df_r = \sum{df_{group^k}}$$`
+]
+
+---
+# Mean squared error and the F-ratio
+
+Finally, we divide our sums of squares - `\(SS_m\)` and `\(SS_r\)` by `\(df_m\)` and `\(df_r\)` respectively, giving us the mean squared error of the model - `\(MS_m\)` - and mean squared error of the residuals - `\(MS_r\)`.
+
+`$$MS_m = \frac{SS_m}{df_m}$$`
+
+`$$MS_r = \frac{SS_r}{df_r}$$`
+
+The ratio of these two quantities is the *F-ratio*.
+
+`$$F = \frac{MS_m}{MS_r}$$`
+
+In English, the F-ratio is the ratio of the variability explained by the model to variability unexplained by the model. So, higher is better.
+
+---
+class: inverse, center, middle
+# How to run a one-way between subjects ANOVA
+
+---
+# How to run ANOVA with the *afex* package
+
+Although the standard R function for ANOVA, **aov()**, works, it can be fiddly to use.
+
+The **afex** package provides several easier methods for running ANOVA.
+
+We'll use the **aov_ez()** function.
+
+
+```r
+noise_aov &lt;- aov_ez(dv = "test_score",
+                    between = "noise",
+                    id = "participant",
+                    data = noise_test)
+```
+
+```
+## Converting to factor: noise
+```
+
+```
+## Contrasts set to contr.sum for the following variables: noise
+```
+
+
+---
+# Checking the results
+
+
+```r
+noise_aov
+```
+
+```
+## Anova Table (Type 3 tests)
+## 
+## Response: test_score
+##   Effect     df  MSE          F ges p.value
+## 1  noise 2, 147 0.87 117.12 *** .61  &lt;.0001
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
+```
+
+There's a highly significant effect of the factor *noise*.
+
+But ANOVA only tells us that there is a difference; not what the difference is!
+
+---
+# Follow-up contrasts
+
+We can use the **emmeans** package to get more information about our results.
+
+First, let's run the **emmeans()** function to get the means for each condition.
+
+
+```r
+means_noise &lt;- emmeans(noise_aov, ~noise)
+means_noise
+```
+
+```
+##  noise emmean    SE  df lower.CL upper.CL
+##  loud    5.31 0.132 147     5.05     5.57
+##  none    8.15 0.132 147     7.89     8.41
+##  quiet   6.92 0.132 147     6.66     7.18
+## 
+## Confidence level used: 0.95
+```
+
+It looks like performance was best is when there was no noise, with the worst performance when there was loud noise.
+
+---
+# Follow-up contrasts
+
+After calculating the means, we can then compare all of the means to each other using the **pairs()** function.
+
+
+```r
+pairs(means_noise)
+```
+
+```
+##  contrast     estimate    SE  df t.ratio p.value
+##  loud - none     -2.84 0.186 147 -15.260 &lt;.0001 
+##  loud - quiet    -1.61 0.186 147  -8.647 &lt;.0001 
+##  none - quiet     1.23 0.186 147   6.612 &lt;.0001 
+## 
+## P value adjustment: tukey method for comparing a family of 3 estimates
+```
+
+Note that this corrects the p-values for multiple comparisons. There are three possible comparisons, each with a significance threshold of p = .05; the more possible comparisons, the more you have to correct for false positives.
+
+---
+# Visualizing the results
+
+As ever, it's best to support your inferences with visualizations. 
+
+**afex_plot()** from the **afex** package can automatically create plots from the fitted ANOVA.
+
+
+```r
+afex_plot(noise_aov, x = "noise") + theme_classic()
+```
+
+![](08-Multi-Regression-ANOVA_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+
+---
+# Assumptions of ANOVA
+
+Just like the t-test and our linear regressions, homogeneity of variance is assumed.
+
+This can be explicitly tested using the **leveneTest()** function from the **car** package.
+
+
+```r
+library(car)
+```
+
+```
+## Loading required package: carData
+```
+
+```
+## 
+## Attaching package: 'car'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     recode
+```
+
+```
+## The following object is masked from 'package:purrr':
+## 
+##     some
+```
+
+```r
+leveneTest(test_score ~ noise, data = noise_test)
+```
+
+```
+## Warning in leveneTest.default(y = y, group = group, ...): group coerced to
+## factor.
+```
+
+```
+## Levene's Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(&gt;F)
+## group   2   1.106 0.3336
+##       147
+```
+
+---
+# Assumptions of ANOVA
+
+The data should be normally distributed for each group.
+
+
+```r
+ggplot(noise_test, aes(x = test_score)) + geom_histogram(bins = 9) + facet_wrap(~noise)
+```
+
+![](08-Multi-Regression-ANOVA_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+
+---
+# Assumptions of (between-subjects) ANOVA
+
+Each observation should be independent - i.e. there should be no repeated measures. 
+
+Each participant is in one group and one group only, and contributes one data point to that group.
+
+
+
+---
+# Next week
+
+Repeated-measures ANOVA.
+
+Factorial and mixed ANOVA.
+
+These are covered in chapters 12-14 of Discovering Statistics Using R.
+
+---
+class: title-slide-final, middle, inverse
+background-image: url('images/University of Lincoln_logo_General White Landscape.png')
+background-size: 500px
+background-position: 50% 10%
+
+---
+# T-tests and ANOVAs are linear models
+
+The t-test can actually be considered part of the linear regression family!
+
+
+```r
+summary(lm(test_score ~ noise, data = noise_test))
+```
+
+```
+## 
+## Call:
+## lm(formula = test_score ~ noise, data = noise_test)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.29458 -0.65862 -0.06921  0.71834  2.39006 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   5.3088     0.1317  40.318  &lt; 2e-16 ***
+## noisenone     2.8416     0.1862  15.260  &lt; 2e-16 ***
+## noisequiet    1.6103     0.1862   8.647 8.34e-15 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9311 on 147 degrees of freedom
+## Multiple R-squared:  0.6144,	Adjusted R-squared:  0.6092 
+## F-statistic: 117.1 on 2 and 147 DF,  p-value: &lt; 2.2e-16
+```
+
+---
+# Comparing the t-test and the linear model
+.pull-left[
+### t-test
+
+```r
+t.test(FoC ~ sex, data = crime,
+       var.equal = TRUE)$estimate
+```
+
+```
+## mean in group female   mean in group male 
+##             2.584681             1.945455
+```
+
+```r
+t.test(FoC ~ sex, data = crime,
+       var.equal = TRUE)$p.value
+```
+
+```
+## [1] 2.932484e-06
+```
+]
+.pull-right[
+### Linear model
+
+```r
+coef(lm(FoC ~ sex, data = crime))
+```
+
+```
+## (Intercept)     sexmale 
+##   2.5846809  -0.6392263
+```
+
+```r
+summary(lm(FoC ~sex, data = crime))$coefficients[2, 4]
+```
+
+```
+## [1] 2.932484e-06
+```
+]
+
+---
+# The linear model with a two-group categorical predictor
+
+When using categorical predictors, the linear model has to convert the categories to numerical values. 
+
+With two groups, this is simple: one group is coded as zero, the other as one! Note: this is called *dummy* or *treatment* coding, and is the default behaviour in R.
+
+
+```r
+coef(lm(FoC ~sex, data = crime))
+```
+
+```
+## (Intercept)     sexmale 
+##   2.5846809  -0.6392263
+```
+
+In this case, the *female* group is treated as the zero or *reference* group. The *male* group is specified as the one or *dummy/treatment* group.
+
+Remember, regression coefficients are typically the change in the response variable for a *one unit* increase in the predictor.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="js/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
