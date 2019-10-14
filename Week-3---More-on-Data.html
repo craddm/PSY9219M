@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>The structure of data</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css\my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# The structure of data
+## PSY9219M - Research Methods and Skills
+### 8/10/2019
+
+---
+
+
+
+
+
+
+# Writing R Scripts
+
+Scripts are text documents that contain a sequence of commands to be executed sequentially.
+
+A typical script looks something like this:
+
+```r
+# Load in required packages using library()
+library(tidyverse)
+
+# Define any custom functions here (we haven't covered this!)
+
+# Now load any data you want to work on. (again, we'll cover this later!)
+test_data &lt;- 
+  read_csv("data/a-random-RT-file.csv") %&gt;% # I'll explain what %&gt;% means later
+  rename(RT = `reaction times`)
+
+# The rest of the script then runs whatever analyses or plotting you want to do
+ggplot(test_data,
+       aes(x = RT,
+           fill = viewpoint)) + 
+  geom_density()
+```
+
+---
+background-image: url(images/02/cloud-rmd-example.png)
+background-position: 65% 85% 
+background-size: 50%
+# RMarkdown
+
+.large[
+RMarkdown documents contain a mixture of code and plain text.
+
+They can be used to produce *reports* and fully formatted documents with whatever structure you choose.
+]
+
+---
+# Basic data types
+
+There are five basic data types in R:
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Type &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Examples &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; integer &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Whole numbers &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1, 2, 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; numeric &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Any real number, fractions &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.4, 2, -2.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; character &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Text &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; &amp;quot;Hi there&amp;quot;, &amp;quot;8.5&amp;quot;, &amp;quot;ABC123&amp;quot; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; logical &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Assertion of truth/falsity &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TRUE, FALSE &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; complex &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Real and imaginary numbers &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.34+5.3i &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+# Containers
+
+**Vectors** are one-dimensional collections of values of the same basic data type.
+
+**Matrices** are two-dimensional collections of values of the same basic data type.
+
+**Lists** are collections of objects of varying length and type.
+
+**Data frames** are tables of data.
+
+.pull-left[
+![:scale 50%](images/02/wine_rack.jpg)
+]
+.pull-right[
+![:scale 60%](images/02/masonjars.jpg)
+]
+
+---
+# Accessing elements from containers
+
+You can use the **[]** operator after the name of an object to extract indvidual elements from that object.
+
+
+.pull-left[
+
+```r
+one_to_four
+```
+
+```
+##    Monday   Tuesday Wednesday  Thursday 
+##         1         2         3         4
+```
+
+```r
+test_matrix
+```
+
+```
+##            [,1]       [,2]       [,3]
+## [1,] -0.5556279 -2.2803785 -0.7522354
+## [2,] -0.4930491 -1.3458301 -0.2889800
+## [3,]  0.5273319 -0.1556543  1.0134536
+```
+]
+.pull-right[
+
+```r
+one_to_four["Wednesday"]
+```
+
+```
+## Wednesday 
+##         3
+```
+
+```r
+test_matrix[2:3, 1:2]
+```
+
+```
+##            [,1]       [,2]
+## [1,] -0.4930491 -1.3458301
+## [2,]  0.5273319 -0.1556543
+```
+]
+
+---
+class: inverse, center, middle
+
+# Join the RStudio.cloud class workspace!
+#http://bit.ly/PSYWorkspace
+
+
+---
+background-image: url(images/03/tidy-hex.png)
+background-position: 50% 75%
+background-size: 50%
+class: inverse, middle, center
+
+---
+background-image: url(images/03/tidy-hex.png)
+background-position: 90% 5%
+background-size: 8%
+
+# Tidyverse 
+
+.large[
+The **tidyverse** is a collection of packages that expand R's functions in a structured, coherent way.
+
+
+```r
+install.packages("tidyverse")
+```
+]
+.large[
+There are eight core **tidyverse** packages loaded using **library(tidyverse)**.
+
+.pull-left[
+* ggplot2
+* **tidyr**
+* dplyr
+* **tibble**
+]
+.pull-right[
+* purrr
+* readr
+* stringr
+* forcats
+]
+]
+
+---
+background-image: url(images/03/tidy-hex.png)
+background-position: 90% 5%
+background-size: 8%
+
+# Tidyverse
+
+.large[
+You can load all these packages at once.
+]
+
+
+```r
+library(tidyverse) # This loads all the tidyverse packages at once
+```
+
+.large[
+You can also load each one individually. We'll be using the **tibble** package next.
+]
+
+
+```r
+library(tibble)
+```
+
+.large[Many of the *tidyverse* packages create or output *tibbles*, which are essentially a more user-friendly version of data frames.]
+
+---
+# Tibbles
+
+You can create a *tibble* similarly to how you create a data frame, using **tibble()**.
+
+
+```r
+age_tibb &lt;- 
+  tibble(Participant = 1:10, 
+       cond1 = rnorm(10),
+       age_group = rep(c("Old", "Young"), each = 5))
+head(age_tibb)
+```
+
+```
+## # A tibble: 6 x 3
+##   Participant  cond1 age_group
+##         &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;    
+## 1           1 -0.172 Old      
+## 2           2 -1.30  Old      
+## 3           3 -0.890 Old      
+## 4           4 -0.197 Old      
+## 5           5 -0.842 Old      
+## 6           6  0.817 Young
+```
+
+---
+# Tibbles
+
+```r
+age_tibb &lt;- 
+  tibble(Participant = 1:10, 
+       cond1 = rnorm(10),
+*       age_group = rep(c("Old", "Young"), each = 5))
+```
+
+Here I used the **rep()** function to generate a character vector with the values "Old" and "Young".
+
+
+```r
+rep(c("Old", "Young"), each = 5)
+```
+
+```
+##  [1] "Old"   "Old"   "Old"   "Old"   "Old"   "Young" "Young" "Young"
+##  [9] "Young" "Young"
+```
+
+```r
+rep(c("Old", "Young"), 5)
+```
+
+```
+##  [1] "Old"   "Young" "Old"   "Young" "Old"   "Young" "Old"   "Young"
+##  [9] "Old"   "Young"
+```
+
+---
+class: inverse, center, middle
+# Relating data to structure
+
+---
+# Let's think about an *experiment*
+
+.large[
+The experiment is a reaction time experiment with a two-by-two repeated measures design.
+
+Participants see pictures of objects twice. Sometimes they are seen from the *same* viewpoint twice, sometimes from *different* viewpoints each time. 
+
+There are two separate blocks of trials. 
+The dependent variable is how long it takes them to name the objects, or *reaction time*.
+
+You're interested in whether:
+
+1. they get faster at naming object the second time
+
+2. they are faster when the same view is presented both times.
+]
+
+---
+# How many variables are there?
+
+|Variables| R Data Type|
+|--------------|------------|
+|Participant ID|Numeric or character|
+|Reaction times|Numeric|
+|Block first/second|Character/factor|
+|Viewpoint same/different|Character/factor|
+
+.large[
+The final dataset needs to be able to do several things.
+
+1. It needs to uniquely identify each participant.
+
+2. It needs to tie each value to the right participant.
+
+3. It needs to identify what each value represents in terms of the design.
+]
+
+---
+class: inverse, center, middle
+# The many ways to structure data
+
+---
+# One column for condition, one column for RT
+.pull-left[
+
+```
+## # A tibble: 40 x 3
+## # Groups:   Participant [10]
+##    Participant exp_condition       RT
+##          &lt;int&gt; &lt;fct&gt;            &lt;dbl&gt;
+##  1           1 Block1_different  407.
+##  2           1 Block1_same       415.
+##  3           1 Block2_different  382.
+##  4           1 Block2_same       371.
+##  5           2 Block1_different  420.
+##  6           2 Block1_same       384.
+##  7           2 Block2_different  479.
+##  8           2 Block2_same       402.
+##  9           3 Block1_different  368.
+## 10           3 Block1_same       341.
+## # ... with 30 more rows
+```
+]
+.pull-right[
+.large[
+This is a little awkward.
+
+At first glance, there's no easy way to see how many variables there.
+]
+]
+---
+# Dependent variable split across columns
+
+.pull-left[
+
+```
+## # A tibble: 16 x 4
+## # Groups:   Participant [8]
+##    Participant Viewpoint  B1RT  B2RT
+##          &lt;int&gt; &lt;fct&gt;     &lt;dbl&gt; &lt;dbl&gt;
+##  1           1 Different  536.  364.
+##  2           1 Same       494.  450.
+##  3           2 Different  511.  393.
+##  4           2 Same       432.  371.
+##  5           3 Different  536.  364.
+##  6           3 Same       494.  450.
+##  7           4 Different  511.  393.
+##  8           4 Same       432.  371.
+##  9           5 Different  536.  364.
+## 10           5 Same       494.  450.
+## 11           6 Different  511.  393.
+## 12           6 Same       432.  371.
+## 13           7 Different  536.  364.
+## 14           7 Same       494.  450.
+## 15           8 Different  511.  393.
+## 16           8 Same       432.  371.
+```
+]
+
+---
+# One column per condition
+
+```
+## # A tibble: 10 x 5
+##    Participant Block1_same Block2_same Block1_different Block2_different
+##          &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1           1        515.        268.             546.             413.
+##  2           2        471.        249.             535.             449.
+##  3           3        507.        331.             501.             386.
+##  4           4        482.        312.             607.             389.
+##  5           5        484.        322.             595.             431.
+##  6           6        502.        301.             527.             359.
+##  7           7        520.        328.             557.             398.
+##  8           8        579.        272.             578.             378.
+##  9           9        441.        290.             572.             401.
+## 10          10        526.        285.             550.             405.
+```
+
+.large[
+This is also called **wide** format.
+]
+
+---
+# How many *variables* are there?
+
+
+```
+## # A tibble: 10 x 5
+##    Participant Block1_same Block2_same Block1_different Block2_different
+##          &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1           1        515.        268.             546.             413.
+##  2           2        471.        249.             535.             449.
+##  3           3        507.        331.             501.             386.
+##  4           4        482.        312.             607.             389.
+##  5           5        484.        322.             595.             431.
+##  6           6        502.        301.             527.             359.
+##  7           7        520.        328.             557.             398.
+##  8           8        579.        272.             578.             378.
+##  9           9        441.        290.             572.             401.
+## 10          10        526.        285.             550.             405.
+```
+
+--
+Four... but there are five columns.
+
+
+```r
+ncol(example_rt_df)
+```
+
+```
+## [1] 5
+```
+
+---
+# How many *observations* are there?
+
+
+```
+## # A tibble: 10 x 5
+##    Participant Block1_same Block2_same Block1_different Block2_different
+##          &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1           1        515.        268.             546.             413.
+##  2           2        471.        249.             535.             449.
+##  3           3        507.        331.             501.             386.
+##  4           4        482.        312.             607.             389.
+##  5           5        484.        322.             595.             431.
+##  6           6        502.        301.             527.             359.
+##  7           7        520.        328.             557.             398.
+##  8           8        579.        272.             578.             378.
+##  9           9        441.        290.             572.             401.
+## 10          10        526.        285.             550.             405.
+```
+
+--
+40... but there are 10 rows.
+
+
+```r
+nrow(example_rt_df)
+```
+
+```
+## [1] 10
+```
+
+---
+# Your target
+
+Switch to RStudio.cloud and open the "Week 3 - Structuring Data" Project. 
+
+
+```
+## # A tibble: 10 x 5
+##    Participant Block1_same Block2_same Block1_different Block2_different
+##          &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1           1        508.        340.             522.             295.
+##  2           2        523.        268.             550.             470.
+##  3           3        543.        303.             667.             476.
+##  4           4        556.        408.             400.             322.
+##  5           5        506.        163.             539.             269.
+##  6           6        489.        287.             350.             363.
+##  7           7        398.        346.             624.             392.
+##  8           8        470.        494.             504.             374.
+##  9           9        517.        258.             396.             422.
+## 10          10        642.        348.             515.             437.
+```
+
+---
+# A possible solution
+
+
+```r
+set.seed(200) # if you want these exact numbers, use this line
+example_rt_df &lt;- 
+  tibble(Participant = seq(1, 10),
+         Block1_same = rnorm(10, 500, 100),
+         Block2_same = rnorm(10, 350, 100),
+         Block1_different = rnorm(10, 500, 100),
+         Block2_different = rnorm(10, 400, 100))
+```
+
+```
+## # A tibble: 5 x 5
+##   Participant Block1_same Block2_same Block1_different Block2_different
+##         &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1           1        508.        340.             522.             295.
+## 2           2        523.        268.             550.             470.
+## 3           3        543.        303.             667.             476.
+## 4           4        556.        408.             400.             322.
+## 5           5        506.        163.             539.             269.
+```
+---
+class: inverse, center, middle
+# Tidy data
+
+---
+background-image: url(images/03/tidy-1.png)
+background-position: 50% 65%
+background-size: 75%
+# The three principles of tidy data
+
+1.  Each variable must have its own column.
+
+2.  Each observation must have its own row.
+
+3.  Each value must have its own cell.
+
+---
+background-image: url(images/03/tidy-1.png)
+background-position: 50% 80%
+background-size: 75%
+# Why Tidy?
+
+.large[
+1. Many functions in R operate on so-called *long* format data, requiring dependent and independent variables to be in different columns of a data frame.
+
+2. Having a consistent way to store and structure your data makes it more *generic*. This makes it easier to use it with different functions.
+
+3. Being *generic* also makes it easier to understand a new dataset in this format.
+]
+
+---
+# One column per condition
+
+```
+## # A tibble: 10 x 5
+##    Participant Block1_same Block2_same Block1_different Block2_different
+##          &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1           1        515.        268.             546.             413.
+##  2           2        471.        249.             535.             449.
+##  3           3        507.        331.             501.             386.
+##  4           4        482.        312.             607.             389.
+##  5           5        484.        322.             595.             431.
+##  6           6        502.        301.             527.             359.
+##  7           7        520.        328.             557.             398.
+##  8           8        579.        272.             578.             378.
+##  9           9        441.        290.             572.             401.
+## 10          10        526.        285.             550.             405.
+```
+This is also called **wide** format.
+
+---
+background-image: url(images/03/tidy-7.png)
+background-position: 60% 65%
+background-size: 60%
+
+# This data is *untidy*
+
+.large[
+One variable - RT - is split across four columns.
+
+Another variable - Block - is split across two columns.
+
+A third variable - viewpoint - is also split across two columns.
+]
+
+---
+class: inverse, middle, center
+# Tidying your data
+
+
+---
+# Tidyr
+
+
+The **tidyr** package contains functions to help tidy up your data.
+
+We'll look now at **gather()** and **separate()**.
+
+To start tidying our data, we need the RTs to be in a single column.
+
+
+```r
+head(example_rt_df, n = 4)
+```
+
+```
+## # A tibble: 4 x 5
+##   Participant Block1_same Block2_same Block1_different Block2_different
+##         &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1           1        508.        340.             522.             295.
+## 2           2        523.        268.             550.             470.
+## 3           3        543.        303.             667.             476.
+## 4           4        556.        408.             400.             322.
+```
+
+The function **gather()** can be used to combine columns into one.
+
+Look at the help using **?gather**
+
+---
+# Step 1 - gather()
+
+The syntax looks like this:
+
+
+```r
+gather(data,
+       key = "key",
+       value = "value",
+       ...)
+```
+
+The first argument, *data*, is the name of the data frame you want to modify.
+
+*key* is the name of the new column that will contain the values of a single categorical variable.
+
+*value* is the name of the new column containing the values for each level of that variable.
+
+---
+# Step 1 - gather()
+
+```r
+gather_rt &lt;- 
+  gather(example_rt_df,
+         key = "exp_cond",
+         value = "RT")
+head(gather_rt)
+```
+
+```
+## # A tibble: 6 x 2
+##   exp_cond       RT
+##   &lt;chr&gt;       &lt;dbl&gt;
+## 1 Participant     1
+## 2 Participant     2
+## 3 Participant     3
+## 4 Participant     4
+## 5 Participant     5
+## 6 Participant     6
+```
+
+But this isn't right! We need to tell it to leave the *Participant* column alone.
+
+---
+# Step 1 - gather()
+
+After we specify the "key" and "value" columns, we need to specify which columns we want to be *gathered*.
+.pull-left[
+
+```r
+gather_rt &lt;- 
+  gather(example_rt_df,
+         key = "exp_cond",
+         value = "RT",
+         2:5)
+head(gather_rt)
+```
+
+```
+## # A tibble: 6 x 3
+##   Participant exp_cond       RT
+##         &lt;int&gt; &lt;chr&gt;       &lt;dbl&gt;
+## 1           1 Block1_same  508.
+## 2           2 Block1_same  523.
+## 3           3 Block1_same  543.
+## 4           4 Block1_same  556.
+## 5           5 Block1_same  506.
+## 6           6 Block1_same  489.
+```
+]
+.pull-right[
+
+```r
+gather_rt &lt;- 
+  gather(example_rt_df,
+         key = "exp_cond",
+         value = "RT",
+         Block1_same:Block2_different)
+head(gather_rt)
+```
+
+```
+## # A tibble: 6 x 3
+##   Participant exp_cond       RT
+##         &lt;int&gt; &lt;chr&gt;       &lt;dbl&gt;
+## 1           1 Block1_same  508.
+## 2           2 Block1_same  523.
+## 3           3 Block1_same  543.
+## 4           4 Block1_same  556.
+## 5           5 Block1_same  506.
+## 6           6 Block1_same  489.
+```
+]
+
+---
+# Step 2 - separate()
+
+We have the RTs in one column, but we still have another problem: 
+
+The "Block" and "Viewpoint" variables are combined into a single column.
+
+
+```r
+head(gather_rt)
+```
+
+```
+## # A tibble: 6 x 3
+##   Participant exp_cond       RT
+##         &lt;int&gt; &lt;chr&gt;       &lt;dbl&gt;
+## 1           1 Block1_same  508.
+## 2           2 Block1_same  523.
+## 3           3 Block1_same  543.
+## 4           4 Block1_same  556.
+## 5           5 Block1_same  506.
+## 6           6 Block1_same  489.
+```
+
+---
+# Step 2 - separate()
+
+Fortunately, the values in the *exp_cond* column can be easily split:
+
+```r
+unique(gather_rt$exp_cond)
+```
+
+```
+## [1] "Block1_same"      "Block2_same"      "Block1_different"
+## [4] "Block2_different"
+```
+
+The value of "Block" comes before the underscore ("_"), while the value of viewpoint comes after it.
+
+We can use the **separate()** command split this into two columns.
+
+Type **?separate()**
+
+---
+# Step 2 - separate()
+
+Let's look at the syntax.
+
+```r
+separate(data,
+         col,
+         into,
+         sep, ...)
+```
+
+*Data* is the data frame you want to modify.
+
+*col* is the name of column you want to separate.
+
+*into* is the names of the new columns you want to create.
+
+*sep* is the character that *separates* the values you want to split.
+
+---
+# Step 2 - separate()
+
+
+```r
+gather_rt &lt;- 
+  separate(gather_rt,
+           col = "exp_cond",
+           into = c("Block", "Viewpoint"),
+           sep = "_")
+head(gather_rt)
+```
+
+```
+## # A tibble: 6 x 4
+##   Participant Block  Viewpoint    RT
+##         &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;
+## 1           1 Block1 same       508.
+## 2           2 Block1 same       523.
+## 3           3 Block1 same       543.
+## 4           4 Block1 same       556.
+## 5           5 Block1 same       506.
+## 6           6 Block1 same       489.
+```
+
+---
+# Your target
+
+.pull-left[
+
+```
+## # A tibble: 15 x 4
+##    Participant Block  Viewpoint    RT
+##          &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;
+##  1           1 Block1 same       508.
+##  2           2 Block1 same       523.
+##  3           3 Block1 same       543.
+##  4           4 Block1 same       556.
+##  5           5 Block1 same       506.
+##  6           6 Block1 same       489.
+##  7           7 Block1 same       398.
+##  8           8 Block1 same       470.
+##  9           9 Block1 same       517.
+## 10          10 Block1 same       642.
+## 11           1 Block2 same       340.
+## 12           2 Block2 same       268.
+## 13           3 Block2 same       303.
+## 14           4 Block2 same       408.
+## 15           5 Block2 same       163.
+```
+]
+.pull-right[
+## Step 1 - **gather()** the RTs
+
+## Step 2 - **separate()** the variables
+]
+
+---
+# Splitting columns up
+
+Sometimes you want to go in the *opposite* direction. 
+
+**spread()** is the *opposite* of **gather()**. 
+
+
+```r
+spread_rt &lt;- 
+  spread(gather_rt,
+       Block,
+       RT)
+head(spread_rt, 10)
+```
+
+```
+## # A tibble: 10 x 4
+##    Participant Viewpoint Block1 Block2
+##          &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+##  1           1 different   522.   295.
+##  2           1 same        508.   340.
+##  3           2 different   550.   470.
+##  4           2 same        523.   268.
+##  5           3 different   667.   476.
+##  6           3 same        543.   303.
+##  7           4 different   400.   322.
+##  8           4 same        556.   408.
+##  9           5 different   539.   269.
+## 10           5 same        506.   163.
+```
+
+---
+# Combining columns into one
+
+
+.pull-left[
+We used **separate()** to split up our "exp_cond" column.
+
+We can use **unite()** to put it back together.
+
+```r
+united_rt &lt;- 
+  unite(gather_rt,
+      exp_cond, # the name of the new column
+      Block,
+      Viewpoint,
+      sep = "_")
+```
+]
+.pull-right[
+
+```r
+head(united_rt, 8)
+```
+
+```
+## # A tibble: 8 x 3
+##   Participant exp_cond       RT
+##         &lt;int&gt; &lt;chr&gt;       &lt;dbl&gt;
+## 1           1 Block1_same  508.
+## 2           2 Block1_same  523.
+## 3           3 Block1_same  543.
+## 4           4 Block1_same  556.
+## 5           5 Block1_same  506.
+## 6           6 Block1_same  489.
+## 7           7 Block1_same  398.
+## 8           8 Block1_same  470.
+```
+]
+
+---
+# Recreating the original data frame
+
+.pull-left[
+## Step 1 - **unite()** the columns
+
+```r
+united_rt &lt;- 
+  unite(gather_rt,
+      exp_cond, # the name of the new column
+      Block,
+      Viewpoint,
+      sep = "_")
+```
+]
+.pull-right[
+## Step 2 - **spread()** the columns
+
+```r
+spread_rt &lt;- 
+  spread(united_rt,
+       exp_cond,
+       RT)
+```
+]
+---
+# Recreating the original data frame
+
+
+```r
+spread_rt
+```
+
+```
+## # A tibble: 10 x 5
+##    Participant Block1_different Block1_same Block2_different Block2_same
+##          &lt;int&gt;            &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;
+##  1           1             522.        508.             295.        340.
+##  2           2             550.        523.             470.        268.
+##  3           3             667.        543.             476.        303.
+##  4           4             400.        556.             322.        408.
+##  5           5             539.        506.             269.        163.
+##  6           6             350.        489.             363.        287.
+##  7           7             624.        398.             392.        346.
+##  8           8             504.        470.             374.        494.
+##  9           9             396.        517.             422.        258.
+## 10          10             515.        642.             437.        348.
+```
+
+---
+class: inverse, middle, center
+# Now what?
+
+---
+# Now that it's tidy...
+
+Now that we've got the data in a tidy format, we can begin to use some of the more interesting features of R!
+
+We can produce a boxplot using **ggplot2** (more next week!)
+.pull-left[
+![](Week-3---More-on-Data_files/figure-html/quick-box-1.png)&lt;!-- --&gt;
+]
+.pull-right[
+![](Week-3---More-on-Data_files/figure-html/quick-dens-1.png)&lt;!-- --&gt;
+]
+
+---
+# Now that it's tidy...
+
+We can produce some summary statistics using **dplyr** (more soon!)
+
+
+```
+## # A tibble: 4 x 4
+## # Groups:   Block [2]
+##   Block  Viewpoint mean_RT sd_RT
+##   &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;
+## 1 Block1 different    507. 100. 
+## 2 Block1 same         515.  62.5
+## 3 Block2 different    382.  71.2
+## 4 Block2 same         321.  89.7
+```
+
+---
+# Now that it's tidy...
+
+We can run ANOVA with **afex**.
+
+
+```
+## Anova Table (Type 3 tests)
+## 
+## Response: RT
+##            Effect   df     MSE         F ges p.value
+## 1           Block 1, 9 5222.72 48.56 *** .51  &lt;.0001
+## 2       Viewpoint 1, 9 7794.41      0.87 .03     .38
+## 3 Block:Viewpoint 1, 9 6343.29      1.87 .05     .20
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
+```
+
+---
+# Now that it's tidy...
+
+We can create interaction plots using **emmeans**.
+.pull-left[
+![](Week-3---More-on-Data_files/figure-html/inter-plot-1.png)&lt;!-- --&gt;
+]
+.pull-right[
+
+```
+## Block = Block1:
+##  contrast         estimate   SE   df t.ratio p.value
+##  same - different     8.43 37.6 17.8  0.224  0.8251 
+## 
+## Block = Block2:
+##  contrast         estimate   SE   df t.ratio p.value
+##  same - different   -60.45 37.6 17.8 -1.608  0.1255
+```
+]
+
+---
+# Next week
+.large[
+- Chapters 3 and 28 of R for Data Science
+    - Data Visualization
+    - Graphics for communication
+    
+- RStudio.cloud Primer
+    - Visualize Data
+    
+- Datacamp
+    - Data Visualization with ggplot2 (Part 1)
+]
+---
+class: title-slide-final, middle, inverse
+background-image: url('images/University of Lincoln_logo_General White Landscape.png')
+background-size: 500px
+background-position: 50% 10%
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="js/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
