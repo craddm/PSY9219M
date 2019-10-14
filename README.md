@@ -13,4 +13,4 @@ Class consist of two-hour sessions which are a mixture of lectures and practical
 [Week 4 - Visualizing data](Week-4---Exploring-data-graphically.html)
 
 ---
-[Archived slides from previous years](archived/1819/readme.html)
+[Archived slides from previous years](archived/1819/README.html)
