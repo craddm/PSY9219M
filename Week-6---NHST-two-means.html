@@ -157,6 +157,11 @@ background-size: contain
 ]
 
 ---
+# Don't despair: be patient!
+
+&lt;blockquote class="twitter-tweet"&gt;&lt;p lang="en" dir="ltr"&gt;Just spent 5 minutes staring at this code trying to figure out what was wrong 😬 &lt;a href="https://t.co/j2ndNrpCRG"&gt;pic.twitter.com/j2ndNrpCRG&lt;/a&gt;&lt;/p&gt;&amp;mdash; Hadley Wickham (@hadleywickham) &lt;a href="https://twitter.com/hadleywickham/status/1188516615635324928?ref_src=twsrc%5Etfw"&gt;October 27, 2019&lt;/a&gt;&lt;/blockquote&gt; &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+---
 class: inverse, center, middle
 # Basic Research Design and Null Hypothesis Significance Testing
 
@@ -378,7 +383,7 @@ Conventionally, we consider a p-value &lt; .05 to be *significant*, allowing us 
 ## 	Welch Two Sample t-test
 ## 
 ## data:  FoC by victim_crime
-## t = 0.45309, df = 197.48, p-value = 0.651
+*## t = 0.45309, df = 197.48, p-value = 0.651
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
 ##  -0.1873001  0.2990388
@@ -407,13 +412,13 @@ Here, they overlap zero; the data is compatible with both negative and positive 
 ## 	Welch Two Sample t-test
 ## 
 ## data:  FoC by victim_crime
-## t = 0.45309, df = 197.48, p-value = 0.651
+*## t = 0.45309, df = 197.48, p-value = 0.651
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.1873001  0.2990388
+*##  -0.1873001  0.2990388
 ## sample estimates:
 ##  mean in group no mean in group yes 
-##          2.463636          2.407767
+*##          2.463636          2.407767
 ```
 ]
 
@@ -435,7 +440,7 @@ The SEM is another measure of uncertainty, providing a measure of how *accuratel
 
 ```r
 ggplot(crime, aes(x = victim_crime, y = FoC)) + 
-  stat_summary(fun.data = mean_se) + 
+* stat_summary(fun.data = mean_se) +
   theme_classic()
 ```
 
@@ -446,9 +451,10 @@ ggplot(crime, aes(x = victim_crime, y = FoC)) +
 # Descriptive statistics 
 
 .pull-left[
-We can also calculate such summary statistic directly.
+We can also calculate these summary statistics directly.
 
 The SEM is the *standard deviation* divided by the *square root* - **sqrt()** - of the sample size.
+`$$\sigma^M = \frac{\sigma}{\sqrt(N)}$$`
 ]
 .pull-right[
 
@@ -458,7 +464,7 @@ crime %&gt;%
   summarise(n = n(),
             mu = mean(FoC),
             std = sd(FoC),
-            sem = std/sqrt(n))
+*           sem = std/sqrt(n))
 ```
 
 ```
@@ -523,7 +529,7 @@ t.test(RT ~ Size, data = crossmod, paired = TRUE)
 ## 	Paired t-test
 ## 
 ## data:  RT by Size
-## t = 3.512, df = 23, p-value = 0.001872
+*## t = 3.512, df = 23, p-value = 0.001872
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
 ##   99.91035 386.29799
@@ -548,7 +554,7 @@ Before we get too carried away with our results, we have to check our assumption
 
 2.  The independent variable must be categorical.
 
-3.  The distribution of the *residuals* should be approximately normal (we'll come back to this!)
+3.  The distribution of the data should be approximately normal.
 
 ## Independent t-tests have a couple of extra assumptions:
 
@@ -658,7 +664,7 @@ With a repeated-measures design, we care about the normality of the *differences
 crossmod_wide &lt;- 
   crossmod %&gt;% 
   spread(Size, RT) %&gt;%
-  mutate(size_diff = DS - SS)
+  mutate(size_diff = DS - SS) 
 ```
 
 
@@ -690,7 +696,7 @@ shapiro.test(crossmod_wide$size_diff)
 
 ```
 ## 
-## 	Shapiro-Wilk normality test
+*## 	Shapiro-Wilk normality test
 ## 
 ## data:  crossmod_wide$size_diff
 ## W = 0.83796, p-value = 0.001318
@@ -759,7 +765,7 @@ leveneTest(FoC ~ victim_crime, data = crime)
 ```
 ## Levene's Test for Homogeneity of Variance (center = median)
 ##        Df F value Pr(&gt;F)
-## group   1  0.3669 0.5451
+*## group   1  0.3669 0.5451
 ##       299
 ```
 
@@ -800,7 +806,7 @@ class: inverse, middle, center
     - Use a paired/repeated-measures t-test.
 
 3.  When normality is violated
-    - Often...nothing is done, or the data is *transformed* (we'll cover that in detailnext term). 
+    - Often...nothing is done, or the data is *transformed* (we'll cover that in detail next term). 
     - Consider non-parametric tests
 
 ---
@@ -930,6 +936,7 @@ background-position: 50% 10%
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script src="js/macros.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
 "highlightLines": true,

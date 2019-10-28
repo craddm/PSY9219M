@@ -11,7 +11,7 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       ratio: "16:9"
-      beforeInit: "js/macros.js"
+      beforeInit: ["js/macros.js","https://platform.twitter.com/widgets.js"]
 ---
 
 ```{r setup, include=FALSE}
@@ -116,6 +116,11 @@ background-size: contain
 ]
 
 ---
+# Don't despair: be patient!
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Just spent 5 minutes staring at this code trying to figure out what was wrong 😬 <a href="https://t.co/j2ndNrpCRG">pic.twitter.com/j2ndNrpCRG</a></p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/1188516615635324928?ref_src=twsrc%5Etfw">October 27, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+---
 class: inverse, center, middle
 # Basic Research Design and Null Hypothesis Significance Testing
 
@@ -206,7 +211,7 @@ We use the **t.test()** function for all of these!
 ```{r error-bars-again, fig.height=5, echo = FALSE}
 ggplot(crime, aes(x = victim_crime,
                   y = FoC)) + 
-  stat_summary(fun.data = mean_se) + 
+  stat_summary(fun.data = mean_se) +  #<<
   theme_classic()
 ```
 ]
@@ -262,7 +267,7 @@ Conventionally, we consider a p-value < .05 to be *significant*, allowing us to 
 ]
 ]
 .pull-right[
-```{r inital-t-two, echo = FALSE}
+```{r inital-t-two, highlight.output = 5, echo = FALSE}
 t.test(FoC ~ victim_crime,
        data = crime,
        paired = FALSE)
@@ -282,7 +287,7 @@ Here, they overlap zero; the data is compatible with both negative and positive 
 ]
 ]
 .pull-right[
-```{r inital-t-two-more, echo = FALSE}
+```{r inital-t-two-more, highlight.output = c(5, 8, 11),echo = FALSE}
 t.test(FoC ~ victim_crime,
        data = crime,
        paired = FALSE)
@@ -306,7 +311,7 @@ The SEM is another measure of uncertainty, providing a measure of how *accuratel
 .pull-right[
 ```{r error-bars, fig.height=5}
 ggplot(crime, aes(x = victim_crime, y = FoC)) + 
-  stat_summary(fun.data = mean_se) + 
+  stat_summary(fun.data = mean_se) + #<<
   theme_classic()
 ```
 ]
@@ -315,9 +320,10 @@ ggplot(crime, aes(x = victim_crime, y = FoC)) +
 # Descriptive statistics 
 
 .pull-left[
-We can also calculate such summary statistic directly.
+We can also calculate these summary statistics directly.
 
 The SEM is the *standard deviation* divided by the *square root* - **sqrt()** - of the sample size.
+$$\sigma^M = \frac{\sigma}{\sqrt(N)}$$
 ]
 .pull-right[
 ```{r FoC-crim-more, warning = FALSE}
@@ -326,7 +332,7 @@ crime %>%
   summarise(n = n(),
             mu = mean(FoC),
             std = sd(FoC),
-            sem = std/sqrt(n))
+            sem = std/sqrt(n)) #<<
 ```
 ]
 
@@ -355,7 +361,7 @@ crossmod
 
 Since the data contains repeated measurements from the same participants, we need to run a paired/repeated-measures t-test. So we simply change `paired = FALSE` to `paired = TRUE`!
 
-```{r}
+```{r highlight.output = 5}
 t.test(RT ~ Size, data = crossmod, paired = TRUE)
 ```
 
@@ -375,7 +381,7 @@ Before we get too carried away with our results, we have to check our assumption
 
 2.  The independent variable must be categorical.
 
-3.  The distribution of the *residuals* should be approximately normal (we'll come back to this!)
+3.  The distribution of the data should be approximately normal.
 
 ## Independent t-tests have a couple of extra assumptions:
 
@@ -456,7 +462,7 @@ tibble(iq = 0:200,
        density = dnorm(iq, mean = 100, sd = 15)) %>%
   ggplot(aes(x = iq, y = density)) +
   geom_line() +
-  theme_classic() +
+  theme_classic(base_size = 20) +
   geom_vline(xintercept = 100, linetype = "dashed") +
   geom_vline(xintercept = c(85, 115), linetype = "dotted") +
   annotate(geom = "text", x = 150, y = 0.025, label = "Mean = 100") +
@@ -493,7 +499,7 @@ With a repeated-measures design, we care about the normality of the *differences
 crossmod_wide <- 
   crossmod %>% 
   spread(Size, RT) %>%
-  mutate(size_diff = DS - SS)
+  mutate(size_diff = DS - SS) 
 ```
 
 ```{r rep-meas-diff, fig.show = "hide", fig.height = 5}
@@ -517,7 +523,7 @@ ggplot(crossmod_wide,
 
 This looks a little suspicious. There's probably an *outlier* at the far right side of the plot (more on these next session).
 
-```{r shap-test}
+```{r shap-test, highlight.output = 2}
 shapiro.test(crossmod_wide$size_diff)
 ```
 
@@ -578,7 +584,7 @@ tibble(iq = 0:200,
   gather(dist_type, density, -iq) %>%
   ggplot(aes(x = iq, y = density)) +
   geom_line(aes(group = dist_type, linetype = dist_type)) +
-  theme_classic() 
+  theme_classic(base_size = 20) 
 ```
 ]
 
@@ -591,7 +597,7 @@ Let's look again at our distributions for Fear of Crime.
 Although they're skewed, it looks like they're similarly variable.
 
 We can test this statistically using Levene's test from the **car** package:
-```{r warning = FALSE}
+```{r warning = FALSE, highlight.output = 3}
 library(car)
 leveneTest(FoC ~ victim_crime, data = crime)
 ```
@@ -645,7 +651,7 @@ class: inverse, middle, center
     - Use a paired/repeated-measures t-test.
 
 3.  When normality is violated
-    - Often...nothing is done, or the data is *transformed* (we'll cover that in detailnext term). 
+    - Often...nothing is done, or the data is *transformed* (we'll cover that in detail next term). 
     - Consider non-parametric tests
 
 ---
