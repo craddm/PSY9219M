@@ -14,5 +14,7 @@ Class consist of two-hour sessions which are a mixture of lectures and practical
 
 [Week 5 - Importing and wrangling](Week-5---Import-and-wrangling.html)
 
+[Week 6 - NHST and comparing two groups](Week-6---NHST-two-means.html)
+
 ---
 [Archived slides from previous years](archived/1819/README.html)
