@@ -523,7 +523,7 @@ ggplot(crossmod_wide,
 
 This looks a little suspicious. There's probably an *outlier* at the far right side of the plot (more on these next session).
 
-```{r shap-test, highlight.output = 2}
+```{r shap-test, highlight.output = 5}
 shapiro.test(crossmod_wide$size_diff)
 ```
 
