@@ -669,7 +669,7 @@ This prevents "errors" from cancelling out, and effectively penalises values tha
 
 .pull-left[
 .large[
-We then calculate the sum of the squared differences of the values of the dependent variable ($y$) from the model predictions - the sum of the squared residuals, $SS_r$:
+We then calculate the sum of the squared differences of the values of the dependent variable ( $y$ ) from the model predictions - the sum of the squared residuals, $SS_r$:
 
 $SS_r = \sum(y - \hat{y})^2$
 ]
