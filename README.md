@@ -16,5 +16,10 @@ Class consist of two-hour sessions which are a mixture of lectures and practical
 
 [Week 6 - NHST and comparing two groups](Week-6---NHST-two-means.html)
 
+NO SESSION IN WEEK 7
+
+[Week 8 - Correlation and simple regression](Week-8---Correlation-Regression.html)
+
+
 ---
 [Archived slides from previous years](archived/1819/README.html)
