@@ -451,7 +451,7 @@ diag_plots[[3]]
 ```
 
 ---
-# Homescedasticity
+# Homoscedasticity
 
 ```{r fig.height = 5}
 diag_plots[[4]]
