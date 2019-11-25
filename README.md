@@ -22,5 +22,8 @@ NO SESSION IN WEEK 7
 
 [Week 9 - Multiple regression and ANOVA ](Week-9---Multi-Regression-ANOVA.html)
 
+[Week 10 - Repeated and Factorial ANOVA](Week-10-Repeated-and-Factorial-ANOVA.html)
+
+
 ---
 [Archived slides from previous years](archived/1819/README.html)
