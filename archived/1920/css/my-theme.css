@@ -1,0 +1,21 @@
+.title-slide {
+  background-image: url('../images/University of Lincoln_logo_General White Landscape.png');
+  background-size: 40%;
+  background-position: 50% 10%;
+}
+.large {
+  font-size: 120%;
+}
+
+/* custom.css */
+.left-code {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+}
+.right-plot {
+  width: 60%;
+  float: right;
+  padding-left: 1%;
+}
