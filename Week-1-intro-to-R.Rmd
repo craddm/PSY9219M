@@ -1,6 +1,7 @@
 ---
-title: "Research Methods and Skills"
-date: "30/09/2020"
+title: "Introduction"
+subtitle: "Research Methods and Skills"
+date: "13/10/2020"
 output:
   xaringan::moon_reader:
     css: ["default", "default-fonts",  "xaringan-themer.css", "css/my-theme.css"]
