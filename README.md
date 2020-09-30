@@ -4,7 +4,7 @@ Course materials for PSY9219M, Research Methods and Skills, for the University o
 
 [Week 1 - Intro to R](Week-1-intro-to-R.html)
 
-[Week 2 - Intro to R part 2](Week-2-Basic_R.Rmd)
+[Week 2 - Intro to R part 2](Week-2-Basic_R.html)
 
 ---
 [Installing R and RStudio at home](Installing-R.html)
