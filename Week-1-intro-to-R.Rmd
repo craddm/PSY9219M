@@ -17,6 +17,7 @@ output:
 xaringanExtra::use_webcam()
 xaringanExtra::use_tile_view()
 xaringanExtra::use_tachyons()
+xaringanExtra::use_extra_styles()
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.asp = .618,
                       fig.width = 6)
@@ -131,7 +132,7 @@ You've been asked to design, implement, and evaluate a new treatment regime acro
 
 .pull-right[
 ### Weeks 5, 7-10
-![](images/01/catistics-small.jpg)
+![A cat standing on top of a statistics book](images/01/catistics-small.jpg)
 ]
 
 ---
