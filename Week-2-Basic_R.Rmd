@@ -515,22 +515,15 @@ class: inverse, middle, center
 # Wrapping up
 
 ---
-background-image: url(images/02/rstudio-datacamp.png)
-background-size: 25%
-background-position: 50% 95%
 # This week's concepts
 
 .large[
 - R Markdown - Chapter 27 of R4DS - see also https://rmarkdown.rstudio.com
 
 - **vectors** and **lists** in Chapter 20 of R4DS
-
-- Practice using **vectors**, **matrices**, **lists**, and **data.frames** using DataCamp's Intro to R course
 ]
+
 ---
-background-image: url(images/02/rstudio-datacamp.png)
-background-size: 25%
-background-position: 50% 95%
 # Prep for next week
 
 .large[
@@ -538,10 +531,3 @@ background-position: 50% 95%
 
 - Look at Section 2 (Wrangle) of R4DS for information on **tibbles** (which are essentially data frames...).
 ]
-
----
-class: title-slide-final, middle, inverse
-background-image: url('images/University of Lincoln_logo_General White Landscape.png')
-background-size: 500px
-background-position: 50% 10%
-
