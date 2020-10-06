@@ -200,8 +200,8 @@ class: inverse, center, middle
 ---
 # What can you do with R?
 
-.center[![:scale 50%](images/01/whatyoucando_collage.png)]
-
+.center[![:scale 45%](images/01/whatyoucando_collage.png)]
+[Source: N. D. Phillips](https://ndphillips.github.io/IntroductionR_Course/presentations/Day_0_pres.html#4)
 ---
 background-image: url(images/01/Rcompanies.png)
 background-size: contain
@@ -468,9 +468,7 @@ class: inverse, center, middle
 ---
 # Combining multiple things
 
-Sometimes you want to allocate more than one value to an object.
-
-You can use the **c()** function to do this.
+Sometimes you want to allocate more than one value to an object. You can use the **c()** function to do this.
 
 ```{r}
 c(8, 5, 10)
@@ -635,15 +633,15 @@ background-position: 85%, 25%
 
 ## Hands-on Programming with R 
 
-Basic R programming book, JUST MADE AVAILABLE ONLINE FOR FREE!
+Basic R programming book, also available for free online
 
 https://rstudio-education.github.io/hopr/index.html
 
 ---
-# Homework!
+# This week's goals
 
-1. If you didn't get properly signed up with RStudio.cloud today, do it!
+1. Make sure you're signed up for [RStudio.cloud](https://rstudio.cloud)
 
-2. Read through Chapter 1 of R for Data Science
+2. Read through Chapter 1 of [R for Data Science](https://r4ds.had.co.nz/introduction.html)
 
-3. Try out some of the introductory exercises
+3. Try out some of the introductory things mentioned in the slides, just to get a feel for using RStudio!
