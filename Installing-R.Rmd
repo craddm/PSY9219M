@@ -1,7 +1,6 @@
 ---
 title: "Installing R and RStudio"
 author: "Matt Craddock"
-date: "30 September 2020"
 output:
   html_document: default
   pdf_document: default
@@ -11,7 +10,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-In class, we've been using https://rstudio.cloud, which you can access from any web browser and computer with an internet connection. But this isn't the only way to use R. You can also install R and RStudio on your own computers at home. Both R and RStudio are free and require no licenses, can be freely installed wherever you like and on however many devices you like!
+In class, we use https://rstudio.cloud, which you can access from any web browser and computer with an internet connection. But this isn't the only way to use R. You can also install R and RStudio on your own computers at home. Both R and RStudio are free and require no licenses, can be freely installed wherever you like and on however many devices you like!
 
 ## Installing R 
 

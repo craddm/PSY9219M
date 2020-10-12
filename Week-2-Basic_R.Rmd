@@ -242,11 +242,6 @@ background-size: contain
 class: inverse
 
 ---
-class: middle, center, inverse
-
-# Code-along exercise!
-
----
 # Some very important advice
 
 R Markdown documents are like *recipes*. 
@@ -258,6 +253,12 @@ When you press the knit button, R forgets everything and follows the instruction
 So be thorough, and write down everything in the order you want it to happen!
 
 (One exception: NEVER use install.packages() in a script)
+
+---
+class: middle, center, inverse
+
+# Code-along exercise!
+
 
 ---
 class: inverse, center, middle
@@ -515,7 +516,7 @@ class: inverse, middle, center
 # Wrapping up
 
 ---
-# This week's concepts
+## This week's concepts
 
 .large[
 - R Markdown - Chapter 27 of R4DS - see also https://rmarkdown.rstudio.com
@@ -523,8 +524,7 @@ class: inverse, middle, center
 - **vectors** and **lists** in Chapter 20 of R4DS
 ]
 
----
-# Prep for next week
+## Prep for next week
 
 .large[
 - Next week we'll talk again about data frames and consider how to *structure* data.
