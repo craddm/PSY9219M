@@ -499,7 +499,7 @@ example_rt_df <-
 ```
 The **tidyr** package contains functions to help tidy up your data.
 
-We'll look now at **gather()** and **separate()**.
+We'll look now at **pivot_longer()** and **pivot_wider()**.
 
 To start tidying our data, we need the RTs to be in a single column.
 
