@@ -255,12 +255,6 @@ So be thorough, and write down everything in the order you want it to happen!
 (One exception: NEVER use install.packages() in a script)
 
 ---
-class: middle, center, inverse
-
-# Code-along exercise!
-
-
----
 class: inverse, center, middle
 #Basic data types
 
