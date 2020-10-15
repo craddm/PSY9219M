@@ -36,7 +36,9 @@ example_rt_df <-
                                each = 10),
              Viewpoint = c("Same", "Different"),
              B1RT = rnorm(20, 500, 100),
-             B2RT = rnorm(20, 400, 100)) %>% group_by(Participant, Viewpoint) %>% summarise(B1RT = mean(B1RT), B2RT = mean(B2RT))
+             B2RT = rnorm(20, 400, 100)) %>%
+  group_by(Participant, Viewpoint) %>%
+  summarise(B1RT = mean(B1RT), B2RT = mean(B2RT))
 ```
 
 # Writing R Scripts
@@ -507,62 +509,69 @@ To start tidying our data, we need the RTs to be in a single column.
 head(example_rt_df, n = 4)
 ```
 
-The function **gather()** can be used to combine columns into one.
+The function **pivot_longer()** can be used to combine columns into one.
 
-Look at the help using **?gather**
+Look at the help using **?pivot_longer**
 
 ---
-# Step 1 - gather()
+# Step 1 - pivot_longer()
 
 The syntax looks like this:
 
 ```{r eval = FALSE}
-gather(data,
-       key = "key",
-       value = "value",
-       ...)
+pivot_longer(data,
+             cols,
+             names_to = "key",
+             values_to = "value",
+             ...)
 ```
 
 The first argument, *data*, is the name of the data frame you want to modify.
 
-*key* is the name of the new column that will contain the values of a single categorical variable.
+*cols* are the columns you want to combine together.
 
-*value* is the name of the new column containing the values for each level of that variable.
+*names_to* is the name of the new column that will contain the values of a single categorical variable.
+
+*values_to* is the name of the new column containing the values for each level of that variable.
 
 ---
-# Step 1 - gather()
+# Step 1 - pivot_longer()
 ```{r}
-gather_rt <- 
-  gather(example_rt_df,
-         key = "exp_cond",
-         value = "RT")
-head(gather_rt)
+long_rt <- 
+  pivot_longer(example_rt_df,
+               cols = c("Block1_same", 
+                        "Block1_different",
+                        "Block2_same",
+                        "Block2_different"),
+               names_to = "exp_cond",
+               values_to = "RT")
+head(long_rt)
 ```
 
 But this isn't right! We need to tell it to leave the *Participant* column alone.
 
 ---
-# Step 1 - gather()
+# Step 1 - pivot_longer()
 
 After we specify the "key" and "value" columns, we need to specify which columns we want to be *gathered*.
 .pull-left[
 ```{r}
-gather_rt <- 
-  gather(example_rt_df,
-         key = "exp_cond",
-         value = "RT",
-         2:5)
-head(gather_rt)
+long_rt <- 
+  pivot_longer(example_rt_df,
+               names_to = "exp_cond",
+               values_to = "RT",
+               cols = 2:5)
+head(long_rt)
 ```
 ]
 .pull-right[
 ```{r}
-gather_rt <- 
-  gather(example_rt_df,
-         key = "exp_cond",
-         value = "RT",
-         Block1_same:Block2_different)
-head(gather_rt)
+long_rt <- 
+  pivot_longer(example_rt_df,
+         names_to = "exp_cond",
+         values_to = "RT",
+         cols = Block1_same:Block2_different)
+head(long_rt)
 ```
 ]
 
@@ -574,7 +583,7 @@ We have the RTs in one column, but we still have another problem:
 The "Block" and "Viewpoint" variables are combined into a single column.
 
 ```{r}
-head(gather_rt)
+head(long_rt)
 ```
 
 ---
@@ -582,7 +591,7 @@ head(gather_rt)
 
 Fortunately, the values in the *exp_cond* column can be easily split:
 ```{r}
-unique(gather_rt$exp_cond)
+unique(long_rt$exp_cond)
 ```
 
 The value of "Block" comes before the underscore ("_"), while the value of viewpoint comes after it.
@@ -614,12 +623,12 @@ separate(data,
 # Step 2 - separate()
 
 ```{r}
-gather_rt <- 
-  separate(gather_rt,
+long_rt <- 
+  separate(long_rt,
            col = "exp_cond",
            into = c("Block", "Viewpoint"),
            sep = "_")
-head(gather_rt)
+head(long_rt)
 ```
 
 ---
@@ -628,8 +637,8 @@ head(gather_rt)
 .pull-left[
 ```{r echo = FALSE}
 head(example_rt_df %>%
-  tidyr::gather("exp_cond",
-"RT",
+  tidyr::pivot_longer(names_to = "exp_cond",
+values_to = "RT",
 -Participant) %>%
   tidyr::separate(exp_cond,
                   c("Block", "Viewpoint")), 15)
@@ -637,7 +646,7 @@ head(example_rt_df %>%
 ```
 ]
 .pull-right[
-## Step 1 - **gather()** the RTs
+## Step 1 - **pivot_longer()** the RTs
 
 ## Step 2 - **separate()** the variables
 ]
@@ -647,11 +656,11 @@ head(example_rt_df %>%
 
 Sometimes you want to go in the *opposite* direction. 
 
-**spread()** is the *opposite* of **gather()**. 
+**spread()** is the *opposite* of **pivot_longer()**. 
 
 ```{r}
 spread_rt <- 
-  spread(gather_rt,
+  spread(long_rt,
        Block,
        RT)
 head(spread_rt, 10)
@@ -667,7 +676,7 @@ We used **separate()** to split up our "exp_cond" column.
 We can use **unite()** to put it back together.
 ```{r}
 united_rt <- 
-  unite(gather_rt,
+  unite(long_rt,
       exp_cond, # the name of the new column
       Block,
       Viewpoint,
@@ -687,7 +696,7 @@ head(united_rt, 8)
 ## Step 1 - **unite()** the columns
 ```{r}
 united_rt <- 
-  unite(gather_rt,
+  unite(long_rt,
       exp_cond, # the name of the new column
       Block,
       Viewpoint,
@@ -723,7 +732,7 @@ Now that we've got the data in a tidy format, we can begin to use some of the mo
 We can produce a boxplot using **ggplot2** (more next week!)
 .pull-left[
 ```{r quick-box, echo = FALSE, fig.height = 5}
-ggplot(gather_rt) + 
+ggplot(long_rt) + 
   geom_boxplot(mapping = aes(x = Viewpoint,
                              y = RT)) +
   facet_wrap(~Block)
@@ -731,7 +740,7 @@ ggplot(gather_rt) +
 ]
 .pull-right[
 ```{r quick-dens, echo = FALSE, fig.height = 5}
-ggplot(gather_rt) + 
+ggplot(long_rt) + 
   geom_density(mapping = aes(x = RT,
                              fill = Viewpoint), alpha = 0.5) +
   facet_wrap(~Block) + theme_bw() +
@@ -745,7 +754,7 @@ ggplot(gather_rt) +
 We can produce some summary statistics using **dplyr** (more soon!)
 
 ```{r quick-summ, echo = FALSE}
-gather_rt %>%
+long_rt %>%
   group_by(Block, Viewpoint) %>%
   summarise(mean_RT = mean(RT), sd_RT = sd(RT))
 ```
@@ -759,7 +768,7 @@ We can run ANOVA with **afex**.
 afex::aov_ez(dv = "RT",
              within = c("Block", "Viewpoint"),
              id = "Participant",
-             data = gather_rt)
+             data = long_rt)
 ```
 
 ---
@@ -772,7 +781,7 @@ aov_rts <-
   afex::aov_ez(dv = "RT",
              within = c("Block", "Viewpoint"),
              id = "Participant",
-             data = gather_rt)
+             data = long_rt)
 emmeans::emmip(aov_rts, Block~Viewpoint, CIs = FALSE) +
   theme_classic()
 ```
