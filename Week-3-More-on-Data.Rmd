@@ -30,7 +30,7 @@ library(xaringanthemer)
 style_solarized_light(base_font_size = "22px")
 ```
 
-```{r echo = FALSE}
+```{r echo = FALSE, message = FALSE}
 example_rt_df <- 
   data.frame(Participant = rep(1:10,
                                each = 10),
@@ -38,7 +38,8 @@ example_rt_df <-
              B1RT = rnorm(20, 500, 100),
              B2RT = rnorm(20, 400, 100)) %>%
   group_by(Participant, Viewpoint) %>%
-  summarise(B1RT = mean(B1RT), B2RT = mean(B2RT))
+  summarise(B1RT = mean(B1RT),
+            B2RT = mean(B2RT))
 ```
 
 # Writing R Scripts
@@ -67,7 +68,7 @@ ggplot(test_data,
 ---
 background-image: url(images/02/cloud-rmd-example.png)
 background-position: 65% 85% 
-background-size: 50%
+background-size: 46%
 # RMarkdown
 
 .large[
@@ -223,13 +224,14 @@ library(tibble)
 ---
 # Tibbles
 
-You can create a *tibble* similarly to how you create a data frame, using **tibble()**.
+You can create a *tibble* similar to how you create a data frame, using **tibble()**.
 
 ```{r}
 age_tibb <- 
   tibble(Participant = 1:10, 
-       cond1 = rnorm(10),
-       age_group = rep(c("Old", "Young"), each = 5))
+         cond1 = rnorm(10),
+         age_group = rep(c("Old", "Young"),
+                         each = 5))
 head(age_tibb)
 ```
 
@@ -238,8 +240,8 @@ head(age_tibb)
 ```{r eval = FALSE}
 age_tibb <- 
   tibble(Participant = 1:10, 
-       cond1 = rnorm(10),
-*       age_group = rep(c("Old", "Young"), each = 5))
+         cond1 = rnorm(10),
+*        age_group = rep(c("Old", "Young"), each = 5))
 ```
 
 Here I used the **rep()** function to generate a character vector with the values "Old" and "Young".
@@ -298,7 +300,7 @@ class: inverse, center, middle
 ---
 # One column for condition, one column for RT
 .pull-left[
-```{r echo = FALSE}
+```{r echo = FALSE, message = FALSE}
 set.seed(200)
 example_rt_df <- 
   data.frame(Participant = rep(1:10,
@@ -325,7 +327,7 @@ At first glance, there's no easy way to see how many variables there.
 # Dependent variable split across columns
 
 .pull-left[
-```{r echo = FALSE}
+```{r echo = FALSE, message = FALSE}
 set.seed(200)
 example_rt_df <- 
   data.frame(Participant = rep(1:10,
@@ -425,7 +427,7 @@ class: inverse, center, middle
 
 ---
 background-image: url(images/03/tidy-1.png)
-background-position: 50% 65%
+background-position: 50% 72%
 background-size: 75%
 # The three principles of tidy data
 
@@ -437,8 +439,8 @@ background-size: 75%
 
 ---
 background-image: url(images/03/tidy-1.png)
-background-position: 50% 80%
-background-size: 75%
+background-position: 50% 85%
+background-size: 70%
 # Why Tidy?
 
 .large[
@@ -469,7 +471,7 @@ This is also called **wide** format.
 
 ---
 background-image: url(images/03/tidy-7.png)
-background-position: 60% 65%
+background-position: 50% 78%
 background-size: 60%
 
 # This data is *untidy*
@@ -514,10 +516,9 @@ The function **pivot_longer()** can be used to combine columns into one.
 Look at the help using **?pivot_longer**
 
 ---
-# Step 1 - pivot_longer()
+# Pivoting longer
 
-The syntax looks like this:
-
+.pull-left[
 ```{r eval = FALSE}
 pivot_longer(data,
              cols,
@@ -525,7 +526,8 @@ pivot_longer(data,
              values_to = "value",
              ...)
 ```
-
+]
+.pull-right[
 The first argument, *data*, is the name of the data frame you want to modify.
 
 *cols* are the columns you want to combine together.
@@ -533,9 +535,10 @@ The first argument, *data*, is the name of the data frame you want to modify.
 *names_to* is the name of the new column that will contain the values of a single categorical variable.
 
 *values_to* is the name of the new column containing the values for each level of that variable.
+]
 
 ---
-# Step 1 - pivot_longer()
+# Pivoting longer
 ```{r}
 long_rt <- 
   pivot_longer(example_rt_df,
@@ -551,7 +554,7 @@ head(long_rt)
 But this isn't right! We need to tell it to leave the *Participant* column alone.
 
 ---
-# Step 1 - pivot_longer()
+# Pivoting longer
 
 After we specify the "key" and "value" columns, we need to specify which columns we want to be *gathered*.
 .pull-left[
@@ -560,7 +563,7 @@ long_rt <-
   pivot_longer(example_rt_df,
                names_to = "exp_cond",
                values_to = "RT",
-               cols = 2:5)
+               cols = 2:5) # here I use numbers
 head(long_rt)
 ```
 ]
@@ -568,15 +571,15 @@ head(long_rt)
 ```{r}
 long_rt <- 
   pivot_longer(example_rt_df,
-         names_to = "exp_cond",
-         values_to = "RT",
-         cols = Block1_same:Block2_different)
+               names_to = "exp_cond",
+               values_to = "RT",
+               cols = Block1_same:Block2_different) # here I use names
 head(long_rt)
 ```
 ]
 
 ---
-# Step 2 - separate()
+# Splitting columns
 
 We have the RTs in one column, but we still have another problem: 
 
@@ -587,49 +590,46 @@ head(long_rt)
 ```
 
 ---
-# Step 2 - separate()
+# Splitting columns
 
 Fortunately, the values in the *exp_cond* column can be easily split:
 ```{r}
 unique(long_rt$exp_cond)
 ```
 
-The value of "Block" comes before the underscore ("_"), while the value of viewpoint comes after it.
+The value of "Block" comes before the underscore ("_"), while the value of "viewpoint" comes after it.
 
-We can use the **separate()** command split this into two columns.
-
-Type **?separate()**
 
 ---
-# Step 2 - separate()
-
-Let's look at the syntax.
-```{r eval = FALSE}
-separate(data,
-         col,
-         into,
-         sep, ...)
-```
-
-*Data* is the data frame you want to modify.
-
-*col* is the name of column you want to separate.
-
-*into* is the names of the new columns you want to create.
-
-*sep* is the character that *separates* the values you want to split.
-
----
-# Step 2 - separate()
+# Splitting columns
 
 ```{r}
 long_rt <- 
-  separate(long_rt,
-           col = "exp_cond",
-           into = c("Block", "Viewpoint"),
-           sep = "_")
+  pivot_longer(example_rt_df,
+               names_to = c("Block",
+                            "Viewpoint"),
+               names_sep = "_",
+               values_to = "RT",
+               cols = Block1_same:Block2_different)
 head(long_rt)
 ```
+
+---
+# Splitting columns
+
+Let's look at the additional syntax.
+```{r eval = FALSE}
+pivot_longer(example_rt_df,
+             names_to = c("Block",
+                          "Viewpoint"),
+             names_sep = "_",
+             values_to = "RT",
+             cols = Block1_same:Block2_different)
+```
+
+`names_to` now has two entries, one for each new column that will be made.
+
+`names_sep` is the character that *separates* the values you want to split.
 
 ---
 # Your target
@@ -652,18 +652,23 @@ values_to = "RT",
 ]
 
 ---
-# Splitting columns up
+class: inverse, center, middle
+# Pivoting wider
+
+---
+# Pivoting wider
 
 Sometimes you want to go in the *opposite* direction. 
 
-**spread()** is the *opposite* of **pivot_longer()**. 
+**pivot_wider()** is the *opposite* of **pivot_longer()**. 
 
 ```{r}
-spread_rt <- 
-  spread(long_rt,
-       Block,
-       RT)
-head(spread_rt, 10)
+wide_rt <- 
+  pivot_wider(long_rt,
+              names_from = c("Block",
+                             "Viewpoint"),
+              values_from = "RT")
+head(wide_rt, 10)
 ```
 
 ---
