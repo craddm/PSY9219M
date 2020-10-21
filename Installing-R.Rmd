@@ -1,9 +1,8 @@
 ---
 title: "Installing R and RStudio"
-author: "Matt Craddock"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -18,7 +17,7 @@ The first step is to install R itself.
 
 1. Go to [https://cloud.r-project.org](https://cloud.r-project.org)
 
-2. Click the link for your operating system. There are Windows, Linux, and Mac versions of R. There are specific instructions for installing R on each of these operating systems on the website, but in brief, for Windows, you want to click Base and then download the latest version. For Mac, you'll see a link for the .pkg installation file. The current version of R is 3.6.1.
+2. Click the link for your operating system. There are Windows, Linux, and Mac versions of R. There are specific instructions for installing R on each of these operating systems on the website, but in brief, for Windows, you want to click Base and then download the latest version. For Mac, you'll see a link for the .pkg installation file. The current version of R is 4.0.3.
 
 3. This will install R itself; on Windows you'll find R on your desktop. Although you can use R directly, you won't have the nice features that RStudio provides. Essentially you'll just have the Console.
 
