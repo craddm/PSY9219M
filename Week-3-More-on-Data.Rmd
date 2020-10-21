@@ -551,8 +551,6 @@ long_rt <-
 head(long_rt)
 ```
 
-But this isn't right! We need to tell it to leave the *Participant* column alone.
-
 ---
 # Pivoting longer
 
@@ -669,60 +667,6 @@ wide_rt <-
                              "Viewpoint"),
               values_from = "RT")
 head(wide_rt, 10)
-```
-
----
-# Combining columns into one
-
-
-.pull-left[
-We used **separate()** to split up our "exp_cond" column.
-
-We can use **unite()** to put it back together.
-```{r}
-united_rt <- 
-  unite(long_rt,
-      exp_cond, # the name of the new column
-      Block,
-      Viewpoint,
-      sep = "_")
-```
-]
-.pull-right[
-```{r}
-head(united_rt, 8)
-```
-]
-
----
-# Recreating the original data frame
-
-.pull-left[
-## Step 1 - **unite()** the columns
-```{r}
-united_rt <- 
-  unite(long_rt,
-      exp_cond, # the name of the new column
-      Block,
-      Viewpoint,
-      sep = "_")
-```
-]
-.pull-right[
-## Step 2 - **spread()** the columns
-```{r}
-spread_rt <- 
-  spread(united_rt,
-       exp_cond,
-       RT)
-
-```
-]
----
-# Recreating the original data frame
-
-```{r}
-spread_rt
 ```
 
 ---

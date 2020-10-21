@@ -149,9 +149,9 @@ test_matrix
 
 ```
 ##            [,1]        [,2]       [,3]
-## [1,] -0.3812419 -1.30247395 -0.5778376
-## [2,]  0.7897535 -0.59448057  0.6627631
-## [3,]  0.8393897  0.07885991 -0.5699742
+## [1,]  1.0585560  0.08362181 -0.9841997
+## [2,]  0.3277781 -0.54592305 -0.2723483
+## [3,] -0.6444367 -0.31882387 -0.1856499
 ```
 ]
 .pull-right[
@@ -170,9 +170,9 @@ test_matrix[2:3, 1:2]
 ```
 
 ```
-##           [,1]        [,2]
-## [1,] 0.7897535 -0.59448057
-## [2,] 0.8393897  0.07885991
+##            [,1]       [,2]
+## [1,]  0.3277781 -0.5459230
+## [2,] -0.6444367 -0.3188239
 ```
 ]
 
@@ -267,12 +267,12 @@ head(age_tibb)
 ## # A tibble: 6 x 3
 ##   Participant  cond1 age_group
 ##         &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;    
-## 1           1  2.05  Old      
-## 2           2  0.906 Old      
-## 3           3 -0.656 Old      
-## 4           4 -0.516 Old      
-## 5           5 -0.658 Old      
-## 6           6 -1.64  Young
+## 1           1 -0.368 Old      
+## 2           2  0.599 Old      
+## 3           3  1.46  Old      
+## 4           4  0.437 Old      
+## 5           5  1.30  Old      
+## 6           6  0.513 Young
 ```
 
 ---
@@ -897,94 +897,6 @@ head(wide_rt, 10)
 ##  8           8        470.        494.             504.             374.
 ##  9           9        517.        258.             396.             422.
 ## 10          10        642.        348.             515.             437.
-```
-
----
-# Combining columns into one
-
-
-.pull-left[
-We used **separate()** to split up our "exp_cond" column.
-
-We can use **unite()** to put it back together.
-
-```r
-united_rt &lt;- 
-  unite(long_rt,
-      exp_cond, # the name of the new column
-      Block,
-      Viewpoint,
-      sep = "_")
-```
-]
-.pull-right[
-
-```r
-head(united_rt, 8)
-```
-
-```
-## # A tibble: 8 x 3
-##   Participant exp_cond            RT
-##         &lt;int&gt; &lt;chr&gt;            &lt;dbl&gt;
-## 1           1 Block1_same       508.
-## 2           1 Block2_same       340.
-## 3           1 Block1_different  522.
-## 4           1 Block2_different  295.
-## 5           2 Block1_same       523.
-## 6           2 Block2_same       268.
-## 7           2 Block1_different  550.
-## 8           2 Block2_different  470.
-```
-]
-
----
-# Recreating the original data frame
-
-.pull-left[
-## Step 1 - **unite()** the columns
-
-```r
-united_rt &lt;- 
-  unite(long_rt,
-      exp_cond, # the name of the new column
-      Block,
-      Viewpoint,
-      sep = "_")
-```
-]
-.pull-right[
-## Step 2 - **spread()** the columns
-
-```r
-spread_rt &lt;- 
-  spread(united_rt,
-       exp_cond,
-       RT)
-```
-]
----
-# Recreating the original data frame
-
-
-```r
-spread_rt
-```
-
-```
-## # A tibble: 10 x 5
-##    Participant Block1_different Block1_same Block2_different Block2_same
-##          &lt;int&gt;            &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;
-##  1           1             522.        508.             295.        340.
-##  2           2             550.        523.             470.        268.
-##  3           3             667.        543.             476.        303.
-##  4           4             400.        556.             322.        408.
-##  5           5             539.        506.             269.        163.
-##  6           6             350.        489.             363.        287.
-##  7           7             624.        398.             392.        346.
-##  8           8             504.        470.             374.        494.
-##  9           9             396.        517.             422.        258.
-## 10          10             515.        642.             437.        348.
 ```
 
 ---
