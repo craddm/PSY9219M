@@ -27,7 +27,8 @@ library(tidyverse)
 ```
 ```{r xaringantheme, include = FALSE, warning = FALSE}
 library(xaringanthemer)
-style_solarized_light(base_font_size = "22px")
+style_solarized_light(base_font_size = "20px")
+
 ```
 
 ```{r echo = FALSE, message = FALSE}
@@ -151,13 +152,6 @@ one_to_four["Wednesday"]
 test_matrix[2:3, 1:2]
 ```
 ]
-
----
-class: inverse, center, middle
-
-# Join the RStudio.cloud class workspace!
-#http://bit.ly/PSYWorkspace
-
 
 ---
 background-image: url(images/03/tidy-hex.png)
@@ -393,7 +387,9 @@ nrow(example_rt_df)
 ---
 # Your target
 
-Switch to RStudio.cloud and open the "Week 3 - Structuring Data" Project. 
+Switch to *RStudio.cloud* and create a *New Project*. 
+
+Your job is to try to recreate this *tibble*.
 
 ```{r echo = FALSE}
 set.seed(200)
@@ -405,6 +401,19 @@ example_rt_df <-
              Block2_different = rnorm(10, 400, 100))
 example_rt_df
 ```
+
+---
+# A shortcut to more tips
+
+.large[
+If you follow this link, you should be able to make a copy of a project I prepared for you.
+
+This project has only one file, an RMarkdown file that has some more tips and instructions for you.
+
+https://rstudio.cloud/project/1817564
+
+(if you get really stuck, there is a solution to Part 1 on the next slide!)
+]
 
 ---
 # A possible solution
@@ -597,7 +606,6 @@ unique(long_rt$exp_cond)
 
 The value of "Block" comes before the underscore ("_"), while the value of "viewpoint" comes after it.
 
-
 ---
 # Splitting columns
 
@@ -644,9 +652,10 @@ values_to = "RT",
 ```
 ]
 .pull-right[
-## Step 1 - **pivot_longer()** the RTs
 
-## Step 2 - **separate()** the variables
+You should specify name(s) for the column(s) that you'll create using the "names_to" and "values_to" arguments. 
+
+You'll need to add "names_sep" and the character that separates the two sides as well in order to match the target
 ]
 
 ---
@@ -745,11 +754,12 @@ pairs(emmeans::emmeans(aov_rts,
 ---
 # Next week
 .large[
-- Chapters 3 and 28 of R for Data Science
-    - Data Visualization
-    - Graphics for communication
-    
-- RStudio.cloud Primer
+- The following chapters of R for Data Science - 
+    - **Data Visualization** (Chapter 1 via the library)
+    - **Graphics for communication with ggplot2** (Chapter 22 via the library)
+  
+Practice some of the skills for next week:
+- **RStudio.cloud Primer**
     - Visualize Data
 ]
 

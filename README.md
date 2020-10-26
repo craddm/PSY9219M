@@ -6,6 +6,8 @@ Course materials for PSY9219M, Research Methods and Skills, and PSY9251M, Resear
 
 [Week 2 - Intro to R part 2](Week-2-Basic_R.html)
 
+[Week 3 - The Structure of Data](Week-3-More-on-Data.html)
+
 ---
 [Installing R and RStudio at home](Installing-R.html)
 
