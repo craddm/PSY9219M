@@ -1,35 +1,31 @@
----
-title: "Visualizing data"
-subtitle: "PSY9219M & PSY9251M"
-date: "3/11/2020"
-output:
-  xaringan::moon_reader:
-    css: ["default", "default-fonts", "xaringan-themer.css", "css/my-theme.css"]
-    lib_dir: libs
-    nature:
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
-      ratio: "16:9"
-      beforeInit: "js/macros.js"
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Visualizing data</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-webcam/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="css/my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Visualizing data
+## PSY9219M &amp; PSY9251M
+### 3/11/2020
+
 ---
 
-```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
-library(tidyverse)
-library(datasauRus)
-library(readxl)
-xaringanExtra::use_webcam()
-xaringanExtra::use_tile_view()
-xaringanExtra::use_extra_styles()
-knitr::opts_chunk$set(fig.asp = .618,
-                      fig.width = 6,
-                      message = FALSE)
-```
-```{r xaringantheme, include = FALSE, warning = FALSE}
-library(xaringanthemer)
-style_solarized_light(base_font_size = "20px")
-```
+
+
+
 class: center, middle, inverse
 # Before we get going... 
 
@@ -44,17 +40,28 @@ Make sure you join the PSY9219M/PSY9251M workspace on RStudio.cloud!
 # Data frames and tibbles
 
 .pull-left[
-```{r examp_df, echo = FALSE}
-example_rt_df <- 
-  data.frame(Participant = rep(1:50,
-                               each = 10),
-             Viewpoint = c("Same", "Different"),
-             B1RT = rnorm(500, 500, 100),
-             B2RT = rnorm(500, 400, 100)) %>% 
-  group_by(Participant, Viewpoint) %>%
-  summarise(B1RT = mean(B1RT),
-            B2RT = mean(B2RT))
-head(example_rt_df, 16)
+
+```
+## # A tibble: 16 x 4
+## # Groups:   Participant [8]
+##    Participant Viewpoint  B1RT  B2RT
+##          &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
+##  1           1 Different  513.  388.
+##  2           1 Same       579.  447.
+##  3           2 Different  565.  389.
+##  4           2 Same       565.  429.
+##  5           3 Different  455.  437.
+##  6           3 Same       536.  398.
+##  7           4 Different  451.  377.
+##  8           4 Same       497.  497.
+##  9           5 Different  535.  328.
+## 10           5 Same       505.  392.
+## 11           6 Different  449.  435.
+## 12           6 Same       432.  405.
+## 13           7 Different  537.  413.
+## 14           7 Same       422.  288.
+## 15           8 Different  507.  375.
+## 16           8 Same       409.  395.
 ```
 ]
 .pull-right[
@@ -103,15 +110,7 @@ class: inverse, middle, center
 ]
 
 .pull-right[
-```{r dino-again, fig.height = 5, echo = FALSE}
-datasauRus::datasaurus_dozen %>%
-  filter(dataset == "dino") %>%
-  ggplot(aes(x = x,
-             y = y)) +
-  geom_point() +
-  stat_smooth(method = "lm", se = FALSE) +
-  theme_minimal()
-```
+![](Week-4-Exploring-data-graphically_files/figure-html/dino-again-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -121,12 +120,22 @@ Plotting helps you quickly gain an understanding of the structure of your data.
 
 Here's some recent data about the UK's prison population.
 
-```{r echo = FALSE}
-pris_pop <- read_excel("data/prison-population-data-tool-31-december-2017.xlsx",
-                       sheet = "PT Data")
-key <- pris_pop$View[[1]]
 
-pris_pop
+```
+## # A tibble: 22,409 x 6
+##    View          Date   Establishment Sex   `Age / Custody / Nationa~ Population
+##    &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt;
+##  1 a Establishm~ 2015-~ Altcourse     Male  Adults (21+)                     922
+##  2 a Establishm~ 2015-~ Altcourse     Male  Juveniles and Young Adul~        169
+##  3 a Establishm~ 2015-~ Ashfield      Male  Adults (21+)                     389
+##  4 a Establishm~ 2015-~ Askham Grange Fema~ Adults (21+)                      NA
+##  5 a Establishm~ 2015-~ Askham Grange Fema~ Juveniles and Young Adul~         NA
+##  6 a Establishm~ 2015-~ Aylesbury     Male  Adults (21+)                     113
+##  7 a Establishm~ 2015-~ Aylesbury     Male  Juveniles and Young Adul~        268
+##  8 a Establishm~ 2015-~ Bedford       Male  Adults (21+)                     459
+##  9 a Establishm~ 2015-~ Bedford       Male  Juveniles and Young Adul~         30
+## 10 a Establishm~ 2015-~ Belmarsh      Male  Adults (21+)                     794
+## # ... with 22,399 more rows
 ```
 
 Retrieved from [data.gov.uk](https://data.gov.uk/dataset/f3f79bba-d74a-4c6a-85f3-f29881349a34/offender-management-statistics) - Contains public sector information licensed under the Open Government Licence v3.0.
@@ -140,16 +149,17 @@ Let's look at the UK prison population as of December 2017, split by establishme
 
 First we filter out all but the rows I'm interested in. Don't worry about understanding this code... (yet!)
 
-```{r init-pris, fig.height = 5, fig.show = "hide"}
-pris_pop %>%
+
+```r
+pris_pop %&gt;%
   filter(View == "a Establishment*Sex*Age Group",
-         Date == "2017-12") %>%
+         Date == "2017-12") %&gt;%
   ggplot(aes(x = Population)) +
   stat_bin(binwidth = 100) 
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("init-pris", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/init-pris-1.png)
 ]
 
 ---
@@ -167,7 +177,7 @@ Some obvious features:
 These two features suggest that there may be some structure we're missing with this plot.
 ]
 .pull-right[
-![](`r knitr::fig_chunk("init-pris", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/init-pris-1.png)
 ]
 ---
 # Getting a quick understanding of your data
@@ -178,10 +188,11 @@ In the data, age is coded into "Juveniles and Young Adults (15-20)" and "Adults 
 
 Let's see if Age underlies some of the features of the first plot.
 
-```{r split-by-age, fig.show = "hide", fig.height = 5}
-pris_pop %>%
+
+```r
+pris_pop %&gt;%
   filter(View == "a Establishment*Sex*Age Group",
-         Date == "2017-12") %>%
+         Date == "2017-12") %&gt;%
   ggplot(aes(x = Population,
              fill = `Age / Custody / Nationality / Offence Group`)) +
   stat_bin(binwidth = 100,
@@ -190,7 +201,7 @@ pris_pop %>%
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("split-by-age", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/split-by-age-1.png)
 ]
 
 ---
@@ -207,7 +218,7 @@ In addition, there are far fewer juveniles in prison than adults.
 Note that while many institutions hold both adults and juveniles, some hold only adults and some hold only juveniles.
 ]
 .pull-right[
-![](`r knitr::fig_chunk("split-by-age", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/split-by-age-1.png)
 ]
 
 ---
@@ -218,12 +229,13 @@ How do prison populations vary between men and women?
 
 Here we focus on adults, excluding juveniles from the plot.
 
-```{r split-by-sex, fig.height = 5, fig.show = "hide"}
-pris_pop %>%
-  rename(Age = `Age / Custody / Nationality / Offence Group`) %>%
+
+```r
+pris_pop %&gt;%
+  rename(Age = `Age / Custody / Nationality / Offence Group`) %&gt;%
   filter(View == "a Establishment*Sex*Age Group",
          Date == "2017-12",
-         Age == "Adults (21+)") %>%
+         Age == "Adults (21+)") %&gt;%
   ggplot(aes(x = Population,
              fill = Sex)) +
   stat_bin(binwidth = 100,
@@ -231,7 +243,7 @@ pris_pop %>%
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("split-by-sex", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/split-by-sex-1.png)
 ]
 
 ---
@@ -245,7 +257,7 @@ There are also far fewer institutions that hold women than institutions that hol
 Also there are generally more men in any given institution than there are women.
 ]
 .pull-right[
-![](`r knitr::fig_chunk("split-by-sex", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/split-by-sex-1.png)
 ]
 
 ---
@@ -254,43 +266,16 @@ Also there are generally more men in any given institution than there are women.
 Plots are also useful for showing the statistical patterns in your data to go along with statistical tests.
 
 .pull-left[
-```{r echo = FALSE, fig.height= 5}
-ggplot(example_rt_df,
-       aes(x = B1RT, y = B2RT)) +
-  geom_point() 
-```
+![](Week-4-Exploring-data-graphically_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
-```{r echo = FALSE, fig.height= 5}
-ggplot(example_rt_df,
-       aes(x = B1RT, y = B2RT, colour = Viewpoint)) +
-    geom_point(aes(shape = Viewpoint),
-               size = 3,
-               alpha = 0.5) +
-  geom_smooth(method = "lm", se = FALSE) +
-  theme_minimal() +
-  geom_rug(alpha = 0.5) +
-  labs(x = "Block 1 RT (ms)",
-       y = "Block 2 RT (ms)") +
-  ggtitle("Relationship between first and second block RTs") +
-  scale_colour_brewer(palette = "Dark2")
-```
+![](Week-4-Exploring-data-graphically_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
 ]
 
 ---
 # Communicating patterns
 .pull-left[
-```{r echo = FALSE, message = FALSE, fig.height = 5, fig.width = 6}
-read_csv("https://raw.githubusercontent.com/dspiegel29/ArtofStatistics/master/00-2-shipman-times/00-2-shipman-times-x.csv") %>%
-  gather("doctors", "perc", -Hour) %>%
-  ggplot(aes(x = Hour, y = perc, colour = doctors)) +
-  geom_line() +
-  labs(x = "Time of death",
-       y = "Percentage of deaths (%)",
-       colour = "") + 
-  scale_x_continuous(expand = c(0, 0)) + 
-  theme_classic(base_size = 18)
-```
+![](Week-4-Exploring-data-graphically_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
 .large[
@@ -311,23 +296,10 @@ Every one of these plots shows sets of data with the same means, standard deviat
 
 One is non-linear, one has an outlier, and one should have a categorical x-axis!
 
-```{r tidy-ans, fig.height = 5, echo = FALSE, fig.show = "hide"}
-anscombe_tidy <- 
-  datasets::anscombe %>%
-    mutate(observation = seq_len(n())) %>%
-    gather(key, value, -observation) %>%
-    separate(key, c("variable", "set"), 1, convert = TRUE) %>%
-    mutate(set = c("I", "II", "III", "IV")[set]) %>%
-    spread(variable, value)
-ggplot(anscombe_tidy,
-       aes(x = x, y = y)) +
-  geom_point() +
-  stat_smooth(method = "lm", se = FALSE) + 
-  facet_wrap(.~set)
-```
+
 ]
 .pull-right[
-![](`r knitr::fig_chunk("tidy-ans", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/tidy-ans-1.png)
 ]
 
 
@@ -336,29 +308,12 @@ ggplot(anscombe_tidy,
 
 ## The Datasaurus Dozen
 .pull-left[
-```{r data-doz, echo = FALSE, fig.show = "hide", fig.height = 5}
-datasauRus::datasaurus_dozen %>%
-  filter(dataset != "dino") %>%
-  ggplot(aes(x = x,
-             y = y)) +
-  geom_point() +
-  stat_smooth(method = "lm", se = FALSE) +
-  facet_wrap(~dataset, ncol = 3) +
-  theme_minimal()
-```
-![](`r knitr::fig_chunk("data-doz", "png")`)
+
+![](Week-4-Exploring-data-graphically_files/figure-html/data-doz-1.png)
 ]
 
 .pull-right[
-```{r dino-doz, fig.height = 5, echo = FALSE}
-datasauRus::datasaurus_dozen %>%
-  filter(dataset == "dino") %>%
-  ggplot(aes(x = x,
-             y = y)) +
-  geom_point() +
-  stat_smooth(method = "lm", se = FALSE) +
-  theme_minimal()
-```
+![](Week-4-Exploring-data-graphically_files/figure-html/dino-doz-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -389,14 +344,15 @@ The Grammar of Graphics is a principled approach to building plots from a few un
 
 We begin with a blank canvas:
 
-```{r blank-gg, fig.height = 5, fig.show = "hide"}
+
+```r
 ggplot()
 ```
 
 ]
 
 .pull-right[
-![](`r knitr::fig_chunk("blank-gg", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/blank-gg-1.png)
 ]
 
 ---
@@ -405,8 +361,26 @@ background-size: 8%
 background-position: 85% 5%
 # The mpg dataset
 
-```{r mpg-examp}
+
+```r
 mpg
+```
+
+```
+## # A tibble: 234 x 11
+##    manufacturer model    displ  year   cyl trans   drv     cty   hwy fl    class
+##    &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+##  1 audi         a4         1.8  1999     4 auto(l~ f        18    29 p     comp~
+##  2 audi         a4         1.8  1999     4 manual~ f        21    29 p     comp~
+##  3 audi         a4         2    2008     4 manual~ f        20    31 p     comp~
+##  4 audi         a4         2    2008     4 auto(a~ f        21    30 p     comp~
+##  5 audi         a4         2.8  1999     6 auto(l~ f        16    26 p     comp~
+##  6 audi         a4         2.8  1999     6 manual~ f        18    26 p     comp~
+##  7 audi         a4         3.1  2008     6 auto(a~ f        18    27 p     comp~
+##  8 audi         a4 quat~   1.8  1999     4 manual~ 4        18    26 p     comp~
+##  9 audi         a4 quat~   1.8  1999     4 auto(l~ 4        16    25 p     comp~
+## 10 audi         a4 quat~   2    2008     4 manual~ 4        20    28 p     comp~
+## # ... with 224 more rows
 ```
 
 ---
@@ -424,14 +398,15 @@ The first two arguments to **ggplot()** are *data* and *mapping*.
 We use the **aes()** function within this to map columns from the data to properties of the plot.
 
 Here we use the 'displ' and 'hwy' columns from the *mpg* dataset to set up our co-ordinate system.
-```{r mpg-coords, fig.height = 5, fig.show = "hide"}
+
+```r
 ggplot(data = mpg,
        mapping = aes(x = displ,
                      y = hwy))
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("mpg-coords", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/mpg-coords-1.png)
 ]
 ---
 background-image: url(images/04/ggplot2-logo.png)
@@ -446,7 +421,8 @@ background-position: 85% 5%
 We add a new layer to our initial canvas using *+*, and then use the various **geom_\*** functions to draw shapes on the new layer.
 
 For a scatterplot, we'll use **geom_point()**. There are lots of different **geom_\*** functions. 
-```{r scatter-mpg, fig.height = 5, fig.show = "hide"}
+
+```r
 ggplot(data = mpg, 
        mapping = aes(x = displ,
                      y = hwy)) +
@@ -454,7 +430,7 @@ ggplot(data = mpg,
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("scatter-mpg", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/scatter-mpg-1.png)
 ]
 
 ---
@@ -468,7 +444,8 @@ A question we're pondering is what is the relationship between the variables on 
 
 We can add a linear regression line using **geom_smooth()** and specifying "lm" (linear model) for the argument method.
 
-```{r scatter-smooth, fig.height = 5, fig.show = "hide"}
+
+```r
 ggplot(data = mpg, 
        mapping = aes(x = displ, y = hwy)) +
   geom_point() + 
@@ -478,7 +455,7 @@ ggplot(data = mpg,
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("scatter-smooth", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/scatter-smooth-1.png)
 ]
 ---
 background-image: url(images/04/ggplot2-logo.png)
@@ -491,7 +468,8 @@ Another variable we know about is the number of cylinders in the engines - the *
 
 *cyl* only has four unique levels, so it's best treated as a categorical variable and converted to a factor using **factor()**. Here, we use colour to identify different levels of *cyl*.
 
-```{r scatter-cyls, fig.height = 5, fig.show = "hide"}
+
+```r
 ggplot(data = mpg, 
        mapping = aes(x = displ,
                      y = hwy,
@@ -503,7 +481,7 @@ ggplot(data = mpg,
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("scatter-cyls", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/scatter-cyls-1.png)
 ]
 
 ---
@@ -514,7 +492,8 @@ background-position: 85% 5%
 
 .pull-left[
 And we can also add linear regression lines for each grouping of cylinders, again using **geom_smooth()**.
-```{r scatter-cyls-smo, fig.height = 5, fig.show = "hide"}
+
+```r
 ggplot(data = mpg, 
        mapping = aes(x = displ,
                      y = hwy,
@@ -527,7 +506,7 @@ ggplot(data = mpg,
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("scatter-cyls-smo", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/scatter-cyls-smo-1.png)
 ]
 
 ---
@@ -547,7 +526,8 @@ Typically with a single categorical variable, we want a frequency count - i.e. w
 
 A bar graph is ideal! For example, there are several different *classes* of vehicle in in the *mpg* dataset. How many times does each one show up?
 
-```{r count-bar, fig.height = 5, fig.show = "hide"}
+
+```r
 ggplot(mpg,
        aes(x = class)) +
   geom_bar()
@@ -556,7 +536,7 @@ ggplot(mpg,
 ]
 
 .pull-right[
-![](`r knitr::fig_chunk("count-bar", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/count-bar-1.png)
 ]
 
 ---
@@ -569,14 +549,15 @@ With **geom_point()** we change the **colour** aesthetic.
 
 For **geom_bar()** we need to change the **fill** aesthetic.
 
-```{r mpg-fill, fig.show = "hide", fig.height = 5}
+
+```r
 ggplot(mpg, aes(x = class,
                 fill = class)) +
   geom_bar()
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("mpg-fill", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/mpg-fill-1.png)
 ]
 
 
@@ -588,14 +569,15 @@ Note that the fill doesn't have to be the same variable.
 
 For example, you may want to see how each count breaks down into groups of another categorical variable.
 
-```{r mpg-fill-cyl, fig.show = "hide", fig.height = 5}
+
+```r
 ggplot(mpg, aes(x = class,
                 fill = factor(cyl))) +
   geom_bar()
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("mpg-fill-cyl", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/mpg-fill-cyl-1.png)
 ]
 
 ---
@@ -610,14 +592,15 @@ Histograms split continuous variables up into discrete bins, and count how many 
 
 Here we use **geom_histogram()**. By default, it splits data into 30 bins.
 
-```{r displ-hist, fig.height = 5, fig.show = "hide"}
+
+```r
 ggplot(mpg, aes(x = displ)) +
   geom_histogram()
 ```
 ]
 
 .pull-right[
-![](`r knitr::fig_chunk("displ-hist", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/displ-hist-1.png)
 ]
 
 ---
@@ -628,20 +611,21 @@ Changing the number of bins can have quite dramatic results on the plots.
 
 There are no hard and fast rules how many bins you need.
 
-```{r displ-hist-moarbins, fig.height = 2.5, fig.show = "hide"}
+
+```r
 ggplot(mpg, aes(x = displ)) +
   geom_histogram(bins = 50)
-
 ```
-```{r displ-hist-lessbins, fig.height = 2.5, fig.show = "hide"}
+
+```r
 ggplot(mpg, aes(x = displ)) +
   geom_histogram(bins = 10)
 ```
 ]
 
 .pull-right[
-![](`r knitr::fig_chunk("displ-hist-moarbins", "png")`)
-![](`r knitr::fig_chunk("displ-hist-lessbins", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/displ-hist-moarbins-1.png)
+![](Week-4-Exploring-data-graphically_files/figure-html/displ-hist-lessbins-1.png)
 ]
 
 ---
@@ -652,14 +636,15 @@ Rather than choosing a number of bins, you can also set the **binwidth**, in the
 
 For example, here it's set to make one bin every .5 units of the **displ** variable.
 
-```{r displ-hist-binwid, fig.height = 5, fig.show = "hide"}
+
+```r
 ggplot(mpg, aes(x = displ)) +
   geom_histogram(binwidth = .5)
 ```
 ]
 
 .pull-right[
-![](`r knitr::fig_chunk("displ-hist-binwid", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/displ-hist-binwid-1.png)
 ]
 
 ---
@@ -672,14 +657,15 @@ An advantage of the KDE (other than the fancy-sounding name) is that it provides
 
 We draw a KDE using **geom_density()**.
 
-```{r displ-dens, fig.height = 5, fig.show = "hide"}
+
+```r
 ggplot(mpg, aes(x = displ)) +
   geom_density(fill = "grey")
 ```
 ]
 
 .pull-right[
-![](`r knitr::fig_chunk("displ-dens", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/displ-dens-1.png)
 ]
 
 ---
@@ -689,13 +675,7 @@ class: inverse, center, middle
 
 ---
 # Plotting continuous by discrete interactions
-```{r echo = FALSE}
-pris_pop <- 
-  pris_pop %>%
-  filter(View == "a Establishment*Sex*Age Group",
-         Date == "2017-12") %>%
-  rename(Age = `Age / Custody / Nationality / Offence Group`)
-```
+
 .pull-left[
 Often when working with continuous data, you have additional categorical variables.
 
@@ -705,7 +685,8 @@ It's often easiest to put categorical variables side-by-side on the same plot.
 
 Here we use **geom_histogram(position = "dodge")** to put the bars side-by-side.
 
-```{r pris-by-age, fig.height = 5, fig.show = "hide"}
+
+```r
 ggplot(pris_pop, 
        aes(x = Population,
              fill = Age)) +
@@ -714,7 +695,7 @@ ggplot(pris_pop,
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("pris-by-age", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/pris-by-age-1.png)
 ]
 
 ---
@@ -729,7 +710,8 @@ Since the densities overlap, we can manipulate the *transparency* of the geom us
 
 Note that this can be applied to most *geoms* and is often useful when there is overlap.
 
-```{r pris-by-age-dens, fig.height = 5, fig.show = "hide"}
+
+```r
 ggplot(pris_pop, 
        aes(x = Population,
              fill = Age)) +
@@ -737,7 +719,7 @@ ggplot(pris_pop,
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("pris-by-age-dens", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/pris-by-age-dens-1.png)
 ]
 ---
 # Plotting continuous by discrete interactions
@@ -748,7 +730,8 @@ However, sometimes you'll find it helpful to produce separate "panels" for each 
 
 We can use the **facet_wrap()** or **facet_grid()** function to produce additional panels.
 
-```{r pris-by-age-facet, fig.height = 5, fig.show = "hide"}
+
+```r
 ggplot(pris_pop, 
        aes(x = Population)) +
   geom_histogram(binwidth = 100) +
@@ -756,7 +739,7 @@ ggplot(pris_pop,
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("pris-by-age-facet", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/pris-by-age-facet-1.png)
 ]
 
 ---
@@ -771,7 +754,8 @@ In this case we want R to summarise the continuous variable, providing us with t
 
 We use **stat_summary()** to do this.
 
-```{r cyl-err, fig.show = "hide", fig.height = 5}
+
+```r
 ggplot(mtcars,
        aes(x = factor(cyl),
            y = mpg)) + 
@@ -779,7 +763,7 @@ ggplot(mtcars,
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("cyl-err", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/cyl-err-1.png)
 ]
 
 ---
@@ -791,7 +775,8 @@ Some people like to plot bar charts, with the mean and error bars overlaid on to
 
 We use **stat_summary()** twice, the first time specifying that we want bars using the *geom* argument, the second time just using the defaults.
 
-```{r cyl-bars, fig.height = 5, fig.show = "hide"}
+
+```r
 ggplot(mtcars,
        aes(x = factor(cyl),
            y = mpg)) + 
@@ -799,9 +784,13 @@ ggplot(mtcars,
                geom = "bar") +
   stat_summary(fun.data = mean_se)
 ```
+
+```
+## Warning: `fun.y` is deprecated. Use `fun` instead.
+```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("cyl-bars", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/cyl-bars-1.png)
 ]
 
 ---
@@ -815,7 +804,8 @@ Most of the space occupied by the bars has no data in it, as we can see when we 
 
 Stick to using bars to show counts!
 
-```{r cyl-bars-indiv, fig.height = 5, fig.show = "hide"}
+
+```r
 ggplot(mtcars,
        aes(x = factor(cyl),
            y = mpg)) + 
@@ -823,11 +813,14 @@ ggplot(mtcars,
                geom = "bar", fill = "white") +
   stat_summary(fun.data = mean_se) +
   geom_point()
+```
 
+```
+## Warning: `fun.y` is deprecated. Use `fun` instead.
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("cyl-bars-indiv", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/cyl-bars-indiv-1.png)
 ]
 ---
 # Plotting continuous by discrete interactions
@@ -835,14 +828,16 @@ ggplot(mtcars,
 .pull-left[
 
 Two better alternatives are **violin plots** or **boxplots**
-```{r cyl-box-plot, fig.height = 3, fig.show = "hide"}
+
+```r
 ggplot(mtcars,
        aes(x = factor(cyl),
            y = mpg)) + 
   geom_boxplot() +
   geom_point(alpha = 0.5)
 ```
-```{r cyl-violin-plot, fig.height = 3, fig.show = "hide"}
+
+```r
 ggplot(mtcars,
        aes(x = factor(cyl),
            y = mpg)) + 
@@ -851,8 +846,8 @@ ggplot(mtcars,
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("cyl-box-plot", "png")`)
-![](`r knitr::fig_chunk("cyl-violin-plot", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/cyl-box-plot-1.png)
+![](Week-4-Exploring-data-graphically_files/figure-html/cyl-violin-plot-1.png)
 ]
 ---
 # Plotting two continuous variables
@@ -862,7 +857,8 @@ The best type of plot for showing the relationship between two continuous variab
 
 We created one in the earlier exercise, so here's one with a few additional features.
 
-```{r fancy-mpg, fig.show = "hide", fig.height = 6, fig.width= 7}
+
+```r
 ggplot(data = mpg, 
        mapping = aes(x = displ,
                      y = hwy,
@@ -877,11 +873,10 @@ ggplot(data = mpg,
        shape = "Cylinders") + 
   theme_classic() +
   ggtitle("The relationship between MPG and Engine Displacement")
-
 ```
 ]
 .pull-right[
-![](`r knitr::fig_chunk("fancy-mpg", "png")`)
+![](Week-4-Exploring-data-graphically_files/figure-html/fancy-mpg-1.png)
 ]
 
 
@@ -893,3 +888,128 @@ For practice of this week's concepts, see the RStudio.cloud [Visualize Data](htt
 For more general advice on plotting, see R4DS Chapters on [Graphics for Communication](https://r4ds.had.co.nz/graphics-for-communication.html) and [Data Visualization](https://r4ds.had.co.nz/data-visualisation.html), and Kieran Healy's [Data Visualization](https://socviz.co)
 
 To prepare for next week, read R4DS Chapter on [Data transformation](https://r4ds.had.co.nz/transform.html)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="js/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

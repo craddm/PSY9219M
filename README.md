@@ -8,6 +8,8 @@ Course materials for PSY9219M, Research Methods and Skills, and PSY9251M, Resear
 
 [Week 3 - The Structure of Data](Week-3-More-on-Data.html)
 
+[Week 4 - Exploring data graphically](Week-4-Exploring-data-graphically.html)
+
 ---
 [Installing R and RStudio at home](Installing-R.html)
 
