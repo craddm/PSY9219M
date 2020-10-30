@@ -26,17 +26,7 @@ class: center, middle, inverse, title-slide
 
 
 
-class: center, middle, inverse
-# Before we get going... 
 
-
-.large[
-Make sure you join the PSY9219M/PSY9251M workspace on RStudio.cloud!
-
-# https://bit.ly/PSYWorkspace
-]
-
----
 # Data frames and tibbles
 
 .pull-left[
@@ -46,22 +36,22 @@ Make sure you join the PSY9219M/PSY9251M workspace on RStudio.cloud!
 ## # Groups:   Participant [8]
 ##    Participant Viewpoint  B1RT  B2RT
 ##          &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
-##  1           1 Different  513.  388.
-##  2           1 Same       579.  447.
-##  3           2 Different  565.  389.
-##  4           2 Same       565.  429.
-##  5           3 Different  455.  437.
-##  6           3 Same       536.  398.
-##  7           4 Different  451.  377.
-##  8           4 Same       497.  497.
-##  9           5 Different  535.  328.
-## 10           5 Same       505.  392.
-## 11           6 Different  449.  435.
-## 12           6 Same       432.  405.
-## 13           7 Different  537.  413.
-## 14           7 Same       422.  288.
-## 15           8 Different  507.  375.
-## 16           8 Same       409.  395.
+##  1           1 Different  473.  430.
+##  2           1 Same       466.  388.
+##  3           2 Different  407.  426.
+##  4           2 Same       466.  442.
+##  5           3 Different  435.  325.
+##  6           3 Same       555.  396.
+##  7           4 Different  617.  362.
+##  8           4 Same       455.  428.
+##  9           5 Different  464.  347.
+## 10           5 Same       503.  351.
+## 11           6 Different  530.  401.
+## 12           6 Same       484.  428.
+## 13           7 Different  455.  344.
+## 14           7 Same       523.  400.
+## 15           8 Different  542.  419.
+## 16           8 Same       487.  407.
 ```
 ]
 .pull-right[
@@ -170,7 +160,7 @@ pris_pop %&gt;%
 This is a histogram showing the distribution of prison populations in bins of 100 inmates.
 
 Some obvious features:
-1. The data is right-skewed - lots of small values, few large values.
+1. The data is heavily skewed - lots of small values, few large values.
 
 2. There may be a mixture of distributions - there's a big peak in the low numbers, then a dip, then a broader peak.
 
@@ -621,11 +611,12 @@ ggplot(mpg, aes(x = displ)) +
 ggplot(mpg, aes(x = displ)) +
   geom_histogram(bins = 10)
 ```
+
+
 ]
 
 .pull-right[
-![](Week-4-Exploring-data-graphically_files/figure-html/displ-hist-moarbins-1.png)
-![](Week-4-Exploring-data-graphically_files/figure-html/displ-hist-lessbins-1.png)
+![](Week-4-Exploring-data-graphically_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -844,17 +835,17 @@ ggplot(mtcars,
   geom_violin() +
   geom_point(alpha = 0.5)
 ```
+
+
 ]
 .pull-right[
-![](Week-4-Exploring-data-graphically_files/figure-html/cyl-box-plot-1.png)
-![](Week-4-Exploring-data-graphically_files/figure-html/cyl-violin-plot-1.png)
+![](Week-4-Exploring-data-graphically_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 ]
 ---
 # Plotting two continuous variables
 
 .pull-left[
 The best type of plot for showing the relationship between two continuous variables is the **scatterplot**. 
-
 We created one in the earlier exercise, so here's one with a few additional features.
 
 
