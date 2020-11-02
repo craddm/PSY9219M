@@ -10,6 +10,8 @@ Course materials for PSY9219M, Research Methods and Skills, and PSY9251M, Resear
 
 [Week 4 - Exploring data graphically](Week-4-Exploring-data-graphically.html)
 
+[Week 5 - Importing, transforming, and summarising your data](Week-5-Import-and-wrangling.html)
+
 ---
 [Installing R and RStudio at home](Installing-R.html)
 
