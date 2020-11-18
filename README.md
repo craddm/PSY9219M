@@ -14,7 +14,7 @@ Course materials for PSY9219M, Research Methods and Skills, and PSY9251M, Resear
 
 *Week 6 - Thesis week - no lecture!*
 
-[Week 7 - The basics of statistical testing](Week-7-NHST-two-means.Rmd)
+[Week 7 - The basics of statistical testing](Week-7-NHST-two-means.html)
 
 ---
 [Installing R and RStudio at home](Installing-R.html)
