@@ -776,30 +776,6 @@ We can test this statistically using Levene's test from the **car** package:
 
 ```r
 library(car)
-```
-
-```
-## Loading required package: carData
-```
-
-```
-## 
-## Attaching package: 'car'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     recode
-```
-
-```
-## The following object is masked from 'package:purrr':
-## 
-##     some
-```
-
-```r
 leveneTest(FoC ~ victim_crime, data = crime)
 ```
 

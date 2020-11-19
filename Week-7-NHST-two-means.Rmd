@@ -601,7 +601,7 @@ Let's look again at our distributions for Fear of Crime.
 Although they're skewed, it looks like they're similarly variable.
 
 We can test this statistically using Levene's test from the **car** package:
-```{r warning = FALSE, highlight.output = 3}
+```{r message = FALSE, warning = FALSE, highlight.output = 3}
 library(car)
 leveneTest(FoC ~ victim_crime, data = crime)
 ```
