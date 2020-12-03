@@ -18,6 +18,8 @@ Course materials for PSY9219M, Research Methods and Skills, and PSY9251M, Resear
 
 [Week 8 - Correlation and Regression](Week-8-Correlation-Regression.html)
 
+[Week 9 - Multiple regression and ANOVA](Week-9-Multi-Regression-ANOVA.html)
+
 ---
 [Installing R and RStudio at home](Installing-R.html)
 
