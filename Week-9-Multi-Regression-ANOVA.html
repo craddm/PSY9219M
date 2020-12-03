@@ -516,7 +516,7 @@ There are several different common methods.
 
 |Method| Meaning|
 |------|-----|
-|Hierarchical regression| Variables entered in the order of their known or theoeretical importance; known variables are added first, then additional predictors are added and the model fits compared to see which predictors improve model fit.|
+|Hierarchical regression| Variables entered in the order of their known or theoretical importance; known variables are added first, then additional predictors are added and the model fits compared to see which predictors improve model fit.|
 |Forced entry| All predictors are entered at once. |
 |Stepwise| Predictors are added (forwards, starting with no predictors) or removed (backwards, starting with all predictors) sequentially. Can be performed using **step()**. But please don't. Use *backwards* if you must.|
 
@@ -536,7 +536,7 @@ Like the t-test and other parametric statistical procedures, linear regression h
 |----------|------|------|
 |Independence| Each datapoint should be independent from the others |No repeated measures (for those, you need linear mixed models...)|
 |Normally distributed errors| The residuals should be approximately normally distributed around zero. Note that this is often confused with the need for the data to be normally distributed, but it's what's left over from the model that's important! | Best assessed using plots (e.g. **plot()**) |
-|Homoscedascity| The variance at each level of the predictor should be approximately the same (i.e. the residuals should be spread around zero by the same amount) |Best assessed using plots (e.g. **plot()**)|
+|Homoscedasticity| The variance at each level of the predictor should be approximately the same (i.e. the residuals should be spread around zero by the same amount) |Best assessed using plots (e.g. **plot()**)|
 |Linearity| The relationship between the outcome variable and the predictors should be approximately linear| Use *polynomial* predictors - check the **poly()** function|
 
 See Discovering Statistics Using R, section 7.7.2.1 for more details.
@@ -792,16 +792,16 @@ noise_test
 ## # A tibble: 150 x 3
 ##    noise test_score participant
 ##    &lt;chr&gt;      &lt;dbl&gt;       &lt;int&gt;
-##  1 none        7.06           1
-##  2 none        8.89           2
-##  3 none        6.00           3
-##  4 none        8.23           4
-##  5 none        9.84           5
-##  6 none        7.58           6
-##  7 none        7.45           7
-##  8 none        9.09           8
-##  9 none        6.68           9
-## 10 none        9.21          10
+##  1 none        8.24           1
+##  2 none        6.78           2
+##  3 none        7.61           3
+##  4 none        9.05           4
+##  5 none        8.64           5
+##  6 none        9.37           6
+##  7 none        8.21           7
+##  8 none        7.23           8
+##  9 none        8.66           9
+## 10 none        7.73          10
 ## # ... with 140 more rows
 ```
 ]
@@ -827,7 +827,7 @@ The simplest model of this data is to use the grand mean across all conditions.
 ]
 
 .pull-right[
-The grand mean test score is 6.64, shown by the black line.
+The grand mean test score is 6.79, shown by the black line.
 
 The total variability in our data is the sum of the squared differences from the grand mean - the Total Sum of Squares, `\(SS_t\)`.
 
@@ -932,8 +932,8 @@ noise_aov
 ## Anova Table (Type 3 tests)
 ## 
 ## Response: test_score
-##   Effect     df  MSE         F  ges p.value
-*## 1  noise 2, 147 1.18 91.07 *** .553   &lt;.001
+##   Effect     df  MSE          F  ges p.value
+*## 1  noise 2, 147 0.88 125.90 *** .631   &lt;.001
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
 ```
@@ -957,9 +957,9 @@ means_noise
 
 ```
 ##  noise emmean    SE  df lower.CL upper.CL
-##  loud    5.11 0.154 147     4.80     5.41
-##  none    8.03 0.154 147     7.72     8.33
-##  quiet   6.80 0.154 147     6.50     7.11
+##  loud    5.25 0.132 147     4.99     5.52
+##  none    8.22 0.132 147     7.96     8.48
+##  quiet   6.90 0.132 147     6.64     7.16
 ## 
 ## Confidence level used: 0.95
 ```
@@ -978,9 +978,9 @@ pairs(means_noise)
 
 ```
 ##  contrast     estimate    SE  df t.ratio p.value
-##  loud - none     -2.92 0.217 147 -13.438 &lt;.0001 
-##  loud - quiet    -1.70 0.217 147  -7.802 &lt;.0001 
-##  none - quiet     1.22 0.217 147   5.635 &lt;.0001 
+##  loud - none     -2.96 0.187 147 -15.835 &lt;.0001 
+##  loud - quiet    -1.65 0.187 147  -8.808 &lt;.0001 
+##  none - quiet     1.32 0.187 147   7.027 &lt;.0001 
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates
 ```
@@ -1034,7 +1034,7 @@ leveneTest(test_score ~ noise, data = noise_test)
 ```
 ## Levene's Test for Homogeneity of Variance (center = median)
 ##        Df F value Pr(&gt;F)
-## group   2   0.592 0.5546
+## group   2  0.3932 0.6756
 ##       147
 ```
 

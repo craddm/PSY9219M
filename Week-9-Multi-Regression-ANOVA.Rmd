@@ -420,7 +420,7 @@ There are several different common methods.
 
 |Method| Meaning|
 |------|-----|
-|Hierarchical regression| Variables entered in the order of their known or theoeretical importance; known variables are added first, then additional predictors are added and the model fits compared to see which predictors improve model fit.|
+|Hierarchical regression| Variables entered in the order of their known or theoretical importance; known variables are added first, then additional predictors are added and the model fits compared to see which predictors improve model fit.|
 |Forced entry| All predictors are entered at once. |
 |Stepwise| Predictors are added (forwards, starting with no predictors) or removed (backwards, starting with all predictors) sequentially. Can be performed using **step()**. But please don't. Use *backwards* if you must.|
 
@@ -440,7 +440,7 @@ Like the t-test and other parametric statistical procedures, linear regression h
 |----------|------|------|
 |Independence| Each datapoint should be independent from the others |No repeated measures (for those, you need linear mixed models...)|
 |Normally distributed errors| The residuals should be approximately normally distributed around zero. Note that this is often confused with the need for the data to be normally distributed, but it's what's left over from the model that's important! | Best assessed using plots (e.g. **plot()**) |
-|Homoscedascity| The variance at each level of the predictor should be approximately the same (i.e. the residuals should be spread around zero by the same amount) |Best assessed using plots (e.g. **plot()**)|
+|Homoscedasticity| The variance at each level of the predictor should be approximately the same (i.e. the residuals should be spread around zero by the same amount) |Best assessed using plots (e.g. **plot()**)|
 |Linearity| The relationship between the outcome variable and the predictors should be approximately linear| Use *polynomial* predictors - check the **poly()** function|
 
 See Discovering Statistics Using R, section 7.7.2.1 for more details.
