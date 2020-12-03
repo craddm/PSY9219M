@@ -1,7 +1,6 @@
 ---
 title: "Multiple predictors and multiple means"
-subtitle: "PSY9219M - Research Methods and Skills"
-date: "19/11/2019"
+date: "8/12/2020"
 output:
   xaringan::moon_reader:
     css: ["default", "default-fonts", "xaringan-themer.css", "css/my-theme.css"]
