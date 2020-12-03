@@ -496,15 +496,14 @@ head(crime)
 
 ```
 ## # A tibble: 6 x 15
-##   Participant sex     age victim_crime     H     E     X     A     C     O    SA
-##   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 R_01TjXgC1~ male     55 yes            3.7   3     3.4   3.9   3.2   3.6  1.15
-## 2 R_0dN5YeUL~ fema~    20 no             2.5   3.1   2.5   2.4   2.2   3.1  2.05
-## 3 R_0DPiPYWh~ male     57 yes            2.6   3.1   3.3   3.1   4.3   2.8  2   
-## 4 R_0f7bSsH6~ male     19 no             3.5   1.8   3.3   3.4   2.1   2.7  1.55
-## 5 R_0rov2RoS~ fema~    20 no             3.3   3.4   3.9   3.2   2.8   3.9  1.3 
-## 6 R_0wioqGER~ fema~    20 no             2.6   2.6   3     2.6   2.9   3.4  2.55
-## # ... with 4 more variables: TA &lt;dbl&gt;, OHQ &lt;dbl&gt;, FoC &lt;dbl&gt;, Foc2 &lt;dbl&gt;
+##   Participant       sex      age victim_crime     H     E     X     A     C     O    SA    TA   OHQ   FoC  Foc2
+##   &lt;chr&gt;             &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 R_01TjXgC191rVSst male      55 yes            3.7   3     3.4   3.9   3.2   3.6  1.15  1.55  3.41   2.6     3
+## 2 R_0dN5YeULcyms2qN female    20 no             2.5   3.1   2.5   2.4   2.2   3.1  2.05  2.95  2.38   2       3
+## 3 R_0DPiPYWhncWS1TX male      57 yes            2.6   3.1   3.3   3.1   4.3   2.8  2     2.6   3      1.2     2
+## 4 R_0f7bSsH6Up0yelz male      19 no             3.5   1.8   3.3   3.4   2.1   2.7  1.55  2.1   3.48   3.2     5
+## 5 R_0rov2RoSkPEOvlv female    20 no             3.3   3.4   3.9   3.2   2.8   3.9  1.3   1.8   3.59   2.8     3
+## 6 R_0wioqGERxElVTh3 female    20 no             2.6   2.6   3     2.6   2.9   3.4  2.55  1.5   3.76   2       4
 ```
 
 How do we decide which are important and which to include?
@@ -792,16 +791,16 @@ noise_test
 ## # A tibble: 150 x 3
 ##    noise test_score participant
 ##    &lt;chr&gt;      &lt;dbl&gt;       &lt;int&gt;
-##  1 none        8.24           1
-##  2 none        6.78           2
-##  3 none        7.61           3
-##  4 none        9.05           4
-##  5 none        8.64           5
-##  6 none        9.37           6
-##  7 none        8.21           7
-##  8 none        7.23           8
-##  9 none        8.66           9
-## 10 none        7.73          10
+##  1 none        5.93           1
+##  2 none        8.39           2
+##  3 none        7.95           3
+##  4 none        7.09           4
+##  5 none        9.76           5
+##  6 none        7.80           6
+##  7 none        6.73           7
+##  8 none        7.41           8
+##  9 none        9.05           9
+## 10 none       10.3           10
 ## # ... with 140 more rows
 ```
 ]
@@ -827,7 +826,7 @@ The simplest model of this data is to use the grand mean across all conditions.
 ]
 
 .pull-right[
-The grand mean test score is 6.79, shown by the black line.
+The grand mean test score is 6.75, shown by the black line.
 
 The total variability in our data is the sum of the squared differences from the grand mean - the Total Sum of Squares, `\(SS_t\)`.
 
@@ -933,7 +932,7 @@ noise_aov
 ## 
 ## Response: test_score
 ##   Effect     df  MSE          F  ges p.value
-*## 1  noise 2, 147 0.88 125.90 *** .631   &lt;.001
+*## 1  noise 2, 147 1.01 104.56 *** .587   &lt;.001
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
 ```
@@ -957,9 +956,9 @@ means_noise
 
 ```
 ##  noise emmean    SE  df lower.CL upper.CL
-##  loud    5.25 0.132 147     4.99     5.52
-##  none    8.22 0.132 147     7.96     8.48
-##  quiet   6.90 0.132 147     6.64     7.16
+##  loud    5.18 0.142 147     4.89     5.46
+##  none    8.04 0.142 147     7.76     8.32
+##  quiet   7.02 0.142 147     6.74     7.31
 ## 
 ## Confidence level used: 0.95
 ```
@@ -978,9 +977,9 @@ pairs(means_noise)
 
 ```
 ##  contrast     estimate    SE  df t.ratio p.value
-##  loud - none     -2.96 0.187 147 -15.835 &lt;.0001 
-##  loud - quiet    -1.65 0.187 147  -8.808 &lt;.0001 
-##  none - quiet     1.32 0.187 147   7.027 &lt;.0001 
+##  loud - none     -2.86 0.201 147 -14.261 &lt;.0001 
+##  loud - quiet    -1.85 0.201 147  -9.207 &lt;.0001 
+##  none - quiet     1.01 0.201 147   5.053 &lt;.0001 
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates
 ```
@@ -1027,14 +1026,13 @@ leveneTest(test_score ~ noise, data = noise_test)
 ```
 
 ```
-## Warning in leveneTest.default(y = y, group = group, ...): group coerced to
-## factor.
+## Warning in leveneTest.default(y = y, group = group, ...): group coerced to factor.
 ```
 
 ```
 ## Levene's Test for Homogeneity of Variance (center = median)
 ##        Df F value Pr(&gt;F)
-## group   2  0.3932 0.6756
+## group   2   0.849 0.4299
 ##       147
 ```
 
@@ -1056,12 +1054,6 @@ Repeated-measures ANOVA.
 Factorial and mixed ANOVA.
 
 These are covered in chapters 12-14 of Discovering Statistics Using R.
-
----
-class: title-slide-final, middle, inverse
-background-image: url('images/University of Lincoln_logo_General White Landscape.png')
-background-size: 500px
-background-position: 50% 10%
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

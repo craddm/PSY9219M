@@ -37,7 +37,7 @@ style_solarized_light(base_font_size = "20px")
 
 # Different correlations
 
-```{r corr-dir, fig.width = 12, fig.height = 6, echo = FALSE}
+```{r corr-dir, fig.width = 10, fig.height = 5, echo = FALSE}
 pos_corr <- matrix(0.9, 2, 2)
 diag(pos_corr) <- 1
 neg_corr <- matrix(-.9, 2, 2)
@@ -813,10 +813,4 @@ Repeated-measures ANOVA.
 Factorial and mixed ANOVA.
 
 These are covered in chapters 12-14 of Discovering Statistics Using R.
-
----
-class: title-slide-final, middle, inverse
-background-image: url('images/University of Lincoln_logo_General White Landscape.png')
-background-size: 500px
-background-position: 50% 10%
 
