@@ -481,6 +481,10 @@ tab_model(full_model, show.std = TRUE)
 &lt;/table&gt;
 
 ---
+class: inverse, middle, center
+# How many predictors
+
+---
 # Which predictors should be in your model?
   
 If we look back at the Fear of Crime dataset, there are many potential predictors you could include.
@@ -492,14 +496,15 @@ head(crime)
 
 ```
 ## # A tibble: 6 x 15
-##   Participant       sex      age victim_crime     H     E     X     A     C     O    SA    TA   OHQ   FoC  Foc2
-##   &lt;chr&gt;             &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 R_01TjXgC191rVSst male      55 yes            3.7   3     3.4   3.9   3.2   3.6  1.15  1.55  3.41   2.6     3
-## 2 R_0dN5YeULcyms2qN female    20 no             2.5   3.1   2.5   2.4   2.2   3.1  2.05  2.95  2.38   2       3
-## 3 R_0DPiPYWhncWS1TX male      57 yes            2.6   3.1   3.3   3.1   4.3   2.8  2     2.6   3      1.2     2
-## 4 R_0f7bSsH6Up0yelz male      19 no             3.5   1.8   3.3   3.4   2.1   2.7  1.55  2.1   3.48   3.2     5
-## 5 R_0rov2RoSkPEOvlv female    20 no             3.3   3.4   3.9   3.2   2.8   3.9  1.3   1.8   3.59   2.8     3
-## 6 R_0wioqGERxElVTh3 female    20 no             2.6   2.6   3     2.6   2.9   3.4  2.55  1.5   3.76   2       4
+##   Participant sex     age victim_crime     H     E     X     A     C     O    SA
+##   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 R_01TjXgC1~ male     55 yes            3.7   3     3.4   3.9   3.2   3.6  1.15
+## 2 R_0dN5YeUL~ fema~    20 no             2.5   3.1   2.5   2.4   2.2   3.1  2.05
+## 3 R_0DPiPYWh~ male     57 yes            2.6   3.1   3.3   3.1   4.3   2.8  2   
+## 4 R_0f7bSsH6~ male     19 no             3.5   1.8   3.3   3.4   2.1   2.7  1.55
+## 5 R_0rov2RoS~ fema~    20 no             3.3   3.4   3.9   3.2   2.8   3.9  1.3 
+## 6 R_0wioqGER~ fema~    20 no             2.6   2.6   3     2.6   2.9   3.4  2.55
+## # ... with 4 more variables: TA &lt;dbl&gt;, OHQ &lt;dbl&gt;, FoC &lt;dbl&gt;, Foc2 &lt;dbl&gt;
 ```
 
 How do we decide which are important and which to include?
@@ -517,6 +522,10 @@ There are several different common methods.
 
 (see Discovering Statistics using R, section 7.6.4, pages 263-266)
 
+
+---
+class: inverse, middle, center
+# Linear regression assumptions
 
 ---
 ## Assumptions of linear regression
@@ -783,16 +792,16 @@ noise_test
 ## # A tibble: 150 x 3
 ##    noise test_score participant
 ##    &lt;chr&gt;      &lt;dbl&gt;       &lt;int&gt;
-##  1 none        7.12           1
-##  2 none        7.37           2
-##  3 none        6.48           3
-##  4 none        8.63           4
-##  5 none        9.85           5
-##  6 none        9.25           6
-##  7 none        8.84           7
+##  1 none        7.06           1
+##  2 none        8.89           2
+##  3 none        6.00           3
+##  4 none        8.23           4
+##  5 none        9.84           5
+##  6 none        7.58           6
+##  7 none        7.45           7
 ##  8 none        9.09           8
-##  9 none        9.00           9
-## 10 none        9.51          10
+##  9 none        6.68           9
+## 10 none        9.21          10
 ## # ... with 140 more rows
 ```
 ]
@@ -818,7 +827,7 @@ The simplest model of this data is to use the grand mean across all conditions.
 ]
 
 .pull-right[
-The grand mean test score is 6.73, shown by the black line.
+The grand mean test score is 6.64, shown by the black line.
 
 The total variability in our data is the sum of the squared differences from the grand mean - the Total Sum of Squares, `\(SS_t\)`.
 
@@ -923,8 +932,8 @@ noise_aov
 ## Anova Table (Type 3 tests)
 ## 
 ## Response: test_score
-##   Effect     df  MSE          F  ges p.value
-*## 1  noise 2, 147 0.84 173.25 *** .702   &lt;.001
+##   Effect     df  MSE         F  ges p.value
+*## 1  noise 2, 147 1.18 91.07 *** .553   &lt;.001
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '+' 0.1 ' ' 1
 ```
@@ -947,10 +956,10 @@ means_noise
 ```
 
 ```
-##  noise emmean   SE  df lower.CL upper.CL
-##  loud    4.86 0.13 147     4.60     5.11
-##  none    8.21 0.13 147     7.95     8.46
-##  quiet   7.12 0.13 147     6.87     7.38
+##  noise emmean    SE  df lower.CL upper.CL
+##  loud    5.11 0.154 147     4.80     5.41
+##  none    8.03 0.154 147     7.72     8.33
+##  quiet   6.80 0.154 147     6.50     7.11
 ## 
 ## Confidence level used: 0.95
 ```
@@ -969,9 +978,9 @@ pairs(means_noise)
 
 ```
 ##  contrast     estimate    SE  df t.ratio p.value
-##  loud - none     -3.35 0.184 147 -18.237 &lt;.0001 
-##  loud - quiet    -2.27 0.184 147 -12.346 &lt;.0001 
-##  none - quiet     1.08 0.184 147   5.891 &lt;.0001 
+##  loud - none     -2.92 0.217 147 -13.438 &lt;.0001 
+##  loud - quiet    -1.70 0.217 147  -7.802 &lt;.0001 
+##  none - quiet     1.22 0.217 147   5.635 &lt;.0001 
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates
 ```
@@ -1018,13 +1027,14 @@ leveneTest(test_score ~ noise, data = noise_test)
 ```
 
 ```
-## Warning in leveneTest.default(y = y, group = group, ...): group coerced to factor.
+## Warning in leveneTest.default(y = y, group = group, ...): group coerced to
+## factor.
 ```
 
 ```
 ## Levene's Test for Homogeneity of Variance (center = median)
 ##        Df F value Pr(&gt;F)
-## group   2  1.0581 0.3497
+## group   2   0.592 0.5546
 ##       147
 ```
 

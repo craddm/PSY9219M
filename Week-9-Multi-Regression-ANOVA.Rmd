@@ -399,6 +399,10 @@ tab_model(full_model, show.std = TRUE)
 ```
 
 ---
+class: inverse, middle, center
+# How many predictors
+
+---
 # Which predictors should be in your model?
   
 If we look back at the Fear of Crime dataset, there are many potential predictors you could include.
@@ -422,6 +426,10 @@ There are several different common methods.
 
 (see Discovering Statistics using R, section 7.6.4, pages 263-266)
 
+
+---
+class: inverse, middle, center
+# Linear regression assumptions
 
 ---
 ## Assumptions of linear regression
