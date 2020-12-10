@@ -20,6 +20,8 @@ Course materials for PSY9219M, Research Methods and Skills, and PSY9251M, Resear
 
 [Week 9 - Multiple regression and ANOVA](Week-9-Multi-Regression-ANOVA.html)
 
+[Week 10 - Repeated measures and factorial ANOVA](Week-10-Repeated-and-Factorial-ANOVA.html)
+
 ---
 [Installing R and RStudio at home](Installing-R.html)
 
